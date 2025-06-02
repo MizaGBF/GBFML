@@ -1,0 +1,134 @@
+/*jshint esversion: 11 */
+
+var beepAudio = new Audio("assets/audio/beep.ogg"); // play GBF beep
+var typing_timer; // typing timer timeout
+var typing_update = 1000;
+
+async function fetchJSON(url) { // generic function to request a JSON file.
+	try
+	{
+		const response = await fetch(url);
+		if (!response.ok)
+		{
+			throw new Error(`Error HTTP ${response.status}`);
+		}
+		return await response.json();
+	} catch (err) {
+		console.error(`Fetch of ${url} failed:`, err);
+		return null;
+	}
+}
+
+function nested_array_are_equal(A, B)
+{
+	if(A.length != B.length)
+		return false;
+	for(let i = 0; i < A.length; ++i)
+	{
+		if(A[i].length != B[i].length)
+			return false;
+		for(let j = 0; j < A[i].length; ++j)
+		{
+			if(A[i][j] != B[i][j])
+				return false;
+		}
+	}
+	return true;
+}
+
+function swap(json)  // swap keys and values from an object
+{
+	var ret = {};
+	for(var key in json)
+	{
+		ret[json[key]] = key;
+	}
+	return ret;
+}
+
+function push_popup(string) // display a popup on the top left corner
+{
+	let div = document.createElement('div');
+	div.className = 'popup';
+	div.textContent = string;
+	document.body.appendChild(div);
+	setTimeout(remove_popup, 2500, div);
+}
+
+function remove_popup(popup) // remove a popup
+{
+	popup.parentNode.removeChild(popup);
+}
+
+function get_url_params() // retrieve url parameters
+{
+	return new URLSearchParams(window.location.search);
+}
+
+function update_query(id) // update url parameters
+{
+	let params = new URLSearchParams(window.location.search);
+	params.set("id", id);
+	if('?' + params.toString() != window.location.search)
+	{
+		history.pushState(null, '', window.location.pathname + '?' + params.toString());
+	}
+}
+
+function beep() // play a sound effect
+{
+	if(!beepAudio.paused)
+		return;
+	beepAudio.play();
+}
+
+function sound_sort(a, b) // used to sort some sound file suffixes
+{
+	const A = a.split('_');
+	const B = b.split('_');
+	const l = Math.max(A.length, B.length);
+	// uncap
+	let lvlA = 1;
+	if(["02", "03", "04"].includes(A[1]))
+	{
+		lvlA = parseInt(A[1]);
+	}
+	let lvlB = 1;
+	if(["02", "03", "04"].includes(B[1]))
+	{
+		lvlB = parseInt(B[1]);
+	}
+	if(lvlA < lvlB) return -1;
+	else if(lvlA > lvlB) return 1;
+	// string cmp
+	for(let i = 0; i < l; ++i)
+	{
+		if(i >= A.length) return -1;
+		else if(i >= B.length) return 1;
+		
+		if(A[i] < B[i])
+		{
+			if(A[i].length > B[i].length) return 1;
+			return -1;
+		}
+		else if(A[i] > B[i])
+		{
+			if(A[i].length < B[i].length) return -1;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+function typying() // clear timeout when typying (onkeydown event)
+{
+	clearTimeout(typing_timer);
+}
+
+function filter() // called by the search filter (onkeyup event)
+{
+	clearTimeout(typing_timer);
+	typing_timer = setTimeout(function(){ // set a timeout of 1s before executing lookup
+		lookup(document.getElementById('filter').value.trim().toLowerCase());
+	}, typing_update);
+}
