@@ -159,7 +159,7 @@ function toggle_bookmark(id = null, type = null)
 	}
 }
 
-function set_bookmark_button(state, id = null, type = null) // favorite button control
+function init_bookmark_button(state, id = null, type = null) // favorite button control
 {
 	let fav = document.getElementById('fav-btn');
 	if(fav)
