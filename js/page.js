@@ -352,7 +352,7 @@ function update_history(id = null, type = null) // update the history list
 			return;
 		}
 		let fragment = document.createDocumentFragment();
-		list_elements(fragment, search_history.slice().reverse());
+		list_elements(fragment, search_history.slice().reverse(), history_onclick);
 		fragment.appendChild(document.createElement("br"));
 		let div = document.createElement("div");
 		div.classList.add("std-button-container");
