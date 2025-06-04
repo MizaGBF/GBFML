@@ -40,6 +40,13 @@ class GBF
 	static c_eternals = Object.freeze([
 		"3040030000", "3040031000", "3040032000", "3040033000", "3040034000", "3040035000", "3040036000", "3040037000", "3040038000", "3040039000"
 	]);
+	static c_default_type_size = Object.freeze({
+		10: [GBFType.weapon, GBFType.summon, GBFType.character, GBFType.partner, GBFType.npc],
+		7: [GBFType.enemy],
+		6: [GBFType.job, GBFType.event],
+		4: [GBFType.skill, GBFType.buff, GBFType.fate],
+		3: [GBFType.story]
+	});
 	
 	constructor()
 	{
@@ -107,7 +114,7 @@ class GBF
 	}
 	
 	/* 
-		Take a string in entry and return an array of possible GBFType matching it.
+		Take a string in entry and return the matching GBFType.
 		supports:
 			character/skin (skin uses the character type)
 			enemy
@@ -116,92 +123,71 @@ class GBF
 			skill (zero padded to length 4)
 			fate episode (zero padded to length 4)
 			buff (zero padded to length 4)
-		The check_prefix parameter is for internal use.
-		this.lookup_prefix can be set to refine the search by setting prefixes.
 		example: this.lookup_prefix = {"e":GBFType.enemy};
-		If you pass "e100000" to the function, it will return [GBFType.enemy].
+		If you pass "e100000" to the function, it will return GBFType.enemy.
 	*/
-	lookup_string_to_element(string, check_prefix = true)
+	lookup_string_to_element(string)
 	{
-		if(check_prefix)
+		let ignore_prefix_types = Object.entries(this.m_lookup_prefix);
+		for(const [prefix, type] of Object.entries(this.m_lookup_prefix))
 		{
-			for (const [prefix, type] of Object.entries(this.m_lookup_prefix))
+			if(string.startsWith(prefix))
 			{
-				if(string.startsWith(prefix))
-				{
-					let substring = string.substring(prefix.length);
-					let possible_types = this.lookup_string_to_element(substring, false);
-					if(possible_types.includes(type))
-						return [type];
-				}
+				let is_valid = this.validate_lookup(string.substring(prefix.length), type);
+				if(is_valid)
+					return type;
+				else;
+					return GBFType.unknown;
 			}
 		}
 		
-		switch(string.length)
+		for(const [size, possibles] of Object.entries(GBF.c_default_type_size))
 		{
-			case 10:
+			if(string.length == size)
 			{
-				if(!isNaN(string))
+				for(const possible of possibles)
 				{
-					switch(string.slice(0, 3))
+					if(!ignore_prefix_types.includes(possible))
 					{
-						case "305":
-						case "399":
-							return [GBFType.npc];
-						case "304":
-						case "303":
-						case "302":
-						case "371":
-							return [GBFType.character];
-						case "384":
-						case "383":
-						case "382":
-						case "388":
-						case "389":
-							return [GBFType.partner];
-						case "290":
-						case "204":
-						case "203":
-						case "202":
-						case "201":
-							return [GBFType.summon];
-						case "104":
-						case "103":
-						case "102":
-						case "101":
-							return [GBFType.weapon];
-						default:
-							break;
+						let is_valid = this.validate_lookup(string, possible);
+						if(is_valid)
+							return possible;
 					}
-				};
-				break;
+				}
 			}
-			case 7:
-			{
-				if(!isNaN(string))
-					return [GBFType.enemy];
-				break;
-			}
-			case 6:
-			{
-				if(check_prefix)
-					return [GBFType.job];
-				else
-					return [GBFType.event, GBFType.job];
-			}
-			case 4:
-			{
-				if(check_prefix)
-					return [];
-				else
-					return [GBFType.skill, GBFType.fate, GBFType.buff];
-			}
-			case 3:
-			{
-				return [GBFType.story];
-			}
-		};
-		return [];
+		}
+		return GBFType.unknown;
+	}
+	
+	validate_lookup(string, type)
+	{
+		switch(type)
+		{
+			case GBFType.character:
+				return (string.length == 10 && ["304", "303", "302", "371"].some(word => string.startsWith(word)) && !isNaN(string));
+			case GBFType.npc:
+				return (string.length == 10 && ["305", "399"].some(word => string.startsWith(word)) && !isNaN(string));
+			case GBFType.partner:
+				return (string.length == 10 && ["384", "383", "382", "388", "389"].some(word => string.startsWith(word)) && !isNaN(string));
+			case GBFType.summon:
+				return (string.length == 10 && ["204", "203", "202", "201", "290"].some(word => string.startsWith(word)) && !isNaN(string));
+			case GBFType.weapon:
+				return (string.length == 10 && ["104", "103", "102", "101"].some(word => string.startsWith(word)) && !isNaN(string));
+			case GBFType.enemy:
+				return (string.length == 7 && !isNaN(string));
+			case GBFType.job:
+				return (string.length == 6 && !isNaN(string));
+			case GBFType.event:
+				return (string.length == 6 && !isNaN(string));
+			case GBFType.skill:
+			case GBFType.buff:
+			case GBFType.fate:
+				return (string.length == 4 && !isNaN(string));
+			case GBFType.story:
+				return (string.length == 3 && (!isNaN(string) || (string.startsWith("r") && !isNaN(string.substring(1)))));
+			default:
+				return false;
+		}
 	}
 	
 	is_banned(id)
