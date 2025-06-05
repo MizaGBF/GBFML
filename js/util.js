@@ -2,7 +2,7 @@
 
 var beepAudio = new Audio("assets/audio/beep.ogg"); // play GBF beep
 var typing_timer; // typing timer timeout
-var typing_update = 1000;
+var typing_update = 100;
 
 async function fetchJSON(url) { // generic function to request a JSON file.
 	try
