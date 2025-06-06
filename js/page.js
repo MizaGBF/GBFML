@@ -570,12 +570,9 @@ function init_index(config, changelog, callback) // build the html index. simply
 			frag.appendChild(center);
 		}
 		// wait next frame to give time to calculate
-		new Promise((resolve, reject) => {
-			requestAnimationFrame(() => {
-				content.innerHTML = "";
-				content.appendChild(frag);
-				resolve(); 
-			});
+		requestAnimationFrame(() => {
+			content.innerHTML = "";
+			content.appendChild(frag);
 		});
 	}
 	catch(err)

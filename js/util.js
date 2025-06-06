@@ -132,3 +132,19 @@ function filter() // called by the search filter (onkeyup event)
 		lookup(document.getElementById('filter').value.trim().toLowerCase());
 	}, typing_update);
 }
+
+// add element to another element
+function add_to(node, tagName, {cls = [], id = null, title = null, onload = null, onclick = null, onerror = null, br = true}={})
+{
+	let tag = document.createElement(tagName);
+	for(let i = 0; i < cls.length; ++i)
+		tag.classList.add(cls[i]);
+	if(title) tag.title = title;
+	if(id) tag.id = id;
+	if(onload) tag.onload = onload;
+	if(onclick) tag.onclick = onclick;
+	if(onerror) tag.onerror = onerror;
+	if(node) node.appendChild(tag);
+	if(br) node.appendChild(document.createElement("br"));
+	return tag;
+}
