@@ -1,6 +1,7 @@
 /*jshint esversion: 11 */
 
 var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
+var beep_enabled = false;
 var typing_timer; // typing timer timeout
 var typing_update = 100;
 
@@ -77,9 +78,17 @@ function update_query(id) // update url parameters
 
 function beep() // play a sound effect
 {
-	if(!beep_audio.paused)
-		return;
-	beep_audio.play();
+	if(beep_enabled)
+	{
+		if(!beep_audio.paused)
+			return;
+		beep_audio.play();
+	}
+}
+
+function toggle_beep()
+{
+	beep_enabled = !beep_enabled;
 }
 
 function sound_sort(a, b) // used to sort some sound file suffixes
