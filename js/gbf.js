@@ -15,18 +15,6 @@ const GBFType = Object.freeze({
 	fate: 12
 });
 
-class GBFElement
-{
-	constructor(id, type)
-	{
-		this.id = id;
-		this.type = type;
-		this.character_outfit = false;
-		this.uncap = null;
-		this.style = null;
-	}
-};
-
 class GBF
 {
 	static c_endpoints = Object.freeze([
@@ -59,13 +47,13 @@ class GBF
 	}
 	
 	// getter: return the list of endpoints
-	get endpoints()
+	endpoints()
 	{
 		return GBF.c_endpoints;
 	}
 	
 	// getter: return the list of eternal IDs
-	get eternals()
+	eternals()
 	{
 		return GBF.c_eternals;
 	}
@@ -96,14 +84,14 @@ class GBF
 	// return the next endpoint
 	get_endpoint()
 	{
-		this.m_current_endpoint = (this.m_current_endpoint + 1) % this.endpoints.length;
-		return this.endpoints[this.m_current_endpoint];
+		this.m_current_endpoint = (this.m_current_endpoint + 1) % GBF.c_endpoints.length;
+		return GBF.c_endpoints[this.m_current_endpoint];
 	}
 	
 	// get a random endpoint using an id as the seed
 	id_to_endpoint(id)
 	{
-		return this.endpoints[parseInt(id.replace(/\D/g,'')) % this.endpoints.length];
+		return GBF.c_endpoints[parseInt(id.replace(/\D/g,'')) % GBF.c_endpoints.length];
 	}
 	
 	remove_prefix(id, type)

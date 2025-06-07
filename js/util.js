@@ -89,6 +89,7 @@ function beep() // play a sound effect
 function toggle_beep()
 {
 	beep_enabled = !beep_enabled;
+	return beep_enabled;
 }
 
 function sound_sort(a, b) // used to sort some sound file suffixes
