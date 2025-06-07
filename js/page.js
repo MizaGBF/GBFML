@@ -551,7 +551,7 @@ function load_index_content(node, data, onclick)
 
 function init_index(config, changelog, callback) // build the html index. simply edit config.json to change the index.
 {
-	let content = document.getElementById('index');
+	var content = document.getElementById('index');
 	if(content == null || !config.index)
 		return;
 	try
@@ -570,7 +570,7 @@ function init_index(config, changelog, callback) // build the html index. simply
 			frag.appendChild(center);
 		}
 		// wait next frame to give time to calculate
-		requestAnimationFrame(() => {
+		update_next_frame(function() {
 			content.innerHTML = "";
 			content.appendChild(frag);
 		});

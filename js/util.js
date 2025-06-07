@@ -1,6 +1,6 @@
 /*jshint esversion: 11 */
 
-var beepAudio = new Audio("assets/audio/beep.ogg"); // play GBF beep
+var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
 var typing_timer; // typing timer timeout
 var typing_update = 100;
 
@@ -77,9 +77,9 @@ function update_query(id) // update url parameters
 
 function beep() // play a sound effect
 {
-	if(!beepAudio.paused)
+	if(!beep_audio.paused)
 		return;
-	beepAudio.play();
+	beep_audio.play();
 }
 
 function sound_sort(a, b) // used to sort some sound file suffixes
@@ -125,26 +125,28 @@ function typying() // clear timeout when typying (onkeydown event)
 	clearTimeout(typing_timer);
 }
 
-function filter() // called by the search filter (onkeyup event)
-{
-	clearTimeout(typing_timer);
-	typing_timer = setTimeout(function(){ // set a timeout of 1s before executing lookup
-		lookup(document.getElementById('filter').value.trim().toLowerCase());
-	}, typing_update);
-}
-
 // add element to another element
-function add_to(node, tagName, {cls = [], id = null, title = null, onload = null, onclick = null, onerror = null, br = true}={})
+function add_to(node, tagName, {cls = [], id = null, title = null, innertext = null, innerhtml = null, onload = null, onclick = null, onerror = null, disabled = false, br = false}={})
 {
 	let tag = document.createElement(tagName);
 	for(let i = 0; i < cls.length; ++i)
 		tag.classList.add(cls[i]);
 	if(title) tag.title = title;
+	if(innertext) tag.innerText = innertext;
+	if(innerhtml) tag.innerHTML = innerhtml;
 	if(id) tag.id = id;
 	if(onload) tag.onload = onload;
 	if(onclick) tag.onclick = onclick;
 	if(onerror) tag.onerror = onerror;
+	if(disabled) tag.disabled = true;
 	if(node) node.appendChild(tag);
 	if(br) node.appendChild(document.createElement("br"));
 	return tag;
+}
+
+function update_next_frame(callback)
+{
+	requestAnimationFrame(() => {
+		callback();
+	});
 }
