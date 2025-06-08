@@ -239,6 +239,10 @@ details[open] > .detail {
 	display:inline-block;
 }
 
+.mini-btn:hover {
+	outline: solid #ffffff;
+}
+
 .mini-btn-icon {
 	min-width: 40px;
 	max-width: 40px;
