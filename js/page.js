@@ -495,6 +495,9 @@ function load_index_content(node, data, onclick)
 		case "suptix":
 			callback = get_suptix;
 			break;
+		case "mypage_bg":
+			callback = get_mypage_bg;
+			break;
 		default:
 			return;
 	};
@@ -679,6 +682,11 @@ function list_elements(frag, elems, onclick)
 				case "suptix":
 				{
 					res = get_suptix(id.split(':')[1], index['suptix'][id.split(':')[1]]);
+					break;
+				}
+				case "mypage_bg":
+				{
+					res = get_mypage_bg(id.split(':')[1], index['mypage_bg'][id.split(':')[1]]);
 					break;
 				}
 			};
@@ -1080,6 +1088,11 @@ function get_title(id, data, unusedA = null, unusedB = null)
 function get_suptix(id, data, unusedA = null, unusedB = null)
 {
 	return [{id:id, path:"GBF/assets_en/img_low/sp/gacha/campaign/surprise/top_" + id + ".jpg", onerr:null, class:"preview", link:true}];
+}
+
+function get_mypage_bg(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/mypage/town/" + id + "/bg.jpg", onerr:null, class:"preview", link:true}];
 }
 
 // path must start with "GBF/" if it's not a local asset.

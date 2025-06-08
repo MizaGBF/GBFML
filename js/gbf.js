@@ -12,7 +12,8 @@ const GBFType = Object.freeze({
 	buff: 9,
 	background: 10,
 	story: 11,
-	fate: 12
+	fate: 12,
+	mypage: 13 // unused for now
 });
 
 class GBF
