@@ -116,7 +116,7 @@ class GBF
 	*/
 	lookup_string_to_element(string)
 	{
-		let ignore_prefix_types = Object.entries(this.m_lookup_prefix);
+		let ignore_prefix_types = Object.values(this.m_lookup_prefix);
 		for(const [prefix, type] of Object.entries(this.m_lookup_prefix))
 		{
 			if(string.startsWith(prefix))
