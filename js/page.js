@@ -537,7 +537,7 @@ function load_index_content(node, data, onclick)
 			else
 				node.innerHTML = data.reverse ? "<div>Newest first</div>" : "<div>Oldest first</div>";
 		}
-		else node.innerHTML = '<div>Empty</div><img src="assets/ui/sorry.png">'
+		else node.innerHTML = '<div>Empty</div><img src="../GBFML/assets/ui/sorry.png">'
 		for(const k of keys)
 		{
 			for(let r of slist[k])
