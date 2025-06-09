@@ -555,7 +555,7 @@ function load_index_content(node, data, onclick)
 function init_index(config, changelog, callback) // build the html index. simply edit config.json to change the index.
 {
 	var content = document.getElementById('index');
-	if(content == null || !config.index)
+	if(content == null || !config.hasOwnProperty("index"))
 		return;
 	try
 	{
@@ -565,7 +565,7 @@ function init_index(config, changelog, callback) // build the html index. simply
 			add_to_index(frag, section, callback);
 		}
 		// stat string
-		if(changelog.stat)
+		if(changelog.hasOwnProperty("stat") && changelog.stat != null)
 		{
 			let center = document.createElement("center");
 			center.appendChild(document.createTextNode(changelog.stat));
@@ -706,7 +706,7 @@ function list_elements(frag, elems, onclick)
 
 function default_onerror()
 {
-	this.src= "assets/ui/no_asset.jpg";
+	this.src= "../GBFML/assets/ui/no_asset.jpg";
 	this.classList.remove("preview");
 	this.classList.remove("preview-noborder");
 }
@@ -904,7 +904,7 @@ function get_npc(id, data, prefix, range)
 		}
 		else
 		{
-			path = "assets/ui/sound_only.png";
+			path = "../GBFML/assets/ui/sound_only.png";
 			className = "preview-noborder";
 		}
 	}
