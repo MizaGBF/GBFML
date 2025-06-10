@@ -1,5 +1,15 @@
 /*jshint esversion: 11 */
 
+const SearchIndex = Object.freeze({
+	weapon: [0, "Weapons"],
+	summon: [1, "Summons"],
+	character: [2, "Characters"],
+	skin: [3, "Skins"],
+	npc: [4, "NPCs"],
+	job: [5, "MCs"],
+	enemy: [6, "Enemies"]
+});
+var search_type_allowed = [true, true, true, true, true, true, true];
 var search_id = null;
 var search_onclick = null;
 var search_results = []; // search results
@@ -141,13 +151,14 @@ function search(id, internal_behavior = 0) // generate search results
 
 function get_search_filter_states()
 {
-	let search_filters = localStorage.getItem("gbfal-search");
+	let search_filters = localStorage.getItem(search_save_key);
 	if(search_filters != null)
 	{
 		try
 		{
 			search_filters = JSON.parse(search_filters);
-			while(search_filters.length < 7) search_filters.push(true); // retrocompability
+			while(search_filters.length < 7)
+				search_filters.push(true); // retrocompability
 		}
 		catch(err)
 		{
@@ -219,19 +230,26 @@ function update_search_results(scroll_to_search = true)
 	let div = document.createElement("div");
 	div.classList.add("std-button-container");
 	frag.appendChild(div);
-	for(const e of [[0, "Weapons"], [1, "Summons"], [2, "Characters"], [3, "Skins"], [4, "NPCs"], [5, "MCs"], [6, "Enemies"]])
+	for(const [key, [search_index, search_string]] of Object.entries(SearchIndex))
 	{
+		console.log(search_type_allowed[search_index]);
+		if(!search_type_allowed[search_index])
+		{
+			continue;
+		}
 		let input = document.createElement("input");
 		input.type = "checkbox";
 		input.classList.add("checkbox");
-		input.name = e[1];
-		input.onclick = function() {toggle_search_filter(e[0]);};
-		input.checked = search_filters[e[0]];
+		input.name = search_string;
+		input.onclick = function() {
+			toggle_search_filter(search_index);
+		};
+		input.checked = search_filters[search_index];
 		div.appendChild(input);
 		let label = document.createElement("label");
 		label.classList.add("checkbox-label");
-		label.for = e[1];
-		label.innerHTML = e[1];
+		label.for = search_string;
+		label.innerHTML = search_string;
 		div.appendChild(label);
 	}
 	// wait next frame to give time to calculate
@@ -266,7 +284,7 @@ function toggle_search_filter(indice)
 	// write
 	try
 	{
-		localStorage.setItem("gbfal-search", JSON.stringify(search_filters));
+		localStorage.setItem(search_save_key, JSON.stringify(search_filters));
 	}
 	catch(err)
 	{

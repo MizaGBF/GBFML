@@ -371,6 +371,10 @@ function add_to_index(node, data, callback, level = 0)
 {
 	// detail
 	let details = document.createElement("details");
+	if(data.id ?? null)
+		details.id = data.id;
+	if(data.hide ?? false)
+		details.style.display = "none";
 	let summary = document.createElement("summary");
 	summary.classList.add("detail");
 	if(level > 0)
@@ -694,6 +698,8 @@ function list_elements(frag, elems, onclick)
 			{
 				for(let r of res)
 				{
+					if(r.unlisted ?? false)
+						continue;
 					r.id = gbf.get_prefix(type) + r.id; // update prefix
 					callback(frag, r, onclick);
 				}
@@ -1126,10 +1132,13 @@ function add_index_image(node, data, onclick)
 	}
 	else
 	{
+		if(data.onclick ?? null)
+			onclick = data.onclick;
 		let img = document.createElement("img");
 		node.appendChild(img);
 		img.title = data.id;
-		if(data.class) img.className = data.class;
+		if(data.class)
+			img.className = data.class;
 		img.classList.add("loading");
 		img.setAttribute('loading', 'lazy');
 		if(data.onerr == null)
