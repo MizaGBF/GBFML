@@ -29,7 +29,7 @@ function resetTabs() // reset the tab state
 		tabbuttons[i].classList.remove("active");
 }
 
-function openTab(tabName) // reset and then select a tab
+function open_tab(tabName) // reset and then select a tab
 {
 	resetTabs();
 	document.getElementById(tabName).style.display = "";
