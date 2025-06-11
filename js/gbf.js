@@ -13,7 +13,8 @@ const GBFType = Object.freeze({
 	background: 10,
 	story: 11,
 	fate: 12,
-	mypage: 13 // unused for now
+	shield: 13,
+	manatura: 14,
 });
 
 class GBF
@@ -168,6 +169,8 @@ class GBF
 				return (string.length == 6 && !isNaN(string));
 			case GBFType.event:
 				return (string.length == 6 && !isNaN(string));
+			case GBFType.shield:
+			case GBFType.manatura:
 			case GBFType.skill:
 			case GBFType.buff:
 			case GBFType.fate:

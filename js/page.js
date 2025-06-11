@@ -449,6 +449,14 @@ function load_index_content(node, data, onclick)
 			type = GBFType.weapon;
 			callback = get_weapon;
 			break;
+		case "shields":
+			type = GBFType.shield;
+			callback = get_shield;
+			break;
+		case "manaturas":
+			type = GBFType.manatura;
+			callback = get_manatura;
+			break;
 		case "job":
 			type = GBFType.job;
 			callback = get_job;
@@ -622,6 +630,16 @@ function list_elements(frag, elems, onclick)
 				case GBFType.weapon:
 				{
 					res = get_weapon(id, (id in index['weapons']) ? index['weapons'][id] : null, id[2], id[4]);
+					break;
+				}
+				case GBFType.shield:
+				{
+					res = get_shield(id, (id in index['shields']) ? index['shields'][id] : null, id[0]);
+					break;
+				}
+				case GBFType.manatura:
+				{
+					res = get_manatura(id, (id in index['manaturas']) ? index['manaturas'][id] : null, id[0]);
 					break;
 				}
 				case GBFType.job:
@@ -879,6 +897,20 @@ function get_weapon(id, data, rarity, proficiency)
 		onerr = default_onerror;
 	let path = "GBF/assets_en/img_low/sp/assets/weapon/m/" + id + uncap + ".jpg";
 	return [{id:id, path:path, onerr:onerr, class:"", link:false}];
+}
+
+function get_shield(id, data, rarity, unused = null)
+{
+	if(rarity != null && id[0] != rarity)
+		return null;
+	let path = "GBF/assets_en/img_low/sp/assets/shield/m/" + id + ".jpg";
+	return [{id:id, path:path, onerr:default_onerror, class:"", link:false}];
+}
+
+function get_manatura(id, data, unusedA = null, unusedB = null)
+{
+	let path = "GBF/assets_en/img_low/sp/assets/familiar/m/" + parseInt(id) + ".jpg";
+	return [{id:id, path:path, onerr:default_onerror, class:"", link:false}];
 }
 
 function get_job(id, data, unusedA = null, unusedB = null)
