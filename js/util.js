@@ -1,7 +1,7 @@
 /*jshint esversion: 11 */
 
 var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
-var beep_enabled = false;
+var beep_enabled = true;
 var typing_timer; // typing timer timeout
 var typing_update = 100;
 
