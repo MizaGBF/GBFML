@@ -496,6 +496,9 @@ function load_index_content(node, data, onclick)
 		case "title":
 			callback = get_title;
 			break;
+		case "sky_title":
+			callback = get_sky_title;
+			break;
 		case "suptix":
 			callback = get_suptix;
 			break;
@@ -681,6 +684,11 @@ function list_elements(frag, elems, onclick)
 				case "title":
 				{
 					res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+					break;
+				}
+				case "sky_title":
+				{
+					res = get_sky_title(id.split(':')[1], index['title'][id.split(':')[1]]);
 					break;
 				}
 				case "suptix":
@@ -1089,6 +1097,11 @@ function get_background(id, data, key, unused = null)
 function get_title(id, data, unusedA = null, unusedB = null)
 {
 	return [{id:id, path:"GBF/assets_en/img_low/sp/top/bg/bg_" + id + ".jpg", onerr:null, class:"preview", link:true}];
+}
+
+function get_sky_title(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"https://media.skycompass.io/assets/archives/galleries/" + id + "/detail_s.png", onerr:null, class:"preview", link:true}];
 }
 
 function get_suptix(id, data, unusedA = null, unusedB = null)
