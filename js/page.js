@@ -206,32 +206,35 @@ function update_bookmark() // update bookmark list
 	let node = document.getElementById('bookmark');
 	if(node)
 	{
-		let fragment = document.createDocumentFragment();
+		var fragment = document.createDocumentFragment();
 		list_elements(fragment, bookmarks, bookmark_onclick);
 
 		fragment.appendChild(document.createElement("br"));
-		let div = document.createElement("div");
-		div.classList.add("std-button-container");
-		let btn = document.createElement("button");
-		btn.className = "std-button";
-		btn.innerHTML = "Clear";
-		btn.onclick = clear_bookmark;
-		div.appendChild(btn);
-		btn = document.createElement("button");
-		btn.className = "std-button";
-		btn.innerHTML = "Export";
-		btn.onclick = export_bookmark;
-		div.appendChild(btn);
-		btn = document.createElement("button");
-		btn.className = "std-button";
-		btn.innerHTML = "Import";
-		btn.onclick = import_bookmark;
-		div.appendChild(btn);
-		fragment.appendChild(div);
-		node.innerHTML = "";
-		if(bookmarks.length == 0)
-			node.appendChild(document.createTextNode("No bookmarked elements."));
-		node.appendChild(fragment);
+		
+		let div = add_to(fragment, "div", {
+			cls:["std-button-container"]
+		});
+		add_to(div, "button", {
+			cls:["std-button"],
+			innertext:"Clear",
+			onclick:clear_bookmark
+		});
+		add_to(div, "button", {
+			cls:["std-button"],
+			innertext:"Export",
+			onclick:export_bookmark
+		});
+		add_to(div, "button", {
+			cls:["std-button"],
+			innertext:"Import",
+			onclick:import_bookmark
+		});
+		update_next_frame(function() {
+			node.innerHTML = "";
+			if(bookmarks.length == 0)
+				node.appendChild.innerText = "No bookmarked elements.";
+			node.appendChild(fragment);
+		});
 	}
 }
 
@@ -351,19 +354,23 @@ function update_history(id = null, type = null) // update the history list
 			node.appendChild(document.createTextNode("No elements in your history."));
 			return;
 		}
-		let fragment = document.createDocumentFragment();
+		var fragment = document.createDocumentFragment();
 		list_elements(fragment, search_history.slice().reverse(), history_onclick);
 		fragment.appendChild(document.createElement("br"));
-		let div = document.createElement("div");
-		div.classList.add("std-button-container");
-		let btn = document.createElement("button");
-		btn.innerHTML = "Clear";
-		btn.className = "std-button";
-		btn.onclick = clear_history;
-		div.appendChild(btn);
-		fragment.appendChild(div);
-		node.innerHTML = "";
-		node.appendChild(fragment);
+		
+		
+		let div = add_to(fragment, "div", {
+			cls:["std-button-container"]
+		});
+		add_to(div, "button", {
+			cls:["std-button"],
+			innertext:"Clear",
+			onclick:clear_history
+		});
+		update_next_frame(function() {
+			node.innerHTML = "";
+			node.appendChild(fragment);
+		});
 	}
 }
 
@@ -1204,15 +1211,13 @@ function add_index_image(node, data, onclick_callback)
 
 function add_text_image(node, data, onclick)
 {
-	let elem = document.createElement("div");
-	elem.classList.add(data.modifier);
-	elem.classList.add("preview-noborder");
-	elem.classList.add("clickable");
-	elem.onclick = onclick;
+	let elem = add_to(node, "div", {
+		cls:[data.modifier, "preview-noborder", "clickable"],
+		onclick:onclick,
+		title:data.id,
+		innertext:data.text
+	});
 	elem.onclickid = data.id;
-	elem.title = data.id;
-	elem.appendChild(document.createTextNode(data.text));
-	node.appendChild(elem);
 	return elem;
 }
 
@@ -1471,25 +1476,41 @@ function add_lookup(node, id)
 			if(t == prev)
 				continue; // avoid repetitions
 			prev = t;
-			let i = document.createElement('i');
-			i.classList.add("tag");
-			i.classList.add("clickable");
+			let i = add_to(block, "i", {
+				cls: ["tag", "clickable"],
+				onclick: function() {
+					if(window.event.ctrlKey)
+					{
+						let f = document.getElementById('filter');
+						f.value = t + " " + f.value;
+						lookup(f.value);
+					}
+					else
+					{
+						lookup(t);
+					}
+				}
+			});
 			switch(t)
 			{
 				case "ssr":
 				case "sr":
 				case "r":
 				case "n":
-					i.appendChild(document.createTextNode(t.toUpperCase()));
+				{
+					i.innerText = t.toUpperCase();
 					break;
+				}
 				default:
+				{
 					if(t == id && id != id)
-						i.appendChild(document.createTextNode(id));
+						i.innerText = id;
 					else if(t.length == 1)
-						i.appendChild(document.createTextNode(t.toUpperCase()));
+						i.innerText = t.toUpperCase();
 					else
-						i.appendChild(document.createTextNode(t.charAt(0).toUpperCase() + t.slice(1)));
+						i.innerText = t.charAt(0).toUpperCase() + t.slice(1);
 					break;
+				}
 			}
 			switch(t.toLowerCase())
 			{
@@ -1610,20 +1631,8 @@ function add_lookup(node, id)
 				default:
 					break;
 			}
-			i.onclick = function() {
-				if(window.event.ctrlKey)
-				{
-					let f = document.getElementById('filter');
-					f.value = t + " " + f.value;
-					lookup(f.value);
-				}
-				else
-				{
-					lookup(t);
-				}
-			};
 			block.appendChild(i);
-			block.appendChild(document.createTextNode(" "));
+			block.appendChild(document.createTextNode(" ")); // to space
 		}
 		if(missing && help_form != null)
 		{

@@ -227,8 +227,9 @@ function update_search_results(scroll_to_search = true)
 	// add checkboxes
 	frag.appendChild(document.createElement("br"));
 	frag.appendChild(document.createElement("br"));
-	let div = document.createElement("div");
-	div.classList.add("std-button-container");
+	let div = add_to(frag, "div", {
+		cls:["std-button-container"]
+	});
 	frag.appendChild(div);
 	for(const [key, [search_index, search_string]] of Object.entries(SearchIndex))
 	{
@@ -236,20 +237,21 @@ function update_search_results(scroll_to_search = true)
 		{
 			continue;
 		}
-		let input = document.createElement("input");
+		let input = add_to(div, "input", {
+			cls:["checkbox"],
+			onclick:function() {
+				toggle_search_filter(search_index);
+			}
+		});
 		input.type = "checkbox";
-		input.classList.add("checkbox");
 		input.name = search_string;
-		input.onclick = function() {
-			toggle_search_filter(search_index);
-		};
 		input.checked = search_filters[search_index];
-		div.appendChild(input);
-		let label = document.createElement("label");
-		label.classList.add("checkbox-label");
+		
+		let label = add_to(div, "label", {
+			cls:["checkbox-label"],
+			innerhtml:search_string
+		});
 		label.for = search_string;
-		label.innerHTML = search_string;
-		div.appendChild(label);
 	}
 	// wait next frame to give time to calculate
 	update_next_frame(function() {
