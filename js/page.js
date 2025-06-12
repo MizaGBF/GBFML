@@ -1676,7 +1676,7 @@ function add_related(node, id, target)
 				has_been_added = true;
 			}
 		}
-		case "weapon":
+		case "weapons":
 		{
 			// character
 			if("premium" in index && id in index["premium"] && index["premium"][id] != null)
