@@ -253,7 +253,12 @@ function update_search_results(scroll_to_search = true)
 	}
 	// wait next frame to give time to calculate
 	update_next_frame(function() {
-		node.style.display = null;
+		node.style.display = "";
+		for(let img of node.getElementsByTagName("img")) // interrupt on-going downloads
+		{
+			img.src = "";
+			img.removeAttribute("src");
+		}
 		node.innerHTML = "";
 		node.appendChild(frag);
 		if(scroll_to_search)
