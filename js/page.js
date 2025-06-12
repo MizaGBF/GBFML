@@ -108,7 +108,6 @@ function toggle_bookmark(id = null, type = null)
 {
 	if(bookmark_key)
 	{
-		let retrieved = false;
 		try
 		{
 			bookmarks = localStorage.getItem(bookmark_key);
@@ -120,7 +119,6 @@ function toggle_bookmark(id = null, type = null)
 			{
 				bookmarks = JSON.parse(bookmarks);
 			}
-			retrieved = true
 		}
 		catch(err)
 		{
@@ -151,8 +149,7 @@ function toggle_bookmark(id = null, type = null)
 					set_bookmark_button(false);
 					push_popup("" + id + " has been removed from the bookmarks.");
 				}
-				if(!retrieved)
-					localStorage.setItem(bookmark_key, JSON.stringify(bookmarks));
+				localStorage.setItem(bookmark_key, JSON.stringify(bookmarks));
 			}
 		}
 		update_bookmark();
