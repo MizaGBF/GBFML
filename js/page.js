@@ -1166,7 +1166,7 @@ function add_index_image(node, data, onclick_callback)
 	else
 	{
 		if(data.onclick ?? null) // override
-			onclick_callback = data.onclick_callback;
+			onclick_callback = data.onclick;
 		let cls = data.class ? data.class.split(" ") : [];
 		let img = add_to(node, "img", {
 			cls: cls,
@@ -1329,9 +1329,16 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 			}
 		)
 	}
-	add_to(div, "span", {cls:["header-block"], innertext:name});
+	add_to(div, "span", {
+		cls:["header-block"],
+		id:"container-header-element-name",
+		innertext:name
+	});
 	list_elements(
-		add_to(div, "span", {cls:["header-block"]}),
+		add_to(div, "span", {
+			cls:["header-block"],
+			id:"container-header-element-thumbnail"
+		}),
 		[[id, gbf.index_to_type(target)]],
 		null
 	);
@@ -1351,11 +1358,15 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 	{
 		add_related(div, id, target);
 	}
+	return div;
 }
 
 function add_links(node, id, extra_links)
 {
-	let block = add_to(node, "span", {cls:["header-block"]});
+	let block = add_to(node, "span", {
+		cls:["header-block"],
+		id:"container-header-element-links"
+	});
 	if("lookup" in index && id in index["lookup"] && index["lookup"][id].includes("@@"))
 	{
 		const wiki_path = index["lookup"][id].split("@@")[1].split(" ")[0];
@@ -1438,7 +1449,10 @@ function add_lookup(node, id)
 {
 	if("lookup" in index && id in index["lookup"] && index["lookup"][id].split(' ').length > 0)
 	{
-		let block = add_to(null, "span", {cls:["header-block"]});
+		let block = add_to(null, "span", {
+			cls:["header-block"],
+			id:"container-header-element-lookup"
+		});
 		let prev = null;
 		let missing = false;
 		for(const t of index["lookup"][id].split(' '))
@@ -1619,7 +1633,10 @@ function add_lookup(node, id)
 function add_related(node, id, target)
 {
 	let has_been_added = false;
-	let block = add_to(null, "span", {cls:["header-block"]});
+	let block = add_to(null, "span", {
+		cls:["header-block"],
+		id:"container-header-element-related"
+	});
 	block.appendChild(document.createTextNode("Related"));
 	switch(target)
 	{
