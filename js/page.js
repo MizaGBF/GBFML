@@ -810,11 +810,14 @@ function get_skin(id, data, range, unused = null)
 		for(const f of data[6])
 			if(!f.includes("st") && f[11] != 8 && f.slice(11, 13) != "02" && (f[11] != 9 || (f[11] == 9 && !(["_03", "_04", "_05"].includes(uncap))))) uncap = f.slice(10);
 	}
-	let onerr = null;
+	let onerr = default_onerror;
 	if(uncap != "_01")
-		onerr = function() {this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
-	else
-		onerr = default_onerror;
+	{
+		onerr = function() {
+			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg";
+			this.onerror=default_onerror;
+		};
+	}
 	let path = "GBF/assets_en/img_low/sp/assets/npc/m/" + id + uncap + ".jpg";
 	return [{id:id, path:path, onerr:onerr, class:"", link:false}];
 }
@@ -861,11 +864,14 @@ function get_summon(id, data, rarity, range)
 		for(const f of data[0])
 			if(f.includes("_")) uncap = f.slice(10);
 	}
-	let onerr = null;
+	let onerr = default_onerror;
 	if(uncap != "")
-		onerr = function() {this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/summon/m/"+id+".jpg"; this.onerror=default_onerror;};
-	else
-		onerr = default_onerror;
+	{
+		onerr = function() {
+			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/summon/m/"+id+".jpg";
+			this.onerror=default_onerror;
+		};
+	}
 	let path = "GBF/assets_en/img_low/sp/assets/summon/m/" + id + uncap + ".jpg";
 	return [{id:id, path:path, onerr:onerr, class:"", link:false}];
 }
@@ -880,11 +886,14 @@ function get_weapon(id, data, rarity, proficiency)
 		for(const f of data[0])
 			if(f.includes("_")) uncap = f.slice(10);
 	}
-	let onerr = null;
+	let onerr = default_onerror;
 	if(uncap != "")
-		onerr = function() {this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/weapon/m/"+id+".jpg"; this.onerror=default_onerror;};
-	else
-		onerr = default_onerror;
+	{
+		onerr = function() {
+			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/weapon/m/"+id+".jpg";
+			this.onerror=default_onerror;
+		};
+	}
 	let path = "GBF/assets_en/img_low/sp/assets/weapon/m/" + id + uncap + ".jpg";
 	return [{id:id, path:path, onerr:onerr, class:"", link:false}];
 }
