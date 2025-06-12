@@ -232,7 +232,6 @@ function update_search_results(scroll_to_search = true)
 	frag.appendChild(div);
 	for(const [key, [search_index, search_string]] of Object.entries(SearchIndex))
 	{
-		console.log(search_type_allowed[search_index]);
 		if(!search_type_allowed[search_index])
 		{
 			continue;
