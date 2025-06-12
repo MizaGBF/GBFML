@@ -427,81 +427,84 @@ function load_index_content(node, data, onclick)
 	let image_callback = add_index_image;
 	let target = data.target ? data.target : data.key;
 	let type = gbf.index_to_type(target);
-	switch(type)
+	if(type == null)
 	{
-		case null: // extra GBFAL types
+		switch(target) // extra GBFAL types
 		{
-			switch(target)
-			{
-				case "title":
-					callback = get_title;
-					break;
-				case "sky_title":
-					callback = get_sky_title;
-					break;
-				case "suptix":
-					callback = get_suptix;
-					break;
-				case "mypage_bg":
-					callback = get_mypage_bg;
-					break;
-				case "subskills":
-					callback = get_subskill;
-					break;
-				case "valentines":
-					callback = get_valentine;
-					break;
-				default:
-					return;
-			};
+			case "title":
+				callback = get_title;
+				break;
+			case "sky_title":
+				callback = get_sky_title;
+				break;
+			case "suptix":
+				callback = get_suptix;
+				break;
+			case "mypage_bg":
+				callback = get_mypage_bg;
+				break;
+			case "subskills":
+				callback = get_subskill;
+				break;
+			case "valentines":
+				callback = get_valentine;
+				break;
+			default:
+				return;
+		};
+	}
+	else
+	{
+		switch(type)
+		{
+			case GBFType.job:
+				callback = get_job;
+				break;
+			case GBFType.weapon:
+				callback = get_weapon;
+				break;
+			case GBFType.summon:
+				callback = get_summon;
+				break;
+			case GBFType.character:
+				callback = target == "skins" ? get_skin : get_character;
+				break;
+			case GBFType.enemy:
+				callback = get_enemy;
+				break;
+			case GBFType.npc:
+				callback = get_npc;
+				break;
+			case GBFType.partner:
+				callback = get_partner;
+				break;
+			case GBFType.event:
+				callback = get_event;
+				break;
+			case GBFType.skill:
+				callback = get_skill;
+				break;
+			case GBFType.buff:
+				callback = get_buff;
+				break;
+			case GBFType.background:
+				callback = get_background;
+				break;
+			case GBFType.story:
+				callback = get_story;
+				image_callback = add_text_image;
+				break;
+			case GBFType.fate:
+				callback = get_fate;
+				image_callback = add_fate_image;
+				break;
+			case GBFType.shield:
+				callback = get_shield;
+				break;
+			case GBFType.manatura:
+				callback = get_manatura;
+				break;
 		}
-		case GBFType.job:
-			callback = get_job;
-			break;
-		case GBFType.weapon:
-			callback = get_weapon;
-			break;
-		case GBFType.summon:
-			callback = get_summon;
-			break;
-		case GBFType.character:
-			callback = target == "skins" ? get_skin : get_character;
-			break;
-		case GBFType.enemy:
-			callback = get_enemy;
-			break;
-		case GBFType.npc:
-			callback = get_npc;
-			break;
-		case GBFType.partner:
-			callback = get_partner;
-			break;
-		case GBFType.event:
-			callback = get_event;
-			break;
-		case GBFType.skill:
-			callback = get_skill;
-			break;
-		case GBFType.buff:
-			callback = get_buff;
-			break;
-		case GBFType.background:
-			callback = get_background;
-			break;
-		case GBFType.story:
-			callback = get_story;
-			image_callback = add_text_image;
-			break;
-		case GBFType.fate:
-			callback = get_fate;
-			image_callback = add_fate_image;
-			break;
-		case GBFType.shield:
-			callback = get_shield;
-			break;
-		case GBFType.manatura:
-			callback = get_manatura;
-			break;
 	}
 	try
 	{
@@ -1134,58 +1137,56 @@ function get_mypage_bg(id, data, unusedA = null, unusedB = null)
 }
 
 // path must start with "GBF/" if it's not a local asset.
-function add_index_image(node, data, onclick)
+function add_index_image(node, data, onclick_callback)
 {
 	if(data.link) // two behavior based on link attribute
 	{
-		let a = document.createElement("a");
-		let img = document.createElement("img");
-		a.appendChild(img);
-		node.appendChild(a);
-		img.classList.add("loading");
+		let a = add_to(node, "a");
+		let img = add_to(a, "img", {
+			cls: ["loading"],
+			onload: function() {
+				this.classList.remove("loading");
+				this.classList.add(data.class);
+				this.classList.add("link");
+			},
+			onerror: (data.onerr == null ?
+				function() {
+					this.parentNode.remove();
+					this.remove();
+				} :
+				data.onerr
+			),
+			title: "Click to open: " + data.id
+		});
 		img.setAttribute('loading', 'lazy');
-		img.onload = function() {
-			this.classList.remove("loading");
-			this.classList.add(data.class);
-			this.classList.add("link");
-		};
-		if(data.onerr == null)
-		{
-			img.onerror = function() {
-				this.parentNode.remove();
-				this.remove();
-			};
-		}
-		else img.onerror = data.onerr;
 		img.src = data.path.replace("GBF/", gbf.id_to_endpoint(data.id));
-		img.title = "Click to open: " + data.id;
 		a.href = img.src.replace("img_low/", "img/");
 		return img;
 	}
 	else
 	{
-		if(data.onclick ?? null)
-			onclick = data.onclick;
-		let img = document.createElement("img");
-		node.appendChild(img);
-		img.title = data.id;
-		if(data.class)
-			img.className = data.class;
-		img.classList.add("loading");
+		if(data.onclick ?? null) // override
+			onclick_callback = data.onclick_callback;
+		let cls = data.class ? data.class.split(" ") : [];
+		let img = add_to(node, "img", {
+			cls: cls,
+			onload: function() {
+				this.classList.remove("loading");
+				if(onclick_callback != null)
+				this.classList.add("clickable");
+				this.classList.add("index-image");
+				this.onclick = onclick_callback;
+			},
+			onerror: (data.onerr == null ?
+				function() {
+					this.remove();
+				} :
+				data.onerr
+			),
+			title: data.id
+		});
+		img.classList.toggle("loading", true);
 		img.setAttribute('loading', 'lazy');
-		if(data.onerr == null)
-		{
-			img.onerror = function() {
-				this.remove();
-			};
-		}
-		else img.onerror = data.onerr;
-		img.onload = function() {
-			this.classList.remove("loading");
-			this.classList.add("clickable");
-			this.classList.add("index-image");
-			this.onclick = onclick;
-		};
 		img.onclickid = data.id;
 		img.src = data.path.replace("GBF/", gbf.id_to_endpoint(data.id));
 		return img;
@@ -1329,14 +1330,11 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 		)
 	}
 	add_to(div, "span", {cls:["header-block"], innertext:name});
-	if(target == "events") // exception for event thumbnails
-	{
-		if("events" in index && id in index["events"] && index["events"][id][1] != null)
-		{
-			let thumb = add_to(div, "span", {cls:["header-block"]});
-			add_to(thumb, "img").src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/img/sp/archive/assets/island_m2/" + index["events"][id][1] + ".png";
-		}
-	}
+	list_elements(
+		add_to(div, "span", {cls:["header-block"]}),
+		[[id, gbf.index_to_type(target)]],
+		null
+	);
 	if(link)
 	{
 		add_links(div, id, extra_links);
