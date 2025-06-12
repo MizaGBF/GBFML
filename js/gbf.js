@@ -209,4 +209,107 @@ class GBF
 			default: return null;
 		};
 	}
+	
+	type_to_index(type)
+	{
+		switch(type)
+		{
+			case GBFType.job:
+				return "job";
+			case GBFType.weapon:
+				return "weapons";
+			case GBFType.summon:
+				return "summons";
+			case GBFType.character:
+				return "characters";
+			case GBFType.enemy:
+				return "enemies";
+			case GBFType.npc:
+				return "npcs";
+			case GBFType.partner:
+				return "partners";
+			case GBFType.event:
+				return "events";
+			case GBFType.skill:
+				return "skills";
+			case GBFType.buff:
+				return "buffs";
+			case GBFType.background:
+				return "background";
+			case GBFType.story:
+				return "story";
+			case GBFType.fate:
+				return "fate";
+			case GBFType.shield:
+				return "shields";
+			case GBFType.manatura:
+				return "manaturas";
+			default:
+				return null;
+		}
+	}
+	
+	index_to_type(index)
+	{
+		switch(index)
+		{
+			case "job":
+				return GBFType.job;
+			case "weapons":
+				return GBFType.weapon;
+			case "summons":
+				return GBFType.summon;
+			case "characters":
+			case "skins":
+				return GBFType.character;
+			case "enemies":
+				return GBFType.enemy;
+			case "npcs":
+				return GBFType.npc;
+			case "partners":
+				return GBFType.partner;
+			case "events":
+				return GBFType.event;
+			case "skills":
+				return GBFType.skill;
+			case "buffs":
+				return GBFType.buff;
+			case "background":
+				return GBFType.background;
+			case "story":
+				return GBFType.story;
+			case "fate":
+				return GBFType.fate;
+			case "shields":
+				return GBFType.shield;
+			case "manaturas":
+				return GBFType.manatura;
+			default:
+				return null;
+		}
+	}
+	
+	look_for_fate_episode_in_index(id, allow_empty = false)
+	{
+		if(typeof index !== "undefined" && "fate" in index)
+		{
+			for(const [key, val] of Object.entries(index["fate"]))
+			{
+				// GBFAL fate store character id in index 4
+				if(val.length > 4 && val[4] == id)
+				{
+					// make sure data structure isn't empty
+					if(allow_empty || (val[0].length+val[1].length+val[2].length+val[3].length) > 0)
+					{
+						return key
+					}
+					else
+					{
+						return null;
+					}
+				}
+			}
+		}
+		return null;
+	}
 };

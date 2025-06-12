@@ -426,96 +426,83 @@ function load_index_content(node, data, onclick)
 	let callback = null;
 	let image_callback = add_index_image;
 	let target = data.target ? data.target : data.key;
-	let type = target;
-	switch(target)
+	let type = gbf.index_to_type(target);
+	switch(type)
 	{
-		case "characters":
-			type = GBFType.character;
-			callback = get_character;
-			break;
-		case "skins":
-			type = GBFType.character;
-			callback = get_skin;
-			break;
-		case "partners":
-			type = GBFType.partner;
-			callback = get_partner;
-			break;
-		case "summons":
-			type = GBFType.summon;
-			callback = get_summon;
-			break;
-		case "weapons":
-			type = GBFType.weapon;
-			callback = get_weapon;
-			break;
-		case "shields":
-			type = GBFType.shield;
-			callback = get_shield;
-			break;
-		case "manaturas":
-			type = GBFType.manatura;
-			callback = get_manatura;
-			break;
-		case "job":
-			type = GBFType.job;
+		case null: // extra GBFAL types
+		{
+			switch(target)
+			{
+				case "title":
+					callback = get_title;
+					break;
+				case "sky_title":
+					callback = get_sky_title;
+					break;
+				case "suptix":
+					callback = get_suptix;
+					break;
+				case "mypage_bg":
+					callback = get_mypage_bg;
+					break;
+				case "subskills":
+					callback = get_subskill;
+					break;
+				case "valentines":
+					callback = get_valentine;
+					break;
+				default:
+					return;
+			};
+		}
+		case GBFType.job:
 			callback = get_job;
 			break;
-		case "enemies":
-			type = GBFType.enemy;
+		case GBFType.weapon:
+			callback = get_weapon;
+			break;
+		case GBFType.summon:
+			callback = get_summon;
+			break;
+		case GBFType.character:
+			callback = target == "skins" ? get_skin : get_character;
+			break;
+		case GBFType.enemy:
 			callback = get_enemy;
 			break;
-		case "npcs":
-			type = GBFType.npc;
+		case GBFType.npc:
 			callback = get_npc;
 			break;
-		case "valentines":
-			callback = get_valentine;
+		case GBFType.partner:
+			callback = get_partner;
 			break;
-		case "story":
-			type = GBFType.story;
+		case GBFType.event:
+			callback = get_event;
+			break;
+		case GBFType.skill:
+			callback = get_skill;
+			break;
+		case GBFType.buff:
+			callback = get_buff;
+			break;
+		case GBFType.background:
+			callback = get_background;
+			break;
+		case GBFType.story:
 			callback = get_story;
 			image_callback = add_text_image;
 			break;
-		case "fate":
-			type = GBFType.fate;
+		case GBFType.fate:
 			callback = get_fate;
 			image_callback = add_fate_image;
 			break;
-		case "events":
-			type = GBFType.event;
-			callback = get_event;
+		case GBFType.shield:
+			callback = get_shield;
 			break;
-		case "skills":
-			type = GBFType.skill;
-			callback = get_skill;
+		case GBFType.manatura:
+			callback = get_manatura;
 			break;
-		case "subskills":
-			callback = get_subskill;
-			break;
-		case "buffs":
-			type = GBFType.buff;
-			callback = get_buff;
-			break;
-		case "background":
-			type = GBFType.background;
-			callback = get_background;
-			break;
-		case "title":
-			callback = get_title;
-			break;
-		case "sky_title":
-			callback = get_sky_title;
-			break;
-		case "suptix":
-			callback = get_suptix;
-			break;
-		case "mypage_bg":
-			callback = get_mypage_bg;
-			break;
-		default:
-			return;
-	};
+	}
 	try
 	{
 		let ref = index;
@@ -1229,5 +1216,505 @@ function add_fate_image(node, data, onclick)
 	else
 	{
 		add_text_image(node, data, onclick);
+	}
+}
+
+function build_header(node, {id, target, create_div = true, navigation = false, navigation_special_targets = [], lookup = false, related = false, link = false, extra_links = []}={})
+{
+	let name = "";
+	switch(target)
+	{
+		case "characters":
+		{
+			name = "Character " + id;
+			break;
+		}
+		case "skins":
+		{
+			name = "Skin " + id;
+			break;
+		}
+		case "partners":
+		{
+			name = "Partner " + id;
+			break;
+		}
+		case "summons":
+		{
+			name = "Summon " + id;
+			break;
+		}
+		case "weapons":
+		{
+			name = "Weapon " + id;
+			break;
+		}
+		case "npcs":
+		{
+			name = "NPC " + id;
+			break;
+		}
+		case "enemies":
+		{
+			name = "Enemy " + id;
+			break;
+		}
+		case "job":
+		{
+			name = "Main Character " + id;
+			break;
+		}
+		case "shields":
+		{
+			name = "Shield " + id;
+			break;
+		}
+		case "manaturas":
+		{
+			name = "Manatura " + id;
+			break;
+		}
+		case "fate":
+		{
+			name = "Fate Episode " + id;
+			break;
+		}
+		case "events":
+		{
+			name = "Event " + id;
+			if(!isNaN(id))
+				name += " (" + id.substring(0, 2) + "/" + id.substring(2, 4) + "/" + id.substring(4, 6) + ")";
+			break;
+		}
+		case "story":
+		{
+			if(!isNaN(id) && parseInt(id) == 0)
+			{
+				name = "Main Story Prologue";
+			}
+			else
+			{
+				let recap = gbf.msq_recap_lookup(id);
+				name = (recap != null) ?
+					("Main Story " + recap) :
+					("Main Story Chapter " + id);
+			}
+			break;
+		}
+		case "skills":
+		{
+			name = "Skill " + id;
+			break;
+		}
+		case "buffs":
+		{
+			name = "Buff " + id;
+			break;
+		}
+		default:
+		{
+			console.error("Unsupported " + target);
+			return;
+		}
+	}
+	let div = node;
+	if(create_div)
+	{
+		div = add_to(
+			node,
+			"div",
+			{
+				cls:["container-header"]
+			}
+		)
+	}
+	add_to(div, "span", {cls:["header-block"], innertext:name});
+	if(target == "events") // exception for event thumbnails
+	{
+		if("events" in index && id in index["events"] && index["events"][id][1] != null)
+		{
+			let thumb = add_to(div, "span", {cls:["header-block"]});
+			add_to(thumb, "img").src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/img/sp/archive/assets/island_m2/" + index["events"][id][1] + ".png";
+		}
+	}
+	if(link)
+	{
+		add_links(div, id, extra_links);
+	}
+	if(navigation)
+	{
+		add_navigation(div, id, target, navigation_special_targets);
+	}
+	if(lookup)
+	{
+		add_lookup(div, id);
+	}
+	if(related)
+	{
+		add_related(div, id, target);
+	}
+}
+
+function add_links(node, id, extra_links)
+{
+	let block = add_to(node, "span", {cls:["header-block"]});
+	if("lookup" in index && id in index["lookup"] && index["lookup"][id].includes("@@"))
+	{
+		const wiki_path = index["lookup"][id].split("@@")[1].split(" ")[0];
+		let a = add_to(block, "a", {title:"Wiki page for " + wiki_path.replaceAll("_", " ")});
+		a.href = "https://gbf.wiki/" + wiki_path;
+		let img = add_to(a, "img", {cls:["img-link"]});
+		img.src = "../GBFML/assets/ui/icon/wiki.png";
+	}
+	else
+	{
+		let a = add_to(block, "a", {title:"Wiki search for " + id});
+		a.href = "https://gbf.wiki/index.php?title=Special:Search&search=" + id;
+		let img = add_to(a, "img", {cls:["img-link"]});
+		img.src = "../GBFML/assets/ui/icon/wiki.png";
+	}
+	for(const [title, imgsrc, href] of extra_links)
+	{
+		let a = add_to(block, "a", {title:title});
+		a.href = href;
+		let img = add_to(a, "img", {cls:["img-link"]});
+		img.src = imgsrc;
+	}
+}
+
+function add_navigation(node, id, target, navigation_special_targets)
+{
+	if(target in index && id in index[target])
+	{
+		let is_special = navigation_special_targets.length > 0 && navigation_special_targets.includes(target);
+		let keys = Object.keys(index[target]);
+		if(keys.length > 0)
+		{
+			keys.sort();
+			const c = keys.indexOf(id);
+			let next = c;
+			let previous = c;
+			if(is_special)
+			{
+				// this mode lets us skip over empty elements
+				if(typeof get_special_navigation_indexes !== "undefined")
+				{
+					let ret = get_special_navigation_indexes(id, target, c, keys);
+					previous = ret[0];
+					next = ret[1];
+				}
+				else
+				{
+					console.error("get_special_navigation_indexes is undefined");
+					return;
+				}
+			}
+			else
+			{
+				next = (c + 1) % keys.length;
+				previous = (c + keys.length - 1) % keys.length;
+			}
+			if(next != c) // assume previous is too
+			{
+				let type = gbf.index_to_type(target);
+				list_elements(
+					add_to(node, "span", {
+						cls:["navigate-element", "navigate-element-left"]
+					}),
+					[[keys[previous], type]],
+					index_onclick
+				);
+				list_elements(
+					add_to(node, "span", {
+						cls:["navigate-element", "navigate-element-right"]
+					}),
+					[[keys[next], type]],
+					index_onclick
+				);
+			}
+		}
+	}
+}
+
+function add_lookup(node, id)
+{
+	if("lookup" in index && id in index["lookup"] && index["lookup"][id].split(' ').length > 0)
+	{
+		let block = add_to(null, "span", {cls:["header-block"]});
+		let prev = null;
+		let missing = false;
+		for(const t of index["lookup"][id].split(' '))
+		{
+			if(t.substring(0, 2) == "@@" || t == "")
+				continue;
+			if(t == prev)
+				continue; // avoid repetitions
+			prev = t;
+			let i = document.createElement('i');
+			i.classList.add("tag");
+			i.classList.add("clickable");
+			switch(t)
+			{
+				case "ssr":
+				case "sr":
+				case "r":
+				case "n":
+					i.appendChild(document.createTextNode(t.toUpperCase()));
+					break;
+				default:
+					if(t == id && id != id)
+						i.appendChild(document.createTextNode(id));
+					else if(t.length == 1)
+						i.appendChild(document.createTextNode(t.toUpperCase()));
+					else
+						i.appendChild(document.createTextNode(t.charAt(0).toUpperCase() + t.slice(1)));
+					break;
+			}
+			switch(t.toLowerCase())
+			{
+				case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel": case "opus": case "xeno": case "exo":
+					i.classList.add("tag-gold");
+					break;
+				case "missing-help-wanted":
+					missing = true;
+					i.classList.add("tag-gold");
+					break;
+				case "sr": case "militis": case "voiced": case "voice-only":
+					i.classList.add("tag-silver");
+					break;
+				case "r":
+					i.classList.add("tag-bronze");
+					break;
+				case "n": case "gran": case "djeeta": case "null": case "unknown-element": case "unknown-boss":
+					i.classList.add("tag-normal");
+					break;
+				case "fire": case "dragon-boss": case "elemental-boss": case "other-boss":
+					i.classList.add("tag-fire");
+					break;
+				case "water": case "fish-boss": case "core-boss": case "aberration-boss":
+					i.classList.add("tag-water");
+					break;
+				case "earth": case "beast-boss": case "golem-boss": case "machine-boss": case "goblin-boss":
+					i.classList.add("tag-earth");
+					break;
+				case "wind": case "flying-boss": case "plant-boss": case "insect-boss": case "wyvern-boss":
+					i.classList.add("tag-wind");
+					break;
+				case "light": case "people-boss": case "fairy-boss": case "primal-boss":
+					i.classList.add("tag-light");
+					break;
+				case "dark": case "monster-boss": case "otherworld-boss": case "undead-boss": case "reptile-boss":
+					i.classList.add("tag-dark");
+					break;
+				case "cut-content": case "trial":
+					i.classList.add("tag-cut-content"); break;
+				case "sabre": case "sword": case "spear": case "dagger": case "axe": case "staff": case "melee": case "gun": case "bow": case "harp": case "katana":
+					i.classList.add("tag-weaptype");
+					break;
+				case "summer":
+					i.classList.add("tag-series-summer");
+					break;
+				case "yukata":
+					i.classList.add("tag-series-yukata");
+					break;
+				case "valentine":
+					i.classList.add("tag-series-valentine");
+					break;
+				case "halloween":
+					i.classList.add("tag-series-halloween");
+					break;
+				case "hoiday":
+					i.classList.add("tag-series-hoiday");
+					break;
+				case "12generals":
+					i.classList.add("tag-series-zodiac");
+					break;
+				case "fantasy":
+					i.classList.add("tag-series-fantasy");
+					break;
+				case "collab":
+					i.classList.add("tag-series-collab");
+					break;
+				case "eternals":
+					i.classList.add("tag-series-eternal");
+					break;
+				case "evokers":
+					i.classList.add("tag-series-evoker");
+					break;
+				case "4saints":
+					i.classList.add("tag-series-saint");
+					break;
+				case "male":
+					i.classList.add("tag-gender0");
+					break;
+				case "female":
+					i.classList.add("tag-gender1");
+					break;
+				case "other":
+					i.classList.add("tag-gender2");
+					break;
+				case "human":
+					i.classList.add("tag-race0");
+					break;
+				case "draph":
+					i.classList.add("tag-race1");
+					break;
+				case "erune":
+					i.classList.add("tag-race2");
+					break;
+				case "harvin":
+					i.classList.add("tag-race3");
+					break;
+				case "primal":
+					i.classList.add("tag-race4");
+					break;
+				case "unknown":
+					i.classList.add("tag-race5");
+					break;
+				case "balanced":
+					i.classList.add("tag-type0");
+					break;
+				case "attack":
+					i.classList.add("tag-type1");
+					break;
+				case "defense":
+					i.classList.add("tag-type2");
+					break;
+				case "heal":
+					i.classList.add("tag-type3");
+					break;
+				case "special":
+					i.classList.add("tag-type4");
+					break;
+				default:
+					break;
+			}
+			i.onclick = function() {
+				if(window.event.ctrlKey)
+				{
+					let f = document.getElementById('filter');
+					f.value = t + " " + f.value;
+					lookup(f.value);
+				}
+				else
+				{
+					lookup(t);
+				}
+			};
+			block.appendChild(i);
+			block.appendChild(document.createTextNode(" "));
+		}
+		if(missing && help_form != null)
+		{
+			let a = document.createElement("a");
+			a.href = help_form;
+			a.innerHTML = "Submit name";
+			block.appendChild(a);
+		}
+		if(block.childNodes.length > 0)
+		{
+			node.appendChild(block);
+		}
+	}
+}
+
+function add_related(node, id, target)
+{
+	let has_been_added = false;
+	let block = add_to(null, "span", {cls:["header-block"]});
+	block.appendChild(document.createTextNode("Related"));
+	switch(target)
+	{
+		case "partners":
+		{
+			let cid = "30" + id.slice(2);
+			if("characters" in index && cid in index["characters"])
+			{
+				block.appendChild(document.createElement("br"));
+				list_elements(block, [[cid, GBFType.character]], index_onclick);has_been_added = true;
+			}
+			break;
+		}
+		case "characters":
+		{
+			let added_line_break = false;
+			// fate episode
+			let fate_id = gbf.look_for_fate_episode_in_index(id);
+			if(fate_id != null)
+			{
+				block.appendChild(document.createElement("br"));
+				list_elements(block, [[fate_id, GBFType.fate]], index_onclick);
+				has_been_added = true;
+				added_line_break = true;
+			}
+			// partner
+			let partner_id = "38" + id.slice(2);
+			if("partners" in index && partner_id in index["partners"])
+			{
+				if(!added_line_break)
+					block.appendChild(document.createElement("br"));
+				list_elements(block, [[partner_id, GBFType.partner]], index_onclick);
+				has_been_added = true;
+				added_line_break = true;
+			}
+			// weapon
+			if("premium" in index && id in index["premium"] && index["premium"][id] != null)
+			{
+				if(!added_line_break)
+					block.appendChild(document.createElement("br"));
+				list_elements(block, [[index["premium"][id], GBFType.weapon]], index_onclick);
+				has_been_added = true;
+			}
+			break;
+		}
+		case "summons":
+		{
+			// fate episode
+			let fate_id = gbf.look_for_fate_episode_in_index(id);
+			if(fate_id != null)
+			{
+				block.appendChild(document.createElement("br"));
+				list_elements(block, [[fate_id, GBFType.fate]], index_onclick);
+				has_been_added = true;
+			}
+		}
+		case "weapon":
+		{
+			// character
+			if("premium" in index && id in index["premium"] && index["premium"][id] != null)
+			{
+				block.appendChild(document.createElement("br"));
+				list_elements(block, [[index["premium"][id], GBFType.character]], index_onclick);
+				has_been_added = true;
+			}
+		}
+		case "fate":
+		{
+			if("fate" in index && id in index["fate"] && index["fate"][id] != 0 && index["fate"][id][4] != null)
+			{
+				let target_id = index["fate"][id][4];
+				switch(target_id.substring(0, 2))
+				{
+					case "30":
+					{
+						block.appendChild(document.createElement("br"));
+						list_elements(block, [[target_id, GBFType.character]], index_onclick);
+						has_been_added = true;
+						break;
+					}
+					case "20":
+					{
+						block.appendChild(document.createElement("br"));
+						list_elements(block, [[target_id, GBFType.summon]], index_onclick);
+						has_been_added = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+	if(has_been_added)
+	{
+		node.appendChild(block);
 	}
 }
