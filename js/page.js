@@ -229,7 +229,7 @@ function update_bookmark() // update bookmark list
 		update_next_frame(function() {
 			node.innerHTML = "";
 			if(bookmarks.length == 0)
-				node.appendChild.innerText = "No bookmarked elements.";
+				node.innerText = "No bookmarked elements.";
 			node.appendChild(fragment);
 		});
 	}
