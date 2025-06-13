@@ -812,6 +812,16 @@ a:active {
 		font-size: 40px;
 	}
 
+	.margin {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+
+	.detail {
+		width: 90%;
+		height: 60px;
+	}
+
 	.sub-detail {
 		height: 70px;
 		font-size: 25px;
