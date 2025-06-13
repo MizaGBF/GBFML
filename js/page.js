@@ -925,10 +925,11 @@ function get_enemy(id, data, type, size)
 {
 	if(id[0] != type || id[1] != size)
 		return null;
+	let className = (data && data[2].length > 0) ? "preview vs" : "preview";
 	return [{id:id, path:"GBF/assets_en/img/sp/assets/enemy/s/" + id + ".png", onerr:function() {
 		this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/enemy/m/"+id+".png";
 		this.onerror=default_onerror;
-	}, class:"preview", link:false}];
+	}, class:className, link:false}];
 }
 
 function get_npc(id, data, prefix, range)

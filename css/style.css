@@ -694,6 +694,10 @@ img {
 	background: url(../assets/ui/more.png) no-repeat bottom left 0% / 20%;
 }
 
+.vs {
+	background: url(../assets/ui/vs.png) no-repeat bottom left 0% / 20%;
+}
+
 a:link {
 	color: #00ffff;
 	font-size: 1em;
