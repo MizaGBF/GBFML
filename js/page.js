@@ -393,6 +393,7 @@ function add_to_index(node, data, callback, level = 0)
 	{
 		icon = document.createElement("img");
 		icon.src = data.icon;
+		icon.alt = "";
 	}
 	else icon = document.createElement("span");
 	icon.classList.add(level ? "sub-detail-icon" : "detail-icon");
