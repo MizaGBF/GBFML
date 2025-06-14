@@ -1,3 +1,17 @@
+/* animations */
+@keyframes animation-button-press {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.9);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+/* css */
 html { 
 	background: #252526;
 	scrollbar-color: #bbbbbb #000000;
@@ -115,6 +129,10 @@ body {
 	outline: solid #ffffff;
 }
 
+.detail:active {
+	animation: animation-button-press 0.1s;
+}
+
 details[open] > .detail {
 	outline: solid #007acc;
 }
@@ -189,6 +207,10 @@ details[open] > .detail {
 	cursor: pointer;
 }
 
+.std-button:active {
+	animation: animation-button-press 0.1s;
+}
+
 #fav-btn {
 	background: #2d2d30;
 	width: 45px;
@@ -209,6 +231,10 @@ details[open] > .detail {
 #fav-btn:hover {
 	border-color: #ffffff;
 	color: #ffffff;
+}
+
+#fav-btn:active {
+	animation: animation-button-press 0.1s;
 }
 
 #fav-btn.fav-on {
@@ -232,7 +258,8 @@ details[open] > .detail {
 }
 
 .tab-button.active {
-  outline: solid #007acc;
+	animation: animation-button-press 0.1s;
+	outline: solid #007acc;
 }
 
 .tab-button:hover, .std-button:hover, .btn-load:hover {
@@ -336,6 +363,10 @@ details[open] > .detail {
 
 .tag:hover {
 	outline: solid #007acc;
+}
+
+.tag:active {
+	animation: animation-button-press 0.1s;
 }
 
 .tag-gold {
@@ -586,6 +617,10 @@ details[open] > .detail {
 
 .index-image {
 	max-height: 80px;
+}
+
+.index-image:active {
+	animation: animation-button-press 0.1s;
 }
 
 .preview {
