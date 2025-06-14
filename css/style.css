@@ -833,6 +833,10 @@ a:active {
 	font-size: 20px;
 }
 
+.no-animation:active {
+	animation: none;
+}
+
 /* mobile/tablet layout */
 @media (hover: none) or (pointer: coarse) {
 	@media (orientation: portrait) {

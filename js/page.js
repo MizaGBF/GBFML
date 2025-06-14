@@ -1187,9 +1187,15 @@ function add_index_image(node, data, onclick_callback)
 			cls: cls,
 			onload: function() {
 				this.classList.remove("loading");
-				if(onclick_callback != null)
-				this.classList.add("clickable");
 				this.classList.add("index-image");
+				if(onclick_callback != null)
+				{
+					this.classList.add("clickable");
+				}
+				else
+				{
+					this.classList.add("no-animation");
+				}
 				this.onclick = onclick_callback;
 			},
 			onerror: (data.onerr == null ?
@@ -1216,6 +1222,8 @@ function add_text_image(node, data, onclick)
 		title:data.id,
 		innertext:data.text
 	});
+	if(onclick == null)
+		elem.classList.add("no-animation");
 	elem.onclickid = data.id;
 	return elem;
 }
