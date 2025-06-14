@@ -312,9 +312,13 @@ details[open] > .detail {
 	align-items: center;
 }
 
-#navigation:hover {
+.navigation:hover {
 	border-color: #ffffff;
 	color: #ffffff;
+}
+
+.navigation:active {
+	animation: animation-button-press 0.1s;
 }
 
 .popup {
