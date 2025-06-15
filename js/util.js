@@ -74,6 +74,7 @@ function update_query(id) // update url parameters
 	{
 		history.pushState(null, '', window.location.pathname + '?' + params.toString());
 	}
+	document.title = document.title.split(" - ")[0] + " - " + id;
 }
 
 function beep() // play a sound effect
