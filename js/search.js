@@ -380,6 +380,8 @@ class Search
 			lookup(search_input)
 		)
 		{
+			if(this.m_search_area)
+				this.m_search_area.style.display = "none";
 			return;
 		}
 		// get list of each words
