@@ -11,6 +11,26 @@
 	}
 }
 
+@keyframes pop-in {
+	0% {
+		transform: scale(0.1);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes slide-in {
+	0% {
+		max-height: 0;
+	}
+	100% {
+		max-height: 800px;
+	}
+}
+
 /* css */
 html { 
 	background: #252526;
@@ -96,11 +116,6 @@ body {
 
 .margin {
 	margin: 5px;
-}
-
-@keyframes pop-in {
-     0% { opacity: 0; transform: scale(0.1); }
-     100% { opacity: 1; transform: scale(1); }
 }
 
 .detail {
@@ -578,9 +593,46 @@ details[open] > .detail {
 	background: #ffffff;
 }
 
-::placeholder {
+#filter::placeholder {
 	color: #111111;
 	opacity: 0.6;
+}
+
+#filter::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 32px;
+    width: 32px;
+    background-image: url("../assets/ui/seal.png");
+	background-size: 100% 100%;
+    cursor: pointer;
+}
+
+#filter::-webkit-search-cancel-button:hover {
+	filter: hue-rotate(170deg);
+}
+
+#search-area {
+	animation: slide-in 0.5s;
+	transform-origin: top;
+	display: flex;
+	flex-direction: column;
+}
+
+.search-control {
+	width: 100%;
+	margin: auto;
+}
+
+.search-checkbox-container {
+	white-space: nowrap;
+}
+
+.search-control-results {
+	width: 100%;
+	margin: auto;
+	min-height: 350px;
+	max-height: 350px;
+	overflow-y: auto;
 }
 
 .tab-content {
