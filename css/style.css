@@ -840,6 +840,20 @@ a:active {
 	position: relative;
 }
 
+.sound-only {
+	background: url(../assets/ui/sound_only.png) no-repeat;
+	background-size: 100% 100%;
+	font-size: 16px;
+	color: black;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+	text-align: center;
+	display: inline-block;
+	margin: 0px;
+	vertical-align: top;
+	position: relative;
+}
+
 .fate-image {
 	border-color: #00ddff;
 	border-radius: 25px;

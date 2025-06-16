@@ -479,6 +479,7 @@ function load_index_content(node, data, onclick)
 				break;
 			case GBFType.npc:
 				callback = get_npc;
+				image_callback = add_npc_image;
 				break;
 			case GBFType.partner:
 				callback = get_partner;
@@ -650,6 +651,7 @@ function list_elements(frag, elems, onclick)
 				case GBFType.npc:
 				{
 					res = get_npc(id, (id in index['npcs']) ? index['npcs'][id] : null, id.slice(1, 3), [0, 10000]);
+					callback = add_npc_image;
 					break;
 				}
 				case GBFType.partner:
@@ -953,10 +955,9 @@ function get_npc(id, data, prefix, range)
 			path = "GBF/assets_en/img_low/sp/quest/scene/character/body/" + id + data[1][0] + ".png";
 			className = "preview";
 		}
-		else
+		else // sound-only
 		{
-			path = "../GBFML/assets/ui/sound_only.png";
-			className = "preview-noborder";
+			return [{id:id, modifier:"sound-only", text:id}];
 		}
 	}
 	else return null;
@@ -1234,6 +1235,18 @@ function add_fate_image(node, data, onclick)
 	{
 		let img = add_index_image(node, data, onclick);
 		img.classList.add("fate-image");
+	}
+	else
+	{
+		add_text_image(node, data, onclick);
+	}
+}
+
+function add_npc_image(node, data, onclick)
+{
+	if(data.path)
+	{
+		add_index_image(node, data, onclick);
 	}
 	else
 	{
