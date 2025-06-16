@@ -1486,16 +1486,13 @@ function add_lookup(node, id)
 			let i = add_to(block, "i", {
 				cls: ["tag", "clickable"],
 				onclick: function() {
-					if(window.event.ctrlKey)
-					{
-						let f = document.getElementById('filter');
-						f.value = t + " " + f.value;
-						lookup(f.value);
-					}
+					let f = document.getElementById('filter');
+					f.value = f.value.trim();
+					if(f.value == "")
+						f.value = t;
 					else
-					{
-						lookup(t);
-					}
+						f.value = f.value.trim() + " " + t;
+					f.dispatchEvent(new Event("input"));
 				}
 			});
 			switch(t)

@@ -370,6 +370,9 @@ class Search
 			if(this.m_search_area)
 				this.m_search_area.style.display = "none";
 			document.dispatchEvent(new Event("search-clear"));
+			this.m_last_search_words = null;
+			this.m_last_elements = null;
+			this.m_last_filtereds = null;
 			return;
 		}
 		let search_input = this.m_search_bar.value.trim().toLowerCase();
@@ -392,6 +395,9 @@ class Search
 			if(this.m_search_area)
 				this.m_search_area.style.display = "none";
 			document.dispatchEvent(new Event("search-clear"));
+			this.m_last_search_words = null;
+			this.m_last_elements = null;
+			this.m_last_filtereds = null;
 			return;
 		}
 		// remove dupes
@@ -399,6 +405,8 @@ class Search
 		// check if already searched
 		if(this.m_last_search_words == words)
 		{
+			if(this.m_search_area)
+				this.m_search_area.style.display = "";
 			return;
 		}
 		// generate search results
