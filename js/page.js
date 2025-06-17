@@ -19,21 +19,21 @@ function clock() // update the "last updated" clock
 	document.getElementById('timestamp').textContent = "Last update: " + msg;
 }
 
-function resetTabs() // reset the tab state
+function reset_tabs() // reset the tab state
 {
 	let tabcontent = document.getElementsByClassName("tab-content");
 	for(let i = 0; i < tabcontent.length; i++)
 		tabcontent[i].style.display = "none";
 	let tabbuttons = document.getElementsByClassName("tab-button");
 	for (let i = 0; i < tabbuttons.length; i++)
-		tabbuttons[i].classList.remove("active");
+		tabbuttons[i].classList.toggle("active", false);
 }
 
-function open_tab(tabName) // reset and then select a tab
+function open_tab(name) // reset and then select a tab
 {
-	resetTabs();
-	document.getElementById(tabName).style.display = "";
-	document.getElementById("tab-"+tabName).classList.add("active");
+	reset_tabs();
+	document.getElementById(name).style.display = "";
+	document.getElementById("tab-"+name).classList.toggle("active", true);
 }
 
 function crash() // setup the notice
@@ -1234,7 +1234,33 @@ function add_fate_image(node, data, onclick)
 	if(data.path)
 	{
 		let img = add_index_image(node, data, onclick);
-		img.classList.add("fate-image");
+		// kinda hacky, we wrap the image into a wrapper and strip its classes
+		let parent = img.parentNode;
+		parent.removeChild(img);
+		let wrapper = add_to(parent, "div", {
+			cls:["fate-wrapper"]
+		});
+		img.onload = function() {
+			this.classList.remove("loading");
+			this.classList.add("fate-image");
+			this.onload = null;
+		};
+		// add onclick to main
+		if((data.onclick ?? null) != null)
+			onclick = data.onclick;
+		wrapper.onclick = onclick;
+		wrapper.onclickid = data.id;
+		img.onclick = null;
+		// add extra class
+		if(onclick != null || (data.onclick ?? null) != null)
+		{
+			wrapper.classList.add("clickable");
+		}
+		else
+		{
+			wrapper.classList.add("no-animation");
+		}
+		wrapper.appendChild(img);
 	}
 	else
 	{
