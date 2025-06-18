@@ -962,27 +962,10 @@ img {
 	position: relative;
 }
 
-.fate-wrapper {
-	background: url(../assets/ui/cover.png) no-repeat;
-	background-size: 140px 80px;
-	min-width: 140px;
-	max-width: 140px;
-	min-height: 80px;
-	min-height: 80px;
-	display:inline-block;
-}
-
-.fate-wrapper:active {
-	animation: animation-button-press 0.1s;
-}
-
 .fate-image {
-	object-position: center;
-	clip-path: inset(8px 8px 8px 8px);
-	min-width: 140px;
-	max-width: 140px;
-	min-height: 80px;
-	min-height: 80px;
+	outline: 5px solid #61d0fa;
+	outline-offset: -5px;
+	outline-style: outset;
 }
 
 .sound-file {
@@ -1094,21 +1077,6 @@ img {
 			min-width : 105px;
 			max-width : 105px;
 			height: 60px;
-		}
-		.fate-wrapper {
-			background-size: 105px 60px;
-			min-width: 105px;
-			max-width: 105px;
-			min-height: 60px;
-			min-height: 60px;
-		}
-		
-		.fate-image {
-			clip-path: inset(8px 8px 8px 8px);
-			min-width: 105px;
-			max-width: 105px;
-			min-height: 60px;
-			min-height: 60px;
 		}
 		
 		.asset {

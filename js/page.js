@@ -1237,33 +1237,7 @@ function add_fate_image(node, data, onclick)
 	if(data.path)
 	{
 		let img = add_index_image(node, data, onclick);
-		// kinda hacky, we wrap the image into a wrapper and strip its classes
-		let parent = img.parentNode;
-		parent.removeChild(img);
-		let wrapper = add_to(parent, "div", {
-			cls:["fate-wrapper"]
-		});
-		img.onload = function() {
-			this.classList.remove("loading");
-			this.classList.add("fate-image");
-			this.onload = null;
-		};
-		// add onclick to main
-		if((data.onclick ?? null) != null)
-			onclick = data.onclick;
-		wrapper.onclick = onclick;
-		wrapper.onclickid = data.id;
-		img.onclick = null;
-		// add extra class
-		if(onclick != null || (data.onclick ?? null) != null)
-		{
-			wrapper.classList.add("clickable");
-		}
-		else
-		{
-			wrapper.classList.add("no-animation");
-		}
-		wrapper.appendChild(img);
+		img.classList.toggle("fate-image", true);
 	}
 	else
 	{
