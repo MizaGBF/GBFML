@@ -963,6 +963,7 @@ img {
 }
 
 .fate-image {
+	border-radius: 10px;
 	outline: 5px solid #61d0fa;
 	outline-offset: -5px;
 	outline-style: outset;
