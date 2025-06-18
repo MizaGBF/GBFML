@@ -426,6 +426,7 @@ function add_to_index(node, data, callback, level = 0)
 	}
 }
 
+// populate the page index
 function load_index_content(node, data, onclick)
 {
 	let callback = null;
@@ -596,7 +597,8 @@ function init_index(config, changelog, callback) // build the html index. simply
 	}
 }
 
-function list_elements(frag, elems, onclick)
+// populate a node with elements
+function list_elements(node, elems, onclick)
 {
 	for(const [id, type] of elems)
 	{
@@ -724,7 +726,7 @@ function list_elements(frag, elems, onclick)
 					if(r.unlisted ?? false)
 						continue;
 					r.id = gbf.get_prefix(type) + r.id; // update prefix
-					callback(frag, r, onclick);
+					callback(node, r, onclick);
 				}
 			}
 		} catch(err) {
@@ -733,6 +735,7 @@ function list_elements(frag, elems, onclick)
 	}
 }
 
+// default onerror functions for element images
 function default_onerror()
 {
 	this.src= "../GBFML/assets/ui/no_asset.jpg";
