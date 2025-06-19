@@ -962,6 +962,10 @@ img {
 	position: relative;
 }
 
+.scene:active, .sound-only:active {
+	animation: animation-button-press 0.1s;
+}
+
 .fate-image {
 	border-radius: 10px;
 	outline: 5px solid #61d0fa;
