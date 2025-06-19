@@ -568,7 +568,7 @@ class Search
 	{
 		if(this.m_search_area)
 		{
-			if(this.m_last_filtereds == null || this.m_last_filtereds.length == 0)
+			if(this.m_last_filtereds == null || this.m_last_elements.length == 0)
 			{
 				// no search results
 				this.m_search_area.children[0].innerText = "No results";
