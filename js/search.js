@@ -541,7 +541,6 @@ class Search
 				allowed_types.add(type);
 		}
 		let allowed_skin = allowed_types.has("skins");
-		console.log(this.m_settings, allowed_skin, allowed_types);
 		//const is_premium = this.m_settings.premium;
 		for(const data of this.m_last_elements)
 		{
