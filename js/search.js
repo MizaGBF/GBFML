@@ -541,16 +541,20 @@ class Search
 				allowed_types.add(type);
 		}
 		let allowed_skin = allowed_types.has("skins");
+		console.log(this.m_settings, allowed_skin, allowed_types);
 		//const is_premium = this.m_settings.premium;
 		for(const data of this.m_last_elements)
 		{
 			const element_id = data[0];
-			const type = data[1];
+			let type = data[1];
+			// special exceptions for character skins
+			if(type == GBFType.character && element_id.startsWith("371"))
+				type = "skins";
 			if(is_premium && (!(element_id in index.premium) || index.premium[element_id] == null))
 			{
 				continue;
 			}
-			else if(allowed_types.has(type) || (allowed_skin && type == GBFType.character && element_id.startsWith("371")))
+			else if(allowed_types.has(type))
 			{
 				filtered.push(data);
 			}
