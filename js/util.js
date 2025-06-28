@@ -172,3 +172,11 @@ function update_next_frame(callback)
 		callback();
 	});
 }
+
+// return capitalized string
+function capitalize(string)
+{
+	if(string.length == 0)
+		return string;
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
