@@ -960,7 +960,7 @@ function get_npc(id, data, prefix, range)
 		}
 		else // sound-only
 		{
-			return [{id:id, modifier:"sound-only", text:id}];
+			return [{id:id, modifier:"sound-only", text:gbf.get_lookup_name(id)}];
 		}
 	}
 	else return null;
@@ -1528,7 +1528,7 @@ function add_lookup(node, id)
 					else if(t.length == 1)
 						i.innerText = t.toUpperCase();
 					else
-						i.innerText = t.charAt(0).toUpperCase() + t.slice(1);
+						i.innerText = capitalize(t);
 					break;
 				}
 			}

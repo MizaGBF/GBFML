@@ -312,4 +312,71 @@ class GBF
 		}
 		return null;
 	}
+	
+	lookup_word_is_part_of_name(word)
+	{
+		// word.match(/^[a-z0-9]+$/i) == null || 
+		return !(["human", "harvin", "erune", "draph", "primal", "unknown", "male", "female", "other", "summer", "yukata", "valentine", "halloween", "holiday", "12generals", "grand", "fantasy", "collab", "eternals", "evokers", "4saints", "tie-in", "voiced", "voice-only"].includes(word) || word.endsWith("-boss"));
+	}
+	
+	lookup_word_is_japanese(word)
+	{
+		return (word.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/) != null)
+	}
+	
+	get_lookup_name(id)
+	{
+		if(typeof index !== "undefined" && "lookup" in index && id in index.lookup)
+		{
+			let words = index.lookup[id].split(" ");
+			let i = 0;
+			if(words.includes("missing-help-wanted"))
+			{
+				return id;
+			}
+			else if(words[0].startsWith("@@"))
+			{
+				return words[0].substring(2);
+				
+			}
+			while(i < words.length)
+			{
+				if(i == 0)
+				{
+					if(words[i].startsWith("@@") || ["sabre", "spear", "dagger", "axe", "gun", "bow", "melee", "harp", "katana", "staff", "fire", "water", "earth", "wind", "light", "dark", "r", "sr", "ssr"].includes(words[i]))
+					{
+						words.shift();
+					}
+					else
+					{
+						words[i] = capitalize(words[i]);
+						++i;
+					}
+				}
+				else if(this.lookup_word_is_japanese(words[i]))
+				{
+					words = words.splice(0, i);
+				}
+				else if(!this.lookup_word_is_part_of_name(words[i]))
+				{
+					if(i == words.length - 1 || !this.lookup_word_is_part_of_name(words[i+1]) || this.lookup_word_is_japanese(words[i+1]))
+					{
+						words = words.splice(0, i);
+					}
+					else
+					{
+						words[i] = capitalize(words[i]);
+						++i;
+					}
+				}
+				else
+				{
+					words[i] = capitalize(words[i]);
+					++i
+				}
+			}
+			return words.join(" ");
+		}
+		else return id;
+	}
 };

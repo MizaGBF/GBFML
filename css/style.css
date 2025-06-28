@@ -960,6 +960,11 @@ img {
 	margin: 0px;
 	vertical-align: top;
 	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
 .scene:active, .sound-only:active {
