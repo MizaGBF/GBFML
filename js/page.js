@@ -1161,6 +1161,8 @@ function add_index_image(node, data, onclick_callback)
 	if(data.link) // two behavior based on link attribute
 	{
 		let a = add_to(node, "a");
+		a.target = "_blank";
+		a.rel = "noopener noreferrer";
 		let img = add_to(a, "img", {
 			cls: ["loading"],
 			onload: function() {
