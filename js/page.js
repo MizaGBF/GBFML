@@ -1606,6 +1606,12 @@ function add_lookup(node, id)
 				case "4saints":
 					i.classList.add("tag-series-saint");
 					break;
+				case "crest": case "robur": case "bellum": case "cryptid":
+					i.classList.add("tag-series-summon-series");
+					break;
+				case "formal":
+					i.classList.add("tag-series-formal");
+					break;
 				case "male":
 					i.classList.add("tag-gender0");
 					break;

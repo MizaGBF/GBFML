@@ -524,6 +524,15 @@ details[open] > .detail {
 	color: #000000;
 }
 
+.tag-series-formal {
+	background-color: #c3e3e6;
+	color: #000000;
+}
+
+.tag-series-summon-series {
+	background-color: #c478a6;
+}
+
 .tag-gender0 {
 	background-color: #6675df;
 	color: #000000;
