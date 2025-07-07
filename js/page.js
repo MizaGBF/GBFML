@@ -1048,8 +1048,13 @@ function get_event(id, data, idfilter = null, unusedB = null)
 	{
 		if(index["events"][id][1] == null)
 		{
-			path = "assets/ui/event.png";
+			path = "../GBFML/assets/ui/event.png";
 			className = "preview-noborder";
+		}
+		else if(index["events"][id][1] == "rise_of_the_beasts")
+		{
+			path = "../GBFML/assets/ui/rise_of_the_beasts.png";
+			className = "preview";
 		}
 		else
 		{
