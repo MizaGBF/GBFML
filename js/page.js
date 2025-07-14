@@ -999,12 +999,18 @@ function get_story(id, data, unusedA = null, unusedB = null)
 		return [{id:id, modifier:"scene", text:"Chapter " + parseInt(id)}];
 }
 
-function get_fate(id, data, prefix = null, linked = null)
+function get_fate(id, data, prefix = null, range = null)
 {
 	if(data[0].length + data[1].length + data[2].length + data[3].length == 0)
 		return null;
-	if((linked === true && (data[4] == null || !data[4].startsWith(prefix))) || (linked === false && data[4] != null))
+	if((prefix == "none" && data[4] != null) || (prefix != null && prefix != "none" && (data[4] == null || !data[4].startsWith(prefix))))
 		return null;
+	if(range != null)
+	{
+		const iid = parseInt(id);
+		if(iid < range[0] || iid >= range[1])
+			return null;
+	}
 	if(data[4] != null) 
 	{
 		let ret = null;
