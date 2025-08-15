@@ -3,7 +3,8 @@
 var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
 var beep_enabled = true;
 
-async function fetchJSON(url) { // generic function to request a JSON file.
+async function fetchJSON(url) // generic function to request a JSON file.
+{
 	try
 	{
 		const response = await fetch(url);
@@ -179,4 +180,15 @@ function capitalize(string)
 	if(string.length == 0)
 		return string;
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// add lazy loading to all images found in the element children
+function add_lazy_to_images(node)
+{
+	// finds all descendant elements
+	const images = node.querySelectorAll('img');
+
+	images.forEach(img => {
+		img.loading = 'lazy';
+	});
 }

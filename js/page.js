@@ -205,6 +205,7 @@ function update_bookmark() // update bookmark list
 	{
 		var fragment = document.createDocumentFragment();
 		list_elements(fragment, bookmarks, bookmark_onclick);
+		add_lazy_to_images(fragment); // set images to lazy loading
 
 		fragment.appendChild(document.createElement("br"));
 		
@@ -353,6 +354,7 @@ function update_history(id = null, type = null) // update the history list
 		}
 		var fragment = document.createDocumentFragment();
 		list_elements(fragment, search_history.slice().reverse(), history_onclick);
+		add_lazy_to_images(fragment); // set images to lazy loading
 		fragment.appendChild(document.createElement("br"));
 		
 		
