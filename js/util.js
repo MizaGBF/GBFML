@@ -182,6 +182,16 @@ function capitalize(string)
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// interrupt on-going image downloads by clearing src tag
+function interrupt_image_downloads(node)
+{
+	for(let img of node.getElementsByTagName("img"))
+	{
+		img.src = "";
+		img.removeAttribute("src");
+	}
+}
+
 // add lazy loading to all images found in the element children
 function add_lazy_to_images(node)
 {

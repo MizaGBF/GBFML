@@ -177,7 +177,7 @@ class Search
 		// key for local storage access
 		this.m_key = storage_key;
 		// typing delay
-		this.m_debounce_delay = 100;
+		this.m_debounce_delay = 200;
 		// typing timeout storage
 		this.m_search_timeout = null;
 		// search chain start
@@ -586,15 +586,11 @@ class Search
 				// add list
 				const fragment = document.createDocumentFragment();
 				list_elements(fragment, this.m_last_filtereds, index_onclick);
+				interrupt_image_downloads(this.m_search_area.children[2]);
 				// update next frame
 				let _search_ = this;
 				update_next_frame(function() {
-					for(let img of _search_.m_search_area.children[2].getElementsByTagName("img"))
-					{
-						// interrupt on-going downloads
-						img.src = "";
-						img.removeAttribute("src");
-					}
+					
 					_search_.m_search_area.children[3].innerHTML = "";
 					_search_.m_search_area.children[3].appendChild(fragment);
 				});
