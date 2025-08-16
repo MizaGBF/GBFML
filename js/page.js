@@ -10,12 +10,36 @@ function clock() // update the "last updated" clock
 	let now = new Date();
 	let elapsed = (now - (new Date(timestamp))) / 1000;
 	let msg = "";
-	if(elapsed < 120) msg = Math.trunc(elapsed) + " seconds ago.";
-	else if(elapsed < 7200) msg = Math.trunc(elapsed / 60) + " minutes ago.";
-	else if(elapsed < 172800) msg = Math.trunc(elapsed / 3600) + " hours ago.";
-	else if(elapsed < 5270400) msg = Math.trunc(elapsed / 86400) + " days ago.";
-	else if(elapsed < 63115200) msg = Math.trunc(elapsed / 2635200) + " months ago.";
-	else msg = Math.trunc(elapsed / 31557600) + " years ago.";
+	if(elapsed < 120)
+	{
+		msg = Math.trunc(elapsed) + " seconds ago.";
+		setTimeout(clock, 1000);
+	}
+	else if(elapsed < 7200)
+	{
+		msg = Math.trunc(elapsed / 60) + " minutes ago.";
+		setTimeout(clock, (60 - elapsed % 60) * 1000);
+	}
+	else if(elapsed < 172800)
+	{
+		msg = Math.trunc(elapsed / 3600) + " hours ago.";
+		setTimeout(clock, (3600 - elapsed % 3600) * 1000);
+	}
+	else if(elapsed < 5270400)
+	{
+		msg = Math.trunc(elapsed / 86400) + " days ago.";
+		setTimeout(clock, (86400 - elapsed % 86400) * 1000);
+	}
+	else if(elapsed < 63115200)
+	{
+		msg = Math.trunc(elapsed / 2635200) + " months ago.";
+		setTimeout(clock, (2635200 - elapsed % 2635200) * 1000);
+	}
+	else
+	{
+		msg = Math.trunc(elapsed / 31557600) + " years ago.";
+		setTimeout(clock, (31557600 - elapsed % 31557600) * 1000);
+	}
 	document.getElementById('timestamp').textContent = "Last update: " + msg;
 }
 
