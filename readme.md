@@ -60,6 +60,7 @@ Here's a list of some of them:
 Some variables might require to be defined to be used for some features:  
 - `timestamp` (Integer), for `clock()`.  
 - `index` (Object), ideally in the [GBF Asset Lookup](https://github.com/MizaGBF/GBFAL) format, for most of the project.  
+- `updated_key` (String), the localStorage key to handle the glow on the "tab-new" button.  
 - `bookmark_key` (String), the localStorage key to save the bookmarks.  
 - `history_key` (String), the localStorage key to save the history.  
 - `search_save_key` (String), the localStorage key to save the search settings.  

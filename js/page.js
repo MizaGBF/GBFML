@@ -2,6 +2,7 @@
 
 var bookmarks = []; // bookmark storage
 var search_history = []; // history storage
+var last_new = null; // store most recent info in updated/new tab
 var help_form = null;
 const HISTORY_LENGTH = 100;
 
@@ -57,7 +58,14 @@ function open_tab(name) // reset and then select a tab
 {
 	reset_tabs();
 	document.getElementById(name).style.display = "";
-	document.getElementById("tab-"+name).classList.toggle("active", true);
+	let tab = document.getElementById("tab-"+name);
+	tab.classList.toggle("active", true);
+	// remove updated button glow if clicked and updated storage
+	if(last_new != null && name == "new")
+	{
+		tab.classList.toggle("button-has-update", false);
+		set_last_updated_seen();
+	}
 }
 
 function crash() // setup the notice
@@ -99,13 +107,14 @@ function help_wanted() // setup the help wanted notice
 
 function init_lists(changelog, callback)
 {
-	let node = document.getElementById('new');
 	if(gbf)
 	{
 		try
 		{
+			let node = document.getElementById('new');
 			if(node && changelog.new)
 			{
+				init_last_updated_seen(changelog.new);
 				let fragment = document.createDocumentFragment();
 				for(const [key, value] of Object.entries(changelog.new))
 				{
@@ -126,6 +135,50 @@ function init_lists(changelog, callback)
 		}
 	}
 	else crash();
+}
+
+// load last seen content from storage, add glow around tab button if outdated, and set last_new key
+function init_last_updated_seen(new_elements)
+{
+	let node = document.getElementById('tab-new');
+	if(node != null && typeof updated_key != "undefined")
+	{
+		try
+		{
+			let content = localStorage.getItem(updated_key);
+			let check = (content == null) ? ["", -1] : JSON.parse(content);
+			for(const [key, value] of Object.entries(new_elements))
+			{
+				if(key != check[0] || value.length != check[1])
+				{
+					node.classList.toggle("button-has-update", true);
+				}
+				last_new = [key, value.length];
+				break;
+			}
+		} catch(err) {
+			node.classList.toggle("button-has-update", true);
+			if(last_new == null) // set last_new anyway
+			{
+				for(const [key, value] of Object.entries(new_elements))
+				{
+					last_new = [key, value.length];
+					break;
+				}
+			}
+			console.error("Exception thrown", err.stack);
+		}
+	}
+}
+
+// set updated_key content when tab is pressed
+function set_last_updated_seen()
+{
+	if(last_new != null && typeof updated_key != "undefined")
+	{
+		localStorage.setItem(updated_key, JSON.stringify(last_new));
+		last_new = null; // clear this so it's not set every time the user presses it
+	}
 }
 
 function toggle_bookmark(id = null, type = null)
