@@ -991,8 +991,6 @@ img {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	padding-left: 2px;
-	padding-right: 2px;
 }
 
 .scene:active, .sound-only:active {
