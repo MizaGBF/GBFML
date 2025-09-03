@@ -315,7 +315,6 @@ class GBF
 	
 	lookup_word_is_part_of_name(word)
 	{
-		// word.match(/^[a-z0-9]+$/i) == null || 
 		return !(["human", "harvin", "erune", "draph", "primal", "unknown", "male", "female", "other", "summer", "yukata", "valentine", "halloween", "holiday", "12generals", "grand", "fantasy", "collab", "eternals", "evokers", "4saints", "tie-in", "formal", "voiced", "voice-only"].includes(word) || word.endsWith("-boss"));
 	}
 	
