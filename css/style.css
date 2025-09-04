@@ -308,8 +308,11 @@ details[open] > .detail {
 	text-align: start;
 }
 
-.tab-button.active {
+.tab-button:active {
 	animation: animation-button-press 0.1s;
+}
+
+.tab-button.active {
 	outline: solid #007acc;
 }
 
