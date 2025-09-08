@@ -71,7 +71,7 @@ class AudioBasePlayer
 		this.volume_slider.max = "100";
 		this.volume_slider.value = "100";
 		this.volume_slider.onmouseup = this.set_audio_volume.bind(this);
-		this.volume_slider.ontouchend = this.set_audio_volume.bind(this);
+		this.volume_slider.addEventListener("touchend", (event) => { this.set_audio_volume(); });
 		
 		// category select
 		let track_select_container = add_to(this.container, "div", {
