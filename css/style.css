@@ -46,6 +46,18 @@
 	}
 }
 
+@keyframes animation-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 /* css */
 html { 
 	background: #252526;
@@ -1092,12 +1104,14 @@ img {
 	font-size: 20px;
 	color: white;
 	margin: 5px;
+	animation: animation-rotation 2s linear infinite;
 }
 
 .audio-player-button-paused {
 	/* red color */
 	background:url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%271.0%27%20encoding%3D%27utf-8%27%3F%3E%3C%21DOCTYPE%20svg%20PUBLIC%20%27-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%27%20%27http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%27%3E%3Csvg%20fill%3D%22%23000000%22%20height%3D%22800px%22%20width%3D%22800px%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20enable-background%3D%22new%200%200%20512%20512%22%3E%3Cg%3E%3Cg%3E%3Cpath%20d%3D%22m392.5%2C239.1l-187.6-130.6c-10-7.4-30.6-3.7-32.1%2C16.8v261.2c1.1%2C24.2%2024.7%2C22.8%2032.1%2C16.8l187.6-130.6c6.7-4.1%2016.2-20%200-33.6zm-178.8%2C108.3v-183l131.4%2C91.5-131.4%2C91.5z%22%20fill%3D%22red%22%2F%3E%3Cpath%20d%3D%22M256%2C11C120.9%2C11%2C11%2C120.9%2C11%2C256s109.9%2C245%2C245%2C245s245-109.9%2C245-245S391.1%2C11%2C256%2C11z%20M256%2C460.2%20c-112.6%2C0-204.2-91.6-204.2-204.2S143.4%2C51.8%2C256%2C51.8S460.2%2C143.4%2C460.2%2C256S368.6%2C460.2%2C256%2C460.2z%22%20fill%3D%22red%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E") no-repeat;
 	background-size: 100% 100%;
+	animation: none;
 }
 
 .audio-player-button:hover {
@@ -1110,6 +1124,7 @@ img {
 	/* grey color */
 	background:url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%271.0%27%20encoding%3D%27utf-8%27%3F%3E%3C%21DOCTYPE%20svg%20PUBLIC%20%27-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%27%20%27http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%27%3E%3Csvg%20fill%3D%22%23000000%22%20height%3D%22800px%22%20width%3D%22800px%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20enable-background%3D%22new%200%200%20512%20512%22%3E%3Cg%3E%3Cg%3E%3Cpath%20d%3D%22m392.5%2C239.1l-187.6-130.6c-10-7.4-30.6-3.7-32.1%2C16.8v261.2c1.1%2C24.2%2024.7%2C22.8%2032.1%2C16.8l187.6-130.6c6.7-4.1%2016.2-20%200-33.6zm-178.8%2C108.3v-183l131.4%2C91.5-131.4%2C91.5z%22%20fill%3D%22grey%22%2F%3E%3Cpath%20d%3D%22M256%2C11C120.9%2C11%2C11%2C120.9%2C11%2C256s109.9%2C245%2C245%2C245s245-109.9%2C245-245S391.1%2C11%2C256%2C11z%20M256%2C460.2%20c-112.6%2C0-204.2-91.6-204.2-204.2S143.4%2C51.8%2C256%2C51.8S460.2%2C143.4%2C460.2%2C256S368.6%2C460.2%2C256%2C460.2z%22%20fill%3D%22grey%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E") no-repeat;
 	background-size: 100% 100%;
+	animation: none;
 }
 
 .audio-inner-container {

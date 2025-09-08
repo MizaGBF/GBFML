@@ -395,8 +395,8 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		super(node, tracks);
 		// extensions
 		this.jukebox_data = jukebox;
-        this.continuous_play = true;
-		this.loop = true;
+		this.playlist = [];
+		this.playlist_index = [];
 
         // for continuous play
         this.player.addEventListener('ended', this.on_track_ended.bind(this));
@@ -409,35 +409,45 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.jacket_image = add_to(extra_container, "img", {
 			cls: ["audio-jacket"]
 		});
+		this.jacket_image.setAttribute('loading', 'lazy');
 
-        // Loop and Continuous Play buttons
-		let buttons_container = add_to(null, "div", {
+        // mode select
+		extra_container = add_to(null, "div", {
 			cls:["audio-inner-container"]
 		});
-		this.container.lastChild.before(buttons_container);
-		this.loop_button = add_to(buttons_container, "button", {
-			cls:["audio-button", "audio-button-enabled"],
-			innertext:"Loop",
-			onclick:this.toggle_loop.bind(this)
+		this.container.lastChild.before(extra_container);
+		let label = add_to(extra_container, "label", {cls:["audio-label"]});
+		label.htmlFor = "audio-mode";
+		label.innerText = "Mode";
+		this.mode = add_to(extra_container, "select", {
+			cls:["audio-select"],
+			id:"audio-mode"
 		});
-		this.continuous_play_button = add_to(buttons_container, "button", {
-			cls:["audio-button", "audio-button-enabled"],
-			innertext:"Continuous Play",
-			onclick:this.toggle_continuous_play.bind(this)
-		});
+		let set_default = false;
+		for(const mode_option of ["Play Current Track", "Play All Tracks", "Loop Current Track", "Loop All Tracks", "Shuffle"])
+		{
+			let option = add_to(this.mode, "option");
+			option.value = mode_option;
+			option.innerText = mode_option;
+			if(!set_default)
+			{
+				set_default = true;
+				option.selected = true;
+			}
+		}
 		// spacer
 		add_to(this.container, "br");
         
         // Links
-		buttons_container = add_to(this.container, "div", {
+		extra_container = add_to(this.container, "div", {
 			cls:["audio-inner-container"]
 		});
-		add_to(buttons_container, "button", {
+		add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png"> ITunes',
 			onclick:this.open_itunes.bind(this)
 		});
-		add_to(buttons_container, "button", {
+		add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/youtube-music.png"> Youtube Music',
 			onclick:this.open_youtube_music.bind(this)
@@ -445,32 +455,60 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		
 		this.update_audio_tracks();
 	}
-    
-    toggle_loop()
-	{
-		this.loop = !this.loop;
-		this.loop_button.classList.toggle("audio-button-enabled", this.loop);
-		this.player.loop = !this.continuous_play && this.loop;
-	}
-
-	toggle_continuous_play()
-	{
-		this.continuous_play = !this.continuous_play;
-		this.continuous_play_button.classList.toggle("audio-button-enabled", this.continuous_play);
-		this.player.loop = !this.continuous_play && this.loop;
-	}
 
     on_track_ended()
     {
-        if(this.continuous_play)
-        {
-			if(this.track.selectedIndex == this.track.options.length - 1 && !this.loop)
-				return;
-            let next_index = (this.track.selectedIndex + 1) % this.track.options.length;
-            this.track.selectedIndex = next_index;
-            this.set_and_play_audio();
-        }
+		let next_index = (this.playlist_index + 1) % this.playlist.length;
+		switch(this.mode.value)
+		{
+			// all tracks
+			case "Play All Tracks":
+			{
+				this.set_playlist_track(next_index, next_index != 0);
+				break;
+			}
+			case "Loop All Tracks":
+			{
+				this.set_playlist_track(next_index, true);
+				break;
+			}
+			case "Shuffle":
+			{
+				if(next_index == 0)
+				{
+					this.category.selectedIndex = Math.floor(Math.random() * jukebox.category.options.length);
+					this.update_audio_tracks();
+					this.set_and_play_audio();
+				}
+				else
+				{
+					this.set_playlist_track(next_index, true);
+				}
+				break;
+			}
+			// single track
+			case "Loop Current Track":
+			{
+				this.set_playlist_track(this.playlist_index, true);
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
     }
+	
+	set_playlist_track(track_index, state)
+	{
+		this.playlist_index = track_index;
+		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.playlist[this.playlist_index] + ".mp3";
+		this.player.currentTime = 0;
+		this.playing.innerText = "Playing: " + this.format_sound_suffix(this.playlist[this.playlist_index]);
+		if(state) this.player.play();
+		this.play_button.disabled = !state;
+		this.play_button.classList.toggle("audio-player-button-paused", !state);
+	}
 
     update_audio_tracks()
     {
@@ -499,6 +537,12 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		}
 		this.play_button.disabled = false;
 		this.play_button.classList.toggle("audio-player-button-paused", false);
+		this.playlist = [];
+		for(const opt of this.track.options)
+		{
+			this.playlist.push(opt.value);
+		}
+		this.playlist_index = this.track.selectedIndex;
 	}
 
 	open_audio()
