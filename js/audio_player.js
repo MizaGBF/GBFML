@@ -36,6 +36,7 @@ class AudioBasePlayer
 			innertext:"00:00"
 		});
 		// seek slider
+		this.update_seek = true;
 		this.seek_slider = add_to(this.custom_player, "input", {
 			cls:["audio-player-slider"]
 		});
@@ -43,8 +44,10 @@ class AudioBasePlayer
 		this.seek_slider.min = "0";
 		this.seek_slider.max = "100";
 		this.seek_slider.value = "0";
+		this.seek_slider.onmousedown = this.disable_update_seek.bind(this);
+		this.seek_slider.addEventListener("touchstart", (event) => { this.disable_update_seek(); });
 		this.seek_slider.onmouseup = this.set_audio_current_time.bind(this);
-		this.seek_slider.ontouchend = this.set_audio_current_time.bind(this);
+		this.seek_slider.addEventListener("touchend", (event) => { this.set_audio_current_time(); });
 		// audio duration
 		this.duration = add_to(this.custom_player, "span", {
 			cls:["audio-player-value"],
@@ -145,9 +148,15 @@ class AudioBasePlayer
 			}
 		}
 	}
+	
+	disable_update_seek()
+	{
+		this.update_seek = false;
+	}
 
 	set_audio_current_time()
 	{
+		this.update_seek = true;
 		this.player.currentTime = parseInt(this.seek_slider.value) / 1000.0;
 		this.seek_time.innerText = this.format_duration(this.player.currentTime);
 	}
@@ -180,7 +189,8 @@ class AudioBasePlayer
 	update_audio_time()
 	{
 		this.seek_time.innerText = this.format_duration(this.player.currentTime);
-		this.seek_slider.value = "" + this.player.currentTime * 1000;
+		if(this.update_seek)
+			this.seek_slider.value = "" + this.player.currentTime * 1000;
 		if(this.player.currentTime >= this.player.duration)
 			this.play_button.classList.toggle("audio-player-button-paused", true);
 	}
