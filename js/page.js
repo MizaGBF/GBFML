@@ -1136,7 +1136,7 @@ function get_event(id, data, idfilter = null, unusedB = null)
 			path = "../GBFML/assets/ui/event.png";
 			className = "preview-noborder";
 		}
-		else if(["rise_of_the_beasts", "vyrnsampo"].includes(index["events"][id][1]))
+		else if(isNaN(parseInt(index["events"][id][1])))
 		{
 			path = "../GBFML/assets/ui/" + index["events"][id][1] + ".png";
 			className = "preview";
