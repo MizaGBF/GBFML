@@ -1356,62 +1356,62 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 	{
 		case "characters":
 		{
-			name = "Character " + id;
+			name = "Character " + gbf.get_prefix(GBFType.character) + id;
 			break;
 		}
 		case "skins":
 		{
-			name = "Skin " + id;
+			name = "Skin " + gbf.get_prefix(GBFType.character) + id;
 			break;
 		}
 		case "partners":
 		{
-			name = "Partner " + id;
+			name = "Partner " + gbf.get_prefix(GBFType.partner) + id;
 			break;
 		}
 		case "summons":
 		{
-			name = "Summon " + id;
+			name = "Summon " + gbf.get_prefix(GBFType.summon) + id;
 			break;
 		}
 		case "weapons":
 		{
-			name = "Weapon " + id;
+			name = "Weapon " + gbf.get_prefix(GBFType.weapon) + id;
 			break;
 		}
 		case "npcs":
 		{
-			name = "NPC " + id;
+			name = "NPC " + gbf.get_prefix(GBFType.npc) + id;
 			break;
 		}
 		case "enemies":
 		{
-			name = "Enemy " + id;
+			name = "Enemy " + gbf.get_prefix(GBFType.enemy) + id;
 			break;
 		}
 		case "job":
 		{
-			name = "Main Character " + id;
+			name = "Main Character " + gbf.get_prefix(GBFType.job) + id;
 			break;
 		}
 		case "shields":
 		{
-			name = "Shield " + id;
+			name = "Shield " + gbf.get_prefix(GBFType.shield) + id;
 			break;
 		}
 		case "manaturas":
 		{
-			name = "Manatura " + id;
+			name = "Manatura " + gbf.get_prefix(GBFType.manatura) + id;
 			break;
 		}
 		case "fate":
 		{
-			name = "Fate Episode " + id;
+			name = "Fate Episode " + gbf.get_prefix(GBFType.fate) + id;
 			break;
 		}
 		case "events":
 		{
-			name = "Event " + id;
+			name = "Event " + gbf.get_prefix(GBFType.event) + id;
 			if(!isNaN(id))
 				name += " (" + id.substring(0, 2) + "/" + id.substring(2, 4) + "/" + id.substring(4, 6) + ")";
 			break;
@@ -1420,25 +1420,25 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 		{
 			if(!isNaN(id) && parseInt(id) == 0)
 			{
-				name = "Main Story Prologue";
+				name = "Main Story Prologue (" + gbf.get_prefix(GBFType.story) + "000)";
 			}
 			else
 			{
 				let recap = gbf.msq_recap_lookup(id);
 				name = (recap != null) ?
-					("Main Story " + recap) :
-					("Main Story Chapter " + id);
+					("Main Story " + recap + " (" + gbf.get_prefix(GBFType.story) + id + ")") :
+					("Main Story Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story) + id + ")");
 			}
 			break;
 		}
 		case "skills":
 		{
-			name = "Skill " + id;
+			name = "Skill " + gbf.get_prefix(GBFType.skill) + id;
 			break;
 		}
 		case "buffs":
 		{
-			name = "Buff " + id;
+			name = "Buff " + gbf.get_prefix(GBFType.buff) + id;
 			break;
 		}
 		default:
