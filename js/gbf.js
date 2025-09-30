@@ -206,6 +206,7 @@ class GBF
 			case "r07": return "Recap 90-100";
 			case "r08": return "Recap 101-114";
 			case "r09": return "Recap 115-132";
+			case "r10": return "Recap 133-155";
 			default: return null;
 		};
 	}
