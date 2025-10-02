@@ -853,7 +853,7 @@ function get_character(id, data, range, unused = null)
 			switch(u)
 			{
 				case 3: case 4: case 5: case 6:
-					if(u > uncap || (uncap_string.length == 3 && f.length == 13))
+					if(u > uncap || (uncap_string.length == 3 && f.length >= 13))
 					{
 						uncap = u;
 						uncap_string = f.slice(10);
@@ -871,6 +871,12 @@ function get_character(id, data, range, unused = null)
 			if(uncap_string.includes("_f"))
 			{
 				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.split("_f")[0]+".jpg";
+				this.onerror=function(){this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
+			}
+			else if(uncap_string.endsWith("_01"))
+			{
+				console.log("hi");
+				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.replace("_01", "")+".jpg";
 				this.onerror=function(){this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
 			}
 			else
