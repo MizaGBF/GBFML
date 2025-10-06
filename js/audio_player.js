@@ -588,7 +588,6 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 	
 	update_links()
 	{
-		console.log(this.jukebox_data[this.category.value]);
 		if(this.category.value in this.jukebox_data)
 		{
 			if(this.jukebox_data[this.category.value].link.ios_link.startsWith("https://itunes"))
