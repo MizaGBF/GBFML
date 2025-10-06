@@ -70,8 +70,9 @@ class AudioBasePlayer
 		this.volume_slider.min = "0";
 		this.volume_slider.max = "100";
 		this.volume_slider.value = "100";
-		this.volume_slider.onmouseup = this.set_audio_volume.bind(this);
-		this.volume_slider.addEventListener("touchend", (event) => { this.set_audio_volume(); });
+		this.volume_slider.addEventListener("input", (event) => { this.set_audio_volume(); });
+		this.volume_slider.onmouseup = this.confirm_audio_volume.bind(this);
+		this.volume_slider.addEventListener("touchend", (event) => { this.confirm_audio_volume(); });
 		
 		// category select
 		let track_select_container = add_to(this.container, "div", {
@@ -84,17 +85,15 @@ class AudioBasePlayer
 			cls:["audio-select"],
 			id:"audio-category"
 		});
-		let set_default = false;
 		for(const category of Object.keys(this.list))
 		{
 			let option = add_to(this.category, "option");
 			option.value = category;
 			option.innerText = category;
-			if(!set_default)
-			{
-				set_default = true;
-				option.selected = true;
-			}
+		}
+		if(this.category.options.length > 0) // set default
+		{
+			this.category.selectedIndex = 0;
 		}
 		this.category.onchange = () => {
 			this.update_audio_tracks();
@@ -167,6 +166,11 @@ class AudioBasePlayer
 		this.player.volume = parseInt(this.volume_slider.value) / 100.0;
 	}
 
+	confirm_audio_volume()
+	{
+		this.set_audio_volume();
+	}
+
 	format_duration(d)
 	{
 		if(isNaN(d))
@@ -207,17 +211,20 @@ class AudioBasePlayer
 
 	update_audio_tracks()
 	{
-		let set_default = false;
-		this.track.innerHTML = "";
-		for(const track of this.list[this.category.value])
+		if(this.category.value in this.list)
 		{
-			let option = add_to(this.track, "option");
-			option.value = track;
-			option.innerText = this.format_sound_suffix(track);
-			if(!set_default)
+			let set_default = false;
+			this.track.innerHTML = "";
+			for(const track of this.list[this.category.value])
 			{
-				set_default = true;
-				option.selected = true;
+				let option = add_to(this.track, "option");
+				option.value = track;
+				option.innerText = this.format_sound_suffix(track);
+				if(!set_default)
+				{
+					set_default = true;
+					option.selected = true;
+				}
 			}
 		}
 	}
@@ -376,6 +383,14 @@ class AudioVoicePlayer extends AudioBasePlayer
 
 class AudioJukeboxPlayer extends AudioBasePlayer
 {
+	static c_playmode = Object.freeze([
+		"Play Current Track",
+		"Play Current Category",
+		"Loop Current Track",
+		"Loop Current Category",
+		"Shuffle Categories"
+	]);
+	
 	constructor(node, jukebox_data)
 	{
 		let tracks = {};
@@ -408,6 +423,9 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.jukebox_data = jukebox;
 		this.playlist = [];
 		this.playlist_index = [];
+		this.playlist_name = "";
+		// change default header message
+		this.playing.innerHTML = "Please Select a track,<br>then Set & Play";
 
 		// for continuous play
 		this.player.addEventListener('ended', this.on_track_ended.bind(this));
@@ -435,7 +453,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			id:"audio-mode"
 		});
 		let set_default = false;
-		for(const mode_option of ["Play Current Track", "Play All Tracks", "Loop Current Track", "Loop All Tracks", "Shuffle"])
+		for(const mode_option of AudioJukeboxPlayer.c_playmode)
 		{
 			let option = add_to(this.mode, "option");
 			option.value = mode_option;
@@ -489,23 +507,21 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		switch(this.mode.value)
 		{
 			// all tracks
-			case "Play All Tracks":
+			case "Play Current Category":
 			{
 				this.set_playlist_track(next_index, next_index != 0);
 				break;
 			}
-			case "Loop All Tracks":
+			case "Loop Current Category":
 			{
 				this.set_playlist_track(next_index, true);
 				break;
 			}
-			case "Shuffle":
+			case "Shuffle Categories":
 			{
 				if(next_index == 0)
 				{
-					this.category.selectedIndex = Math.floor(Math.random() * jukebox.category.options.length);
-					this.update_audio_tracks();
-					this.set_and_play_audio();
+					this.shuffle_playlist();
 				}
 				else
 				{
@@ -521,27 +537,44 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			}
 			default:
 			{
+				console.error("Unknown Jukebox play mode: " + this.mode.value);
+				// no break
+			}
+			case "Play Current Track":
+			{
+				this.set_playlist_track(this.playlist_index, true);
 				break;
 			}
 		}
 	}
 	
+	shuffle_playlist()
+	{
+		let categories = Object.keys(this.list);
+		let pick;
+		do {
+			pick = Math.floor(Math.random() * categories.length);
+		} while(this.playlist_name == categories[pick]); // make sure we don't select the same
+		this.playlist_name = categories[pick];
+		this.playlist = this.list[categories[pick]];
+		this.set_playlist_track(0, true);
+	}
+	
 	set_playlist_track(track_index, state)
 	{
 		this.playlist_index = track_index;
-		this.track.value = this.playlist[this.playlist_index];
-		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3";
+		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.playlist[this.playlist_index] + ".mp3";
 		this.player.currentTime = 0;
-		this.playing.innerText = "Playing: " + this.format_sound_suffix(this.track.value);
+		this.playing.innerHTML = "Category: " + this.playlist_name + "<br>Track: " + this.format_sound_suffix(this.playlist[this.playlist_index]);
 		if(state) this.player.play();
 		this.play_button.disabled = !state;
 		this.play_button.classList.toggle("audio-player-button-paused", !state);
 		this.save_settings();
 	}
 	
-	set_audio_volume()
+	confirm_audio_volume()
 	{
-		super.set_audio_volume();
+		this.set_audio_volume();
 		this.save_settings();
 	}
 
@@ -569,7 +602,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		{
 			this.player.src = src;
 			this.player.play();
-			this.playing.innerText = "Playing: " + this.format_sound_suffix(this.track.value);
+			this.playing.innerHTML = "Category: " + this.category.value + "<br>Track: " + this.format_sound_suffix(this.track.value);
 		}
 		this.play_button.disabled = false;
 		this.play_button.classList.toggle("audio-player-button-paused", false);
@@ -579,6 +612,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			this.playlist.push(opt.value);
 		}
 		this.playlist_index = this.track.selectedIndex;
+		this.playlist_name = this.category.value;
 		this.save_settings();
 	}
 
@@ -671,8 +705,10 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			{
 				const json = JSON.parse(data);
 				this.volume_slider.value = json.volume;
-				this.volume.innerText = json.volume + "%"
-				this.mode.value = json.mode;
+				this.set_audio_volume();
+				// check valid mode
+				if(AudioJukeboxPlayer.c_playmode.includes(json.mode))
+					this.mode.value = json.mode;
 				this.category.value = json.category;
 				this.update_audio_tracks();
 				this.track.value = json.track;
@@ -689,8 +725,8 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			localStorage.setItem("gbfml_jukebox_settings", JSON.stringify({
 				volume: this.volume_slider.value,
 				mode: this.mode.value,
-				category: this.category.value,
-				track: this.track.value
+				category: this.playlist_name,
+				track: this.playlist[this.playlist_index]
 			}));
 		} catch(err) {
 			console.error("Exception occured in AudioJukeboxPlayer.save_settings", err);
