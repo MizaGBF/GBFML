@@ -2430,7 +2430,10 @@
                         },
                         "8": {
                             "part_index": "8",
-                            "file": "159_ultimate_bahamut_07"
+                            "file": "159_ultimate_bahamut_07",
+                            "use": {
+                                "1": true
+                            }
                         },
                         "9": {
                             "part_index": "9",
@@ -2458,7 +2461,10 @@
                             "is_list_last": true
                         }
                     },
-                    "is_group_last": true
+                    "is_group_last": true,
+                    "use": {
+                        "1": true
+                    }
                 }
             }
         },
@@ -4415,10 +4421,7 @@
                         },
                         "4": {
                             "part_index": "4",
-                            "file": "312_pride_juke_04",
-                            "use": {
-                                "2": true
-                            }
+                            "file": "312_pride_juke_04"
                         },
                         "5": {
                             "part_index": "5",
@@ -4432,10 +4435,7 @@
                     },
                     "is_group_first": true,
                     "is_group_last": true,
-                    "is_group_single": true,
-                    "use": {
-                        "2": true
-                    }
+                    "is_group_single": true
                 }
             }
         },
@@ -5486,11 +5486,99 @@
                     "is_group_single": true
                 }
             }
+        },
+        "43": {
+            "title": "Promise by Moonlight",
+            "jacket_image": "jacket_43.png",
+            "link_text": "[AD] Character Song Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/anxmusic.lnk.to\/lMnRJv",
+                "android_link": "https:\/\/anxmusic.lnk.to\/lMnRJv",
+                "pc_link": "https:\/\/anxmusic.lnk.to\/lMnRJv"
+            },
+            "list": {
+                "149": {
+                    "title": "Promise by Moonlight",
+                    "bgm_index": "149",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "345_promise_juke_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "345_promise_juke_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "345_promise_juke_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "345_promise_juke_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "345_promise_juke_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "345_promise_juke_06",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_first": true,
+                    "is_group_last": true,
+                    "is_group_single": true
+                }
+            }
+        },
+        "44": {
+            "title": "Eternal Desire",
+            "jacket_image": "jacket_44.png",
+            "link_text": "[AD] Character Song Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/anxmusic.lnk.to\/MhlX12",
+                "android_link": "https:\/\/anxmusic.lnk.to\/MhlX12",
+                "pc_link": "https:\/\/anxmusic.lnk.to\/MhlX12"
+            },
+            "list": {
+                "150": {
+                    "title": "Eternal Desire",
+                    "bgm_index": "150",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "346_eternal_desire_juke_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "346_eternal_desire_juke_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "346_eternal_desire_juke_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "346_eternal_desire_juke_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "346_eternal_desire_juke_05",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_first": true,
+                    "is_group_last": true,
+                    "is_group_single": true
+                }
+            }
         }
     },
     "bgm_changed": true,
-    "group_id": 23,
-    "type": 2
+    "group_id": 5,
+    "type": 1
 },
 {
     "bgm": {
