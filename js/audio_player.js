@@ -452,15 +452,31 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		extra_container = add_to(this.container, "div", {
 			cls:["audio-inner-container"]
 		});
-		add_to(extra_container, "button", {
+		this.links = {};
+		this.links.itunes = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png"> ITunes',
-			onclick:this.open_itunes.bind(this)
+			onclick:this.open_ios.bind(this)
 		});
-		add_to(extra_container, "button", {
+		this.links.apple = add_to(extra_container, "button", {
+			cls:["audio-button"],
+			innerhtml:'<img src="../GBFML/assets/ui/icon/apple-music.png"> Apple Music',
+			onclick:this.open_ios.bind(this)
+		});
+		this.links.yt = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/youtube-music.png"> Youtube Music',
-			onclick:this.open_youtube_music.bind(this)
+			onclick:this.open_android.bind(this)
+		});
+		this.links.ios = add_to(extra_container, "button", {
+			cls:["audio-button"],
+			innerhtml:'<img src="../GBFML/assets/ui/icon/ios.png"> IOS Link',
+			onclick:this.open_ios.bind(this)
+		});
+		this.links.android = add_to(extra_container, "button", {
+			cls:["audio-button"],
+			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png"> Android Link',
+			onclick:this.open_android.bind(this)
 		});
 		
 		this.update_audio_tracks();
@@ -528,6 +544,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
             // Update jacket image
             this.jacket_image.src = "https://prd-game-a1-granbluefantasy.akamaized.net/assets_en/img/sp/jukebox/jacket/" + this.jukebox_data[this.category.value].jacket;
         }
+		this.update_links();
     }
 	
 	set_and_play_audio()
@@ -569,19 +586,62 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		return s.replaceAll("_", " ");
 	}
 	
-	open_itunes()
+	update_links()
+	{
+		console.log(this.jukebox_data[this.category.value]);
+		if(this.category.value in this.jukebox_data)
+		{
+			if(this.jukebox_data[this.category.value].link.ios_link.startsWith("https://itunes"))
+			{
+				this.links.itunes.style.display = "";
+				this.links.apple.style.display = "none";
+				this.links.ios.style.display = "none";
+			}
+			else if(this.jukebox_data[this.category.value].link.ios_link.startsWith("https://music.apple"))
+			{
+				this.links.itunes.style.display = "none";
+				this.links.apple.style.display = "";
+				this.links.ios.style.display = "none";
+			}
+			else
+			{
+				this.links.itunes.style.display = "none";
+				this.links.apple.style.display = "none";
+				this.links.ios.style.display = "";
+			}
+			if(this.jukebox_data[this.category.value].link.android_link.startsWith("https://music.youtube"))
+			{
+				this.links.yt.style.display = "";
+				this.links.android.style.display = "none";
+			}
+			else
+			{
+				this.links.yt.style.display = "none";
+				this.links.android.style.display = "";
+			}
+		}
+		else
+		{
+			this.links.itunes.style.display = "none";
+			this.links.yt.style.display = "none";
+			this.links.ios.style.display = "none";
+			this.links.android.style.display = "none";
+		}
+	}
+	
+	open_ios()
 	{
 		if(this.category.value in this.jukebox_data)
 		{
 			let a = document.createElement("a");
-			a.setAttribute('href', this.jukebox_data[this.category.value].link.pc_link);
+			a.setAttribute('href', this.jukebox_data[this.category.value].link.ios_link);
 			a.target = "_blank";
 			a.rel = "noopener noreferrer";
 			a.click();
 		}
 	}
 	
-	open_youtube_music()
+	open_android()
 	{
 		if(this.category.value in this.jukebox_data)
 		{
