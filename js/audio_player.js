@@ -404,12 +404,13 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		);
 		super(node, tracks);
 		// extensions
+		this.jukebox_settings = {};
 		this.jukebox_data = jukebox;
 		this.playlist = [];
 		this.playlist_index = [];
 
-        // for continuous play
-        this.player.addEventListener('ended', this.on_track_ended.bind(this));
+		// for continuous play
+		this.player.addEventListener('ended', this.on_track_ended.bind(this));
 
 		// album jacket
 		let extra_container = add_to(null, "div", {
@@ -421,7 +422,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		});
 		this.jacket_image.setAttribute('loading', 'lazy');
 
-        // mode select
+		// mode select
 		extra_container = add_to(null, "div", {
 			cls:["audio-inner-container"]
 		});
@@ -447,8 +448,8 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		}
 		// spacer
 		add_to(this.container, "br");
-        
-        // Links
+		
+		// Links
 		extra_container = add_to(this.container, "div", {
 			cls:["audio-inner-container"]
 		});
@@ -478,12 +479,12 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png"> Android Link',
 			onclick:this.open_android.bind(this)
 		});
-		
 		this.update_audio_tracks();
+		this.load_settings();
 	}
 
-    on_track_ended()
-    {
+	on_track_ended()
+	{
 		let next_index = (this.playlist_index + 1) % this.playlist.length;
 		switch(this.mode.value)
 		{
@@ -523,29 +524,37 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 				break;
 			}
 		}
-    }
+	}
 	
 	set_playlist_track(track_index, state)
 	{
 		this.playlist_index = track_index;
-		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.playlist[this.playlist_index] + ".mp3";
+		this.track.value = this.playlist[this.playlist_index];
+		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3";
 		this.player.currentTime = 0;
-		this.playing.innerText = "Playing: " + this.format_sound_suffix(this.playlist[this.playlist_index]);
+		this.playing.innerText = "Playing: " + this.format_sound_suffix(this.track.value);
 		if(state) this.player.play();
 		this.play_button.disabled = !state;
 		this.play_button.classList.toggle("audio-player-button-paused", !state);
+		this.save_settings();
+	}
+	
+	set_audio_volume()
+	{
+		super.set_audio_volume();
+		this.save_settings();
 	}
 
-    update_audio_tracks()
-    {
-        super.update_audio_tracks();
-        if(this.category.value in this.jukebox_data)
+	update_audio_tracks()
+	{
+		super.update_audio_tracks();
+		if(this.category.value in this.jukebox_data)
 		{
-            // Update jacket image
-            this.jacket_image.src = "https://prd-game-a1-granbluefantasy.akamaized.net/assets_en/img/sp/jukebox/jacket/" + this.jukebox_data[this.category.value].jacket;
-        }
+			// Update jacket image
+			this.jacket_image.src = "https://prd-game-a1-granbluefantasy.akamaized.net/assets_en/img/sp/jukebox/jacket/" + this.jukebox_data[this.category.value].jacket;
+		}
 		this.update_links();
-    }
+	}
 	
 	set_and_play_audio()
 	{
@@ -570,6 +579,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			this.playlist.push(opt.value);
 		}
 		this.playlist_index = this.track.selectedIndex;
+		this.save_settings();
 	}
 
 	open_audio()
@@ -649,6 +659,41 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 			a.target = "_blank";
 			a.rel = "noopener noreferrer";
 			a.click();
+		}
+	}
+	
+	load_settings()
+	{
+		try
+		{
+			const data = localStorage.getItem("gbfml_jukebox_settings");
+			if(data != null)
+			{
+				const json = JSON.parse(data);
+				this.volume_slider.value = json.volume;
+				this.volume.innerText = json.volume + "%"
+				this.mode.value = json.mode;
+				this.category.value = json.category;
+				this.update_audio_tracks();
+				this.track.value = json.track;
+			}
+		} catch(err) {
+			console.error("Exception occured in AudioJukeboxPlayer.load_settings", err);
+		}
+	}
+	
+	save_settings()
+	{
+		try
+		{
+			localStorage.setItem("gbfml_jukebox_settings", JSON.stringify({
+				volume: this.volume_slider.value,
+				mode: this.mode.value,
+				category: this.category.value,
+				track: this.track.value
+			}));
+		} catch(err) {
+			console.error("Exception occured in AudioJukeboxPlayer.save_settings", err);
 		}
 	}
 }
