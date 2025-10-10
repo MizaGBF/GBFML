@@ -1752,6 +1752,12 @@ function add_lookup(node, id)
 				case "special":
 					i.classList.add("tag-type4");
 					break;
+				case "gbf-versus-rising":
+					i.classList.add("tag-rising");
+					break;
+				case "gbf-relink":
+					i.classList.add("tag-relink");
+					break;
 				default:
 					break;
 			}

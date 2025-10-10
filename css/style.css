@@ -637,6 +637,16 @@ details[open] > .detail {
 	color: #000000;
 }
 
+.tag-rising {
+	background-color: #1b2be0;
+	color: #ffffff;
+}
+
+.tag-relink {
+	background-color: #ffffff;
+	color: #000000;
+}
+
 .clickable {
   cursor: pointer;
 }
