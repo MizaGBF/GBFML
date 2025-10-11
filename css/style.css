@@ -71,9 +71,11 @@ body {
 	color: white;
 }
 
-a:link {
+a:link, .click-link {
 	color: #00ffff;
 	font-size: 1em;
+	cursor: pointer;
+    text-decoration: underline;
 }
 
 a:visited {
@@ -81,12 +83,12 @@ a:visited {
 	font-size: 1em;
 }
 
-a:hover {
+a:hover, .click-link:hover {
 	color: #ffaaaa;
 	font-size: 1em;
 }
 
-a:active {
+a:active, .click-link:active {
 	color: #ff0000;
 	font-size: 1em;
 }

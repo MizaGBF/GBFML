@@ -1597,18 +1597,26 @@ function add_lookup(node, id)
 			if(t == prev)
 				continue; // avoid repetitions
 			prev = t;
-			let i = add_to(block, "i", {
-				cls: ["tag", "clickable"],
-				onclick: function() {
-					let f = document.getElementById('filter');
-					f.value = f.value.trim();
-					if(f.value == "")
-						f.value = t;
-					else
-						f.value = f.value.trim() + " " + t;
-					f.dispatchEvent(new Event("input"));
-				}
-			});
+			let i;
+			if(typeof search != "undefined" && search != null && search.m_search_bar != null)
+			{
+				i = add_to(block, "i", {
+					cls: ["tag", "clickable"],
+					onclick: function() {
+						search.m_search_bar.value = search.m_search_bar.value.trim();
+						if(search.m_search_bar.value.value == "")
+							search.m_search_bar.value = t;
+						else
+							search.m_search_bar.value = search.m_search_bar.value + " " + t;
+						search.update();
+						search.m_search_bar.scrollIntoView();
+					}
+				});
+			}
+			else
+			{
+				i = add_to(block, "i", {cls: ["tag"]});
+			}
 			switch(t)
 			{
 				case "ssr":
