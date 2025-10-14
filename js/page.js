@@ -1007,8 +1007,29 @@ function get_manatura(id, data, unusedA = null, unusedB = null)
 	return [{id:id, path:path, onerr:default_onerror, class:"", link:false}];
 }
 
-function get_job(id, data, unusedA = null, unusedB = null)
+function get_job(id, data, type_filter = null, unusedB = null)
 {
+	if(type_filter != null)
+	{
+		const s2 = id.slice(0,2);
+		const s3 = id.slice(0,3);
+		if(type_filter) // classes
+		{
+			if(
+				["31","32","33","34","35","36","37","38","39","40"].includes(s2) ||
+				["125","165","185"].includes(s3)
+			)
+				return null;
+		}
+		else // outfits
+		{
+			if(
+				!["31","32","33","34","35","36","37","38","39"].includes(s2) &&
+				!["125","165","185"].includes(s3)
+			)
+				return null;
+		}
+	}
 	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/leader/m/" + id + "_01.jpg", onerr:default_onerror, class:"", link:false}];
 }
 
@@ -1073,13 +1094,30 @@ function get_valentine(id, data = null, unusedA = null, unusedB = null)
 	}
 }
 
-function get_story(id, data, unusedA = null, unusedB = null)
+function get_story(id, data, type_filter = null, unusedB = null)
 {
 	if(data[0].length == 0)
 		return null;
-	let recap = gbf.msq_recap_lookup(id);
-	if(recap != null)
-		return [{id:id, modifier:"scene", text:recap}];
+	if(type_filter != "")
+	{
+		if(id.startsWith("r")) // recap
+		{
+			if(type_filter != "recap")
+				return null;
+		}
+		else if(id.startsWith("c")) // compilation
+		{
+			if(type_filter != "compilation")
+				return null;
+		}
+		else if(type_filter != "chapter") // normal chapter
+		{
+			return null;
+		}
+	}
+	const title = gbf.msq_lookup(id);
+	if(title != null)
+		return [{id:id, modifier:"scene", text:title}];
 	else
 		return [{id:id, modifier:"scene", text:"Chapter " + parseInt(id)}];
 }
@@ -1424,17 +1462,10 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 		}
 		case "story":
 		{
-			if(!isNaN(id) && parseInt(id) == 0)
-			{
-				name = "Main Story Prologue (" + gbf.get_prefix(GBFType.story) + "000)";
-			}
-			else
-			{
-				let recap = gbf.msq_recap_lookup(id);
-				name = (recap != null) ?
-					("Main Story " + recap + " (" + gbf.get_prefix(GBFType.story) + id + ")") :
-					("Main Story Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story) + id + ")");
-			}
+			const title = gbf.msq_lookup(id);
+			name = (title != null) ?
+				("Main Story " + title + " (" + gbf.get_prefix(GBFType.story) + id + ")") :
+				("Main Story Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story) + id + ")");
 			break;
 		}
 		case "skills":

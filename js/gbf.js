@@ -192,11 +192,10 @@ class GBF
 		return id.startsWith("371");
 	}
 	
-	msq_recap_lookup(id)
+	msq_lookup(id)
 	{
 		switch(id)
 		{
-			case "r00": return "Recap";
 			case "r01": return "Recap 1-12";
 			case "r02": return "Recap 13-28";
 			case "r03": return "Recap 29-54";
@@ -207,7 +206,16 @@ class GBF
 			case "r08": return "Recap 101-114";
 			case "r09": return "Recap 115-132";
 			case "r10": return "Recap 133-155";
-			default: return null;
+			case "000": return "Prologue";
+			default:
+			{
+				if(id.startsWith('r'))
+					return "Recap";
+				else if(id.startsWith('c'))
+					return "Compilation";
+				else
+					return null;
+			}
 		};
 	}
 	
