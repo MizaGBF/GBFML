@@ -653,7 +653,7 @@ details[open] > .detail {
   cursor: pointer;
 }
 
-#filter {
+#filter, .styled-input {
 	background: #91a0b8b0;
 	border-color: #000000;
 	color: #000000;
@@ -665,11 +665,11 @@ details[open] > .detail {
 	margin: 10px;
 }
 
-#filter:hover {
+#filter:hover, .styled-input:hover {
 	background: #ffffff;
 }
 
-#filter::placeholder {
+#filter::placeholder, .styled-input::placeholder {
 	color: #111111;
 	opacity: 0.6;
 }
@@ -1215,7 +1215,7 @@ img {
 			max-height: 150px;
 		}
 		
-		#filter {
+		#filter, .styled-input {
 			width: calc(80% - 30px);
 			max-width: 500px;
 		}
