@@ -334,6 +334,10 @@ details[open] > .detail {
 	outline: solid #ffffff;
 }
 
+.tab-button:disabled, .std-button:disabled, .btn-load:disabled {
+	outline: none;
+}
+
 .tab-button-icon {
 	width: 60px;
 	vertical-align: middle;
