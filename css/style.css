@@ -673,6 +673,10 @@ details[open] > .detail {
 	background: #ffffff;
 }
 
+#filter:disabled, .styled-input:disabled {
+	background: #5c6066;
+}
+
 #filter::placeholder, .styled-input::placeholder {
 	color: #111111;
 	opacity: 0.6;
