@@ -774,13 +774,17 @@ function list_elements(node, elems, onclick)
 						break;
 					}
 					case GBFType.story:
+					{
 						res = get_story(id, (id in index['story']) ? index['story'][id] : null);
 						callback = add_text_image;
 						break;
+					}
 					case GBFType.fate:
+					{
 						res = get_fate(id, (id in index['fate']) ? index['fate'][id] : null);
 						callback = add_fate_image;
 						break;
+					}
 					case "subskills":
 					{
 						res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
@@ -1108,16 +1112,12 @@ function get_story(id, data, type_filter = null, unusedB = null)
 {
 	if(data[0].length == 0)
 		return null;
-	if(type_filter != "")
+	console.log(id, data, type_filter);
+	if(type_filter != null)
 	{
 		if(id.startsWith("r")) // recap
 		{
 			if(type_filter != "recap")
-				return null;
-		}
-		else if(id.startsWith("c")) // compilation
-		{
-			if(type_filter != "compilation")
 				return null;
 		}
 		else if(type_filter != "chapter") // normal chapter
