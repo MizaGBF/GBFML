@@ -679,125 +679,135 @@ function init_index(config, changelog, callback) // build the html index. simply
 // populate a node with elements
 function list_elements(node, elems, onclick)
 {
-	for(const [id, type] of elems)
+	for(const elem of elems)
 	{
+		const id = elem[0];
+		const type = elem[1];
+		const spoiler = elem.length > 2 ? elem[2] : false;
 		try
 		{
 			let res = null;
 			let callback = add_index_image;
-			switch(type)
+			if(spoiler)
 			{
-				case GBFType.character:
+				res = [{id:id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false}];
+			}
+			else
+			{
+				switch(type)
 				{
-					if(gbf.is_character_skin(id))
+					case GBFType.character:
 					{
-						res = get_skin(id, (id in index['skins']) ? index['skins'][id] : null, [0, 1000]);
+						if(gbf.is_character_skin(id))
+						{
+							res = get_skin(id, (id in index['skins']) ? index['skins'][id] : null, [0, 1000]);
+						}
+						else
+						{
+							res = get_character(id, (id in index['characters']) ? index['characters'][id] : null, [0, 1000, 0, 1000, 0, 1000]);
+						}
+						break;
 					}
-					else
+					case GBFType.summon:
 					{
-						res = get_character(id, (id in index['characters']) ? index['characters'][id] : null, [0, 1000, 0, 1000, 0, 1000]);
+						res = get_summon(id, (id in index['summons']) ? index['summons'][id] : null, id[2], [0, 1000]);
+						break;
 					}
-					break;
-				}
-				case GBFType.summon:
-				{
-					res = get_summon(id, (id in index['summons']) ? index['summons'][id] : null, id[2], [0, 1000]);
-					break;
-				}
-				case GBFType.weapon:
-				{
-					res = get_weapon(id, (id in index['weapons']) ? index['weapons'][id] : null, id[2], id[4]);
-					break;
-				}
-				case GBFType.shield:
-				{
-					res = get_shield(id, (id in index['shields']) ? index['shields'][id] : null, id[0]);
-					break;
-				}
-				case GBFType.manatura:
-				{
-					res = get_manatura(id, (id in index['manaturas']) ? index['manaturas'][id] : null, id[0]);
-					break;
-				}
-				case GBFType.job:
-				{
-					res = get_job(id, (id in index['job']) ? index['job'][id] : null);
-					break;
-				}
-				case GBFType.enemy:
-				{
-					res = get_enemy(id, (id in index['enemies']) ? index['enemies'][id] : null, id[0], id[1]);
-					break;
-				}
-				case GBFType.npc:
-				{
-					res = get_npc(id, (id in index['npcs']) ? index['npcs'][id] : null, id.slice(1, 3), [0, 10000]);
-					callback = add_npc_image;
-					break;
-				}
-				case GBFType.partner:
-				{
-					res = get_partner(id, (id in index['partners']) ? index['partners'][id] : null, id.slice(1, 3));
-					break;
-				}
-				case GBFType.event:
-				{
-					res = get_event(id, (id in index['events']) ? index['events'][id] : null);
-					break;
-				}
-				case GBFType.skill:
-				{
-					res = get_skill(id, (id in index['skills']) ? index['skills'][id] : null, [0, 10000]);
-					break;
-				}
-				case GBFType.buff:
-				{
-					res = get_buff(id, (id in index['buffs']) ? index['buffs'][id] : null, [0, 10000]);
-					break;
-				}
-				case GBFType.background:
-				{
-					if(id in index['background'])
+					case GBFType.weapon:
 					{
-						let tmp = id.split('_')[0];
-						res = get_background(id, index['background'][id], (["common", "main", "event"].includes(tmp) ? tmp : ""));
+						res = get_weapon(id, (id in index['weapons']) ? index['weapons'][id] : null, id[2], id[4]);
+						break;
 					}
-					break;
-				}
-				case GBFType.story:
-					res = get_story(id, (id in index['story']) ? index['story'][id] : null);
-					callback = add_text_image;
-					break;
-				case GBFType.fate:
-					res = get_fate(id, (id in index['fate']) ? index['fate'][id] : null);
-					callback = add_fate_image;
-					break;
-				case "subskills":
-				{
-					res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
-					break;
-				}
-				case "title":
-				{
-					res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
-					break;
-				}
-				case "sky_title":
-				{
-					res = get_sky_title(id.split(':')[1], index['title'][id.split(':')[1]]);
-					break;
-				}
-				case "suptix":
-				{
-					res = get_suptix(id.split(':')[1], index['suptix'][id.split(':')[1]]);
-					break;
-				}
-				case "mypage_bg":
-				{
-					res = get_mypage_bg(id.split(':')[1], index['mypage_bg'][id.split(':')[1]]);
-					break;
-				}
-			};
+					case GBFType.shield:
+					{
+						res = get_shield(id, (id in index['shields']) ? index['shields'][id] : null, id[0]);
+						break;
+					}
+					case GBFType.manatura:
+					{
+						res = get_manatura(id, (id in index['manaturas']) ? index['manaturas'][id] : null, id[0]);
+						break;
+					}
+					case GBFType.job:
+					{
+						res = get_job(id, (id in index['job']) ? index['job'][id] : null);
+						break;
+					}
+					case GBFType.enemy:
+					{
+						res = get_enemy(id, (id in index['enemies']) ? index['enemies'][id] : null, id[0], id[1]);
+						break;
+					}
+					case GBFType.npc:
+					{
+						res = get_npc(id, (id in index['npcs']) ? index['npcs'][id] : null, id.slice(1, 3), [0, 10000]);
+						callback = add_npc_image;
+						break;
+					}
+					case GBFType.partner:
+					{
+						res = get_partner(id, (id in index['partners']) ? index['partners'][id] : null, id.slice(1, 3));
+						break;
+					}
+					case GBFType.event:
+					{
+						res = get_event(id, (id in index['events']) ? index['events'][id] : null);
+						break;
+					}
+					case GBFType.skill:
+					{
+						res = get_skill(id, (id in index['skills']) ? index['skills'][id] : null, [0, 10000]);
+						break;
+					}
+					case GBFType.buff:
+					{
+						res = get_buff(id, (id in index['buffs']) ? index['buffs'][id] : null, [0, 10000]);
+						break;
+					}
+					case GBFType.background:
+					{
+						if(id in index['background'])
+						{
+							let tmp = id.split('_')[0];
+							res = get_background(id, index['background'][id], (["common", "main", "event"].includes(tmp) ? tmp : ""));
+						}
+						break;
+					}
+					case GBFType.story:
+						res = get_story(id, (id in index['story']) ? index['story'][id] : null);
+						callback = add_text_image;
+						break;
+					case GBFType.fate:
+						res = get_fate(id, (id in index['fate']) ? index['fate'][id] : null);
+						callback = add_fate_image;
+						break;
+					case "subskills":
+					{
+						res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
+						break;
+					}
+					case "title":
+					{
+						res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+						break;
+					}
+					case "sky_title":
+					{
+						res = get_sky_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+						break;
+					}
+					case "suptix":
+					{
+						res = get_suptix(id.split(':')[1], index['suptix'][id.split(':')[1]]);
+						break;
+					}
+					case "mypage_bg":
+					{
+						res = get_mypage_bg(id.split(':')[1], index['mypage_bg'][id.split(':')[1]]);
+						break;
+					}
+				};
+			}
 			if(res != null)
 			{
 				for(let r of res)
