@@ -1112,12 +1112,16 @@ function get_story(id, data, type_filter = null, unusedB = null)
 {
 	if(data[0].length == 0)
 		return null;
-	console.log(id, data, type_filter);
 	if(type_filter != null)
 	{
 		if(id.startsWith("r")) // recap
 		{
 			if(type_filter != "recap")
+				return null;
+		}
+		else if(id.startsWith("c")) // compilation
+		{
+			if(type_filter != "compilation")
 				return null;
 		}
 		else if(type_filter != "chapter") // normal chapter

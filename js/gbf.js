@@ -176,7 +176,7 @@ class GBF
 			case GBFType.fate:
 				return (string.length == 4 && !isNaN(string));
 			case GBFType.story:
-				return (string.length == 3 && (!isNaN(string) || (string.startsWith("r") && !isNaN(string.substring(1)))));
+				return (string.length == 3 && (!isNaN(string) || ((string.startsWith("r") || string.startsWith("c")) && !isNaN(string.substring(1)))));
 			default:
 				return false;
 		}
@@ -206,13 +206,14 @@ class GBF
 			case "r08": return "Recap 101-114";
 			case "r09": return "Recap 115-132";
 			case "r10": return "Recap 133-155";
+			case "191": return "Ending I";
 			case "000": return "Prologue";
 			default:
 			{
 				if(id.startsWith('r'))
 					return "Recap";
 				else if(id.startsWith('c'))
-					return "Compilation";
+					return "Compilation " + parseInt(id.slice(1));
 				else
 					return null;
 			}
