@@ -325,7 +325,7 @@ class GBF
 	
 	lookup_word_is_part_of_name(word)
 	{
-		return !(["human", "harvin", "erune", "draph", "primal", "unknown", "male", "female", "other", "summer", "yukata", "valentine", "halloween", "holiday", "12generals", "grand", "fantasy", "collab", "eternals", "evokers", "4saints", "tie-in", "formal", "voiced", "voice-only"].includes(word) || word.endsWith("-boss"));
+		return !(["human", "harvin", "erune", "draph", "primal", "unknown", "male", "female", "other", "summer", "yukata", "valentine", "halloween", "holiday", "12generals", "grand", "fantasy", "collab", "eternals", "evokers", "4saints", "tie-in", "formal", "voiced", "voice-only", "gbf-versus-rising", "gbf-relink"].includes(word) || word.endsWith("-boss"));
 	}
 	
 	lookup_word_is_japanese(word)
@@ -345,8 +345,7 @@ class GBF
 			}
 			else if(words[0].startsWith("@@"))
 			{
-				return words[0].substring(2);
-				
+				return words[0].substring(2).toLowerCase().replaceAll("_", " ").split("(")[0];
 			}
 			while(i < words.length)
 			{
