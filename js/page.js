@@ -6,6 +6,76 @@ var last_new = null; // store most recent info in updated/new tab
 var help_form = null;
 const HISTORY_LENGTH = 100;
 
+// access indexes (ported from GBFAL updater.py)
+// override if needed
+var DataIdx = Object.freeze({
+	// chara/skin/partner update
+	CHARA_SPRITE: 0,
+	CHARA_PHIT: 1,
+	CHARA_SP: 2,
+	CHARA_AB_ALL: 3,
+	CHARA_AB: 4,
+	CHARA_GENERAL: 5,
+	CHARA_SD: 6,
+	CHARA_SCENE: 7,
+	CHARA_SOUND: 8,
+	CHARA_MYPAGE: 9,
+	// npc update
+	NPC_JOURNAL: 0,
+	NPC_SCENE: 1,
+	NPC_SOUND: 2,
+	// MC update
+	JOB_ID: 0,
+	JOB_ALT: 1,
+	JOB_DETAIL: 2,
+	JOB_DETAIL_ALT: 3,
+	JOB_DETAIL_ALL: 4,
+	JOB_SD: 5,
+	JOB_MH: 6,
+	JOB_SPRITE: 7,
+	JOB_PHIT: 8,
+	JOB_SP: 9,
+	JOB_AB_ALL: 10,
+	JOB_AB: 11,
+	JOB_UNLOCK: 12,
+	JOB_MYPAGE: 13,
+	// summon update
+	SUM_GENERAL: 0,
+	SUM_CALL: 1,
+	SUM_DAMAGE: 2,
+	SUM_MYPAGE: 3,
+	// weapon update
+	WEAP_GENERAL: 0,
+	WEAP_PHIT: 1,
+	WEAP_SP: 2,
+	// enemy update
+	BOSS_GENERAL: 0,
+	BOSS_SPRITE: 1,
+	BOSS_APPEAR: 2,
+	BOSS_HIT: 3,
+	BOSS_SP: 4,
+	BOSS_SP_ALL: 5,
+	// event update
+	EVENT_CHAPTER_COUNT: 0,
+	EVENT_THUMB: 1,
+	EVENT_OP: 2,
+	EVENT_ED: 3,
+	EVENT_INT: 4,
+	EVENT_CHAPTER_START: 5,
+	EVENT_MAX_CHAPTER: 20,
+	EVENT_SKY: 5+20,
+	EVENT_UPDATE_COUNT: 20,
+	// story update
+	STORY_CONTENT: 0,
+	STORY_UPDATE_COUNT: 10,
+	// fate update
+	FATE_CONTENT: 0,
+	FATE_UNCAP_CONTENT: 1,
+	FATE_TRANSCENDENCE_CONTENT: 2,
+	FATE_OTHER_CONTENT: 3,
+	FATE_LINK: 4
+});
+
 function clock() // update the "last updated" clock
 {
 	let now = new Date();
@@ -860,7 +930,7 @@ function get_character(id, data, range, unused = null)
 	let uncap_string = "_01";
 	if(data)
 	{
-		for(const f of data[5])
+		for(const f of data[DataIdx.CHARA_GENERAL])
 		{
 			if(f.includes("_st")) continue;
 			const u = parseInt(f.slice(11, 13));
@@ -916,7 +986,7 @@ function get_skin(id, data, range, unused = null)
 	let uncap = "_01";
 	if(data)
 	{
-		for(const f of data[6])
+		for(const f of data[DataIdx.CHARA_SD])
 			if(!f.includes("st") && f[11] != 8 && f.slice(11, 13) != "02" && (f[11] != 9 || (f[11] == 9 && !(["_03", "_04", "_05"].includes(uncap))))) uncap = f.slice(10);
 	}
 	let onerr = default_onerror;
@@ -939,19 +1009,19 @@ function get_partner(id, data, prefix, unused = null)
 		this.src = gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
 	};
 	let path = null;
-	if(data && data[5].length > 0)
+	if(data && data[DataIdx.CHARA_GENERAL].length > 0)
 	{
 		let onerr;
-		if(data[5].length > 1)
+		if(data[DataIdx.CHARA_GENERAL].length > 1)
 		{
 			onerr = function() { // failsafe
 				this.onerror = function() {
 					this.src =  gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
 				};
-				this.src =  gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/" + data[5][1] + ".jpg";
+				this.src =  gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/" + data[DataIdx.CHARA_GENERAL][1] + ".jpg";
 			};
 		}
-		path =  "GBF/assets_en/img_low/sp/assets/npc/raid_normal/" + data[5][0] + ".jpg";
+		path =  "GBF/assets_en/img_low/sp/assets/npc/raid_normal/" + data[DataIdx.CHARA_GENERAL][0] + ".jpg";
 	}
 	else
 	{
@@ -970,7 +1040,7 @@ function get_summon(id, data, rarity, range)
 	let uncap = "";
 	if(data)
 	{
-		for(const f of data[0])
+		for(const f of data[DataIdx.SUM_GENERAL])
 			if(f.includes("_")) uncap = f.slice(10);
 	}
 	let onerr = default_onerror;
@@ -992,7 +1062,7 @@ function get_weapon(id, data, rarity, proficiency)
 	let uncap = "";
 	if(data)
 	{
-		for(const f of data[0])
+		for(const f of data[DataIdx.WEAP_GENERAL])
 			if(f.includes("_")) uncap = f.slice(10);
 	}
 	let onerr = default_onerror;
@@ -1051,7 +1121,7 @@ function get_enemy(id, data, type, size)
 {
 	if(id[0] != type || id[1] != size)
 		return null;
-	let className = (data && data[2].length > 0) ? "preview vs" : "preview";
+	let className = (data && data[DataIdx.BOSS_APPEAR].length > 0) ? "preview vs" : "preview";
 	return [{id:id, path:"GBF/assets_en/img/sp/assets/enemy/s/" + id + ".png", onerr:function() {
 		this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/enemy/m/"+id+".png";
 		this.onerror=default_onerror;
@@ -1069,13 +1139,13 @@ function get_npc(id, data, prefix, range)
 	let className = "";
 	if(data)
 	{
-		if(data[0])
+		if(data[DataIdx.NPC_JOURNAL])
 		{
 			path = "GBF/assets_en/img_low/sp/assets/npc/m/" + id + "_01.jpg";
 		}
-		else if(data[1].length > 0)
+		else if(data[DataIdx.NPC_SCENE].length > 0)
 		{
-			path = "GBF/assets_en/img_low/sp/quest/scene/character/body/" + id + data[1][0] + ".png";
+			path = "GBF/assets_en/img_low/sp/quest/scene/character/body/" + id + data[DataIdx.NPC_SCENE][0] + ".png";
 			className = "preview";
 		}
 		else // sound-only
@@ -1110,7 +1180,7 @@ function get_valentine(id, data = null, unusedA = null, unusedB = null)
 
 function get_story(id, data, type_filter = null, unusedB = null)
 {
-	if(data[0].length == 0)
+	if(data[DataIdx.STORY_CONTENT].length == 0)
 		return null;
 	if(type_filter != null)
 	{
@@ -1138,9 +1208,9 @@ function get_story(id, data, type_filter = null, unusedB = null)
 
 function get_fate(id, data, prefix = null, range = null)
 {
-	if(data[0].length + data[1].length + data[2].length + data[3].length == 0)
+	if(data[DataIdx.FATE_CONTENT].length + data[DataIdx.FATE_UNCAP_CONTENT].length + data[DataIdx.FATE_TRANSCENDENCE_CONTENT].length + data[DataIdx.FATE_OTHER_CONTENT].length == 0)
 		return null;
-	if((prefix == "none" && data[4] != null) || (prefix != null && prefix != "none" && (data[4] == null || !data[4].startsWith(prefix))))
+	if((prefix == "none" && data[DataIdx.FATE_LINK] != null) || (prefix != null && prefix != "none" && (data[DataIdx.FATE_LINK] == null || !data[DataIdx.FATE_LINK].startsWith(prefix))))
 		return null;
 	if(range != null)
 	{
@@ -1148,13 +1218,13 @@ function get_fate(id, data, prefix = null, range = null)
 		if(iid < range[0] || iid >= range[1])
 			return null;
 	}
-	if(data[4] != null) 
+	if(data[DataIdx.FATE_LINK] != null) 
 	{
 		let ret = null;
-		if(data[4].startsWith("30") && "characters" in index && data[4] in index["characters"])
-			ret = get_character(data[4], index["characters"][data[4]], [0, 9999]);
-		else if(data[4].startsWith("20") && "summons" in index && data[4] in index["summons"])
-			ret = get_summon(data[4], index["summons"][data[4]], data[4][2], [0, 9999]);
+		if(data[DataIdx.FATE_LINK].startsWith("30") && "characters" in index && data[DataIdx.FATE_LINK] in index["characters"])
+			ret = get_character(data[DataIdx.FATE_LINK], index["characters"][data[DataIdx.FATE_LINK]], [0, 9999]);
+		else if(data[DataIdx.FATE_LINK].startsWith("20") && "summons" in index && data[DataIdx.FATE_LINK] in index["summons"])
+			ret = get_summon(data[DataIdx.FATE_LINK], index["summons"][data[DataIdx.FATE_LINK]], data[DataIdx.FATE_LINK][2], [0, 9999]);
 		if(ret != null)
 		{
 			ret[0].path = ret[0].path.replace("GBF/", gbf.id_to_endpoint(ret[0].id)); // update url here
@@ -1202,7 +1272,7 @@ function get_event(id, data, idfilter = null, unusedB = null)
 		else
 		{
 			path = "GBF/assets_en/img_low/sp/archive/assets/island_m2/" + index["events"][id][1] + ".png";
-			className = (data[data.length-1].length > 0 ? "preview sky-event":"preview");
+			className = (data[DataIdx.EVENT_SKY].length > 0 ? "preview sky-event":"preview");
 		}
 		return [{id:id, path:path, onerr:null, class:className, link:false}];
 	}
