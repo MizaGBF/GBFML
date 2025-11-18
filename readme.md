@@ -68,3 +68,26 @@ Some variables might require to be defined to be used for some features:
 - `bookmark_key` (String), the localStorage key to save the bookmarks.  
 - `history_key` (String), the localStorage key to save the history.  
 - `search_save_key` (String), the localStorage key to save the search settings.  
+  
+## Lookup  
+  
+The text lookup is found in the `data.json` of the [GBF Asset Lookup](https://github.com/MizaGBF/GBFAL) and [GBF Animation Player](https://github.com/MizaGBF/GBFAP) pages and must be set in `index.lookup`.  
+It's an Object, whose keys correspond to element IDs and the values to string describing the element, in **lower case**.  
+The format is:  
+```console
+@@[Wiki_path] [Element] [Rarity] [Relation] [Name] [Series] [Races] [Gender] [Name JP] [Voice Actor] [Voice Actor JP] [Additional Tags]
+```  
+  
+- `@@[Wiki_path]` indicates this element has a wiki page. Example: [@@Bahamut](https://gbf.wiki/Bahamut).  
+- `[Element]` can be either `fire`, `water`, `earth`, `wind`, `light`, `dark`, `null`.  
+- `[Rarity]` can be either `n`, `r`, `sr`, `ssr`.  
+- `[Relation]` is the element relation to another. Example: `Narmaya's mother`.  
+- `[Name]` is the element name in english.  
+- `[Series]` is the element series, such as `summer`, `yukata`, `collab`, etc...  
+- `[Races]` are the element races, such as `human`, `erune`, etc... Other is set to `unknown`, to not confuse with the other gender.  
+- `[Gender]` is the element gender, either `male`, `female` or `other`.  
+- `[Name JP]` is the element name in japanese.  
+- `[Voice Actor]` is the element Voice Actor's name in english.  
+- `[Voice Actor JP]` is the element Voice Actor's name in japanese.  
+- `[Additional Tags]` are special tags used for search purpose. There are currently: `missing-help-wanted` (for elements with invalid or without lookup entries), `voiced` (for elements with voice files), `voice-only` (for elements with only voice files), `young` (for younger appearances of elements), `gbf-versus-rising` (for elements appearing Versus Rising) and `gbf-relink` (for elements appearing Relink).  
+  

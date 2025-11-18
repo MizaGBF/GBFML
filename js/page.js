@@ -1909,6 +1909,7 @@ function add_related(node, id, target)
 		id:"container-header-element-related"
 	});
 	block.appendChild(document.createTextNode("Related"));
+	let exclude = [id];
 	switch(target)
 	{
 		case "partners":
@@ -1917,7 +1918,11 @@ function add_related(node, id, target)
 			if("characters" in index && cid in index["characters"])
 			{
 				block.appendChild(document.createElement("br"));
-				list_elements(block, [[cid, GBFType.character]], index_onclick);has_been_added = true;
+				list_elements(block, [[cid, GBFType.character]], index_onclick);
+				has_been_added = true;
+				// invert to use character related elements
+				id = cid;
+				exclude = [id];
 			}
 			break;
 		}
@@ -1950,6 +1955,7 @@ function add_related(node, id, target)
 					block.appendChild(document.createElement("br"));
 				list_elements(block, [[index["premium"][id], GBFType.weapon]], index_onclick);
 				has_been_added = true;
+				exclude.push(index["premium"][id]);
 			}
 			break;
 		}
@@ -1972,6 +1978,7 @@ function add_related(node, id, target)
 				block.appendChild(document.createElement("br"));
 				list_elements(block, [[index["premium"][id], GBFType.character]], index_onclick);
 				has_been_added = true;
+				exclude.push(index["premium"][id]);
 			}
 		}
 		case "fate":
@@ -1986,6 +1993,9 @@ function add_related(node, id, target)
 						block.appendChild(document.createElement("br"));
 						list_elements(block, [[target_id, GBFType.character]], index_onclick);
 						has_been_added = true;
+						// invert to use character related elements
+						id = target_id;
+						exclude = [id];
 						break;
 					}
 					case "20":
@@ -1993,12 +2003,27 @@ function add_related(node, id, target)
 						block.appendChild(document.createElement("br"));
 						list_elements(block, [[target_id, GBFType.summon]], index_onclick);
 						has_been_added = true;
+						// invert to use character related elements
+						id = target_id;
+						exclude = [id];
 						break;
 					}
 				}
 			}
 		}
 	}
+	// add other related elements
+	if(typeof search != "undefined")
+	{
+		const l = search.related_elements(id, exclude);
+		if(l.length > 0)
+		{
+			block.appendChild(document.createElement("br"));
+			list_elements(block, l, index_onclick);
+			has_been_added = true;
+		}
+	}
+	
 	if(has_been_added)
 	{
 		node.appendChild(block);

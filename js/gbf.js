@@ -345,13 +345,13 @@ class GBF
 			}
 			else if(words[0].startsWith("@@"))
 			{
-				return words[0].substring(2).toLowerCase().replaceAll("_", " ").split("(")[0];
+				return words[0].substring(2).replaceAll("_", " ").split("(")[0].trim();
 			}
 			while(i < words.length)
 			{
 				if(i == 0)
 				{
-					if(words[i].startsWith("@@") || ["sabre", "spear", "dagger", "axe", "gun", "bow", "melee", "harp", "katana", "staff", "fire", "water", "earth", "wind", "light", "dark", "r", "sr", "ssr"].includes(words[i]))
+					if(words[i].startsWith("@@") || ["sabre", "spear", "dagger", "axe", "gun", "bow", "melee", "harp", "katana", "staff", "fire", "water", "earth", "wind", "light", "dark", "r", "sr", "ssr", "cut-content"].includes(words[i]))
 					{
 						words.shift();
 					}
@@ -383,8 +383,21 @@ class GBF
 					++i
 				}
 			}
-			return words.join(" ");
+			if(words.length == 0)
+				return id;
+			else
+				return words.join(" ").trim();
 		}
 		else return id;
+	}
+	
+	get_npc_name_relation(name)
+	{
+		const parts = name.split("'s ");
+		if(parts.length == 2 && ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar"].includes(parts[1].split(" ")[0].toLowerCase()))
+		{
+			return parts[0];
+		}
+		return name;
 	}
 };

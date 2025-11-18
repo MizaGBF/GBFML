@@ -158,6 +158,29 @@ class Search
 		{
 			throw new Error("Can't initialize search, no lookup in the index.");
 		}
+		// build related lookup
+		this.m_related_lookup = {};
+		if(gbf && (index.lookup ?? null) != null)
+		{
+			for(const id of Object.keys(index.lookup))
+			{
+				let name = gbf.get_lookup_name(id);
+				if(name != id)
+				{
+					if(id.startsWith("399"))
+						name = gbf.get_npc_name_relation(name);
+					if(name in this.m_related_lookup)
+						this.m_related_lookup[name].push(id);
+					else
+						this.m_related_lookup[name] = [id];
+				}
+			}
+			for(const [k, v] of Object.entries(this.m_related_lookup))
+			{
+				if(v.length <= 1)
+					delete this.m_related_lookup[k];
+			}
+		}
 		// search bar node
 		this.m_search_bar = search_bar_node;
 		if(this.m_search_bar != null)
@@ -596,5 +619,84 @@ class Search
 				});
 			}
 		}
+	}
+	
+	related_elements(id, exclude = [])
+	{
+		try
+		{
+			const name = gbf.get_npc_name_relation(gbf.get_lookup_name(id));
+			if(name in this.m_related_lookup)
+			{
+				let l = this.m_related_lookup[name].slice(); // copy array
+				let i = 0;
+				while(i < l.length)
+				{
+					if(exclude.includes(l[i]))
+					{
+						l.splice(i, 1);
+					}
+					else
+					{
+						if(l[i].length == 10)
+						{
+							switch(l[i].slice(0, 3))
+							{
+								case "304":
+								case "303":
+								case "302":
+								case "371":
+								{
+									l[i] = [l[i], GBFType.character];
+									break;
+								}
+								case "399":
+								{
+									l[i] = [l[i], GBFType.npc];
+									break;
+								}
+								case "104":
+								case "103":
+								case "102":
+								case "101":
+								{
+									l[i] = [l[i], GBFType.weapon];
+									break;
+								}
+								case "204":
+								case "203":
+								case "202":
+								case "201":
+								{
+									l[i] = [l[i], GBFType.summon];
+									break;
+								}
+								default:
+								{
+									l.splice(i, 1);
+									continue;
+								}
+							}
+						}
+						else if(l[i].length == 7)
+						{
+							l[i] = [l[i], GBFType.enemy];
+						}
+						else if(l[i].length == 6)
+						{
+							l[i] = [l[i], GBFType.job];
+						}
+						else // unexpected
+						{
+							l.splice(i, 1);
+							continue;
+						}
+						++i;
+					}
+				}
+				return l;
+			}
+		} catch(err) {};
+		return [];
 	}
 };
