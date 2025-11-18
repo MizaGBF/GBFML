@@ -172,10 +172,13 @@ class Search
 						let relation = gbf.get_npc_name_relation(name);
 						name = relation[0];
 						const relation_name = relation[1];
-						if(relation_name in this.m_related_lookup)
-							this.m_related_lookup[relation_name].push(id);
-						else
-							this.m_related_lookup[relation_name] = [id];
+						if(relation_name != "")
+						{
+							if(relation_name in this.m_related_lookup)
+								this.m_related_lookup[relation_name].push(id);
+							else
+								this.m_related_lookup[relation_name] = [id];
+						}
 					}
 					if(name in this.m_related_lookup)
 						this.m_related_lookup[name].push(id);
