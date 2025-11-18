@@ -394,7 +394,7 @@ class GBF
 	get_npc_name_relation(name)
 	{
 		const parts = name.split("'s ");
-		if(parts.length == 2 && ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar"].includes(parts[1].split(" ")[0].toLowerCase()))
+		if(parts.length == 2 && ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar", "hounds", "stuffed", "space", "guide", "maid", "servant"].includes(parts[1].split(" ")[0].toLowerCase()))
 		{
 			return parts[0];
 		}
