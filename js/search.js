@@ -160,26 +160,36 @@ class Search
 		}
 		// build related lookup
 		this.m_related_lookup = {};
+		this.m_related_lookup_reverse = {};
 		if(gbf && (index.lookup ?? null) != null)
 		{
+			// we build of lookup of related elements
 			for(const id of Object.keys(index.lookup))
 			{
+				// the name is the determining factor if two elements are related
 				let name = gbf.get_lookup_name(id);
 				if(name != id)
 				{
 					if(id.startsWith("399"))
 					{
+						// for npc, we also check if there is a possession ('s, example sturm's mother)
 						let relation = gbf.get_npc_name_relation(name);
 						name = relation[0];
 						const relation_name = relation[1];
 						if(relation_name != "")
 						{
+							// add the relation name to the lookup
 							if(relation_name in this.m_related_lookup)
 								this.m_related_lookup[relation_name].push(id);
 							else
 								this.m_related_lookup[relation_name] = [id];
+							// we also build a reverse lookup for the others, for speed
+							this.m_related_lookup_reverse[id] = [relation_name, name];
 						}
+						else this.m_related_lookup_reverse[id] = [name];
 					}
+					else this.m_related_lookup_reverse[id] = [name];
+					// add the name to the lookup
 					if(name in this.m_related_lookup)
 						this.m_related_lookup[name].push(id);
 					else
@@ -188,8 +198,11 @@ class Search
 			}
 			for(const [k, v] of Object.entries(this.m_related_lookup))
 			{
+				// we then clean entries with only one elements
 				if(v.length <= 1)
+				{
 					delete this.m_related_lookup[k];
+				}
 			}
 		}
 		// search bar node
@@ -632,20 +645,26 @@ class Search
 		}
 	}
 	
-	related_elements(id_or_name, exclude, level = 0)
+	//related_elements(id_or_name, exclude, level = 0)
+	related_elements(id, exclude)
 	{
 		try
 		{
-			const [name, relation] = gbf.get_npc_name_relation(gbf.get_lookup_name(id_or_name));
-			if(name in this.m_related_lookup)
+			if(id in this.m_related_lookup_reverse)
 			{
-				let l = this.m_related_lookup[name].slice(); // copy array
+				let l = [];
+				for(const name of this.m_related_lookup_reverse[id])
+				{
+					if(name in this.m_related_lookup)
+						l = l.concat(this.m_related_lookup[name]);
+				}
 				let i = 0;
 				while(i < l.length)
 				{
 					if(exclude.includes(l[i]))
 					{
 						l.splice(i, 1);
+						continue;
 					}
 					else
 					{
@@ -662,6 +681,7 @@ class Search
 									l[i] = [l[i], GBFType.character];
 									break;
 								}
+								case "305":
 								case "399":
 								{
 									l[i] = [l[i], GBFType.npc];
@@ -703,16 +723,23 @@ class Search
 							l.splice(i, 1);
 							continue;
 						}
+						// add related elements
+						if(l[i][0] in this.m_related_lookup_reverse)
+						{
+							for(const name of this.m_related_lookup_reverse[l[i][0]])
+							{
+								if(name in this.m_related_lookup)
+									l = l.concat(this.m_related_lookup[name]);
+							}
+						}
 						++i;
 					}
 				}
-				if(level == 0 && relation != "")
-				{
-					return this.related_elements(relation, exclude, level+1).concat(l);
-				}
 				return l;
 			}
-		} catch(err) {};
+		} catch(err) {
+			console.error("search.related_elements(\"" + id + "\") failed:", err);
+		};
 		return [];
 	}
 };

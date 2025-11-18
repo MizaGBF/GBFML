@@ -393,7 +393,7 @@ class GBF
 	
 	starts_with_name_relation(str)
 	{
-		for(const prefix of ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses"])
+		for(const prefix of ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses"])
 		{
 			if(str.startsWith(prefix))
 			{
@@ -405,7 +405,7 @@ class GBF
 	
 	get_npc_name_relation(name)
 	{
-		const parts = name.split("'s ");
+		let parts = name.split("'s ");
 		if(parts.length == 2)
 		{
 			const [valid, prefix] = this.starts_with_name_relation(parts[1].toLowerCase());
