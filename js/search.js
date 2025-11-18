@@ -170,7 +170,7 @@ class Search
 				let name = gbf.get_lookup_name(id);
 				if(name != id)
 				{
-					if(id.startsWith("399"))
+					if(id.startsWith("399") || id.startsWith("305"))
 					{
 						// for npc, we also check if there is a possession ('s, example sturm's mother)
 						let relation = gbf.get_npc_name_relation(name);

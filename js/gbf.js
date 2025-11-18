@@ -338,6 +338,7 @@ class GBF
 		if(typeof index !== "undefined" && "lookup" in index && id in index.lookup)
 		{
 			let words = index.lookup[id].split(" ");
+			let wiki = null;
 			let i = 0;
 			if(words.includes("missing-help-wanted"))
 			{
@@ -345,7 +346,8 @@ class GBF
 			}
 			else if(words[0].startsWith("@@"))
 			{
-				return words[0].substring(2).replaceAll("_", " ").split("(")[0].trim();
+				wiki = words[0].substring(2).replaceAll("_", " ").split("(")[0].trim();
+				words.splice(0, 1);
 			}
 			while(i < words.length)
 			{
@@ -384,9 +386,24 @@ class GBF
 				}
 			}
 			if(words.length == 0)
-				return id;
+			{
+				if(wiki != null)
+					return wiki;
+				else
+					return id;
+			}
 			else
-				return words.join(" ").trim();
+			{
+				const name = words.join(" ").trim();
+				if(wiki != null && !name.includes("'s "))
+				{
+					return wiki;
+				}
+				else
+				{
+					return name;
+				}
+			}
 		}
 		else return id;
 	}
