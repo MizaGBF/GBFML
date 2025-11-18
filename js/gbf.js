@@ -391,13 +391,30 @@ class GBF
 		else return id;
 	}
 	
+	starts_with_name_relation(str)
+	{
+		for(const prefix of ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses"])
+		{
+			if(str.startsWith(prefix))
+			{
+				return [true, prefix];
+			}
+		}
+		return [false, ""];
+	}
+	
 	get_npc_name_relation(name)
 	{
 		const parts = name.split("'s ");
-		if(parts.length == 2 && ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "pet", "familiar", "hounds", "stuffed", "space", "guide", "maid", "servant", "gearcycle", "glasses"].includes(parts[1].split(" ")[0].toLowerCase()))
+		if(parts.length == 2)
 		{
-			return parts[0];
+			const [valid, prefix] = this.starts_with_name_relation(parts[1].toLowerCase());
+			if(valid)
+			{
+				parts[1] = parts[1].slice(prefix.length + 1);
+				return parts;
+			}
 		}
-		return name;
+		return [name, ""];
 	}
 };

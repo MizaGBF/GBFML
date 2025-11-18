@@ -168,7 +168,15 @@ class Search
 				if(name != id)
 				{
 					if(id.startsWith("399"))
-						name = gbf.get_npc_name_relation(name);
+					{
+						let relation = gbf.get_npc_name_relation(name);
+						name = relation[0];
+						const relation_name = relation[1];
+						if(relation_name in this.m_related_lookup)
+							this.m_related_lookup[relation_name].push(id);
+						else
+							this.m_related_lookup[relation_name] = [id];
+					}
 					if(name in this.m_related_lookup)
 						this.m_related_lookup[name].push(id);
 					else
@@ -621,11 +629,11 @@ class Search
 		}
 	}
 	
-	related_elements(id, exclude = [])
+	related_elements(id_or_name, exclude, level = 0)
 	{
 		try
 		{
-			const name = gbf.get_npc_name_relation(gbf.get_lookup_name(id));
+			const [name, relation] = gbf.get_npc_name_relation(gbf.get_lookup_name(id_or_name));
 			if(name in this.m_related_lookup)
 			{
 				let l = this.m_related_lookup[name].slice(); // copy array
@@ -638,6 +646,7 @@ class Search
 					}
 					else
 					{
+						exclude.push(l[i]);
 						if(l[i].length == 10)
 						{
 							switch(l[i].slice(0, 3))
@@ -693,6 +702,10 @@ class Search
 						}
 						++i;
 					}
+				}
+				if(level == 0 && relation != "")
+				{
+					return this.related_elements(relation, exclude, level+1).concat(l);
 				}
 				return l;
 			}
