@@ -410,7 +410,7 @@ class GBF
 	
 	starts_with_name_relation(str)
 	{
-		for(const prefix of ["father", "mother", "sister", "brother", "youngest", "older", "middle", "grandfather", "grandmother", "aunt", "uncle", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses"])
+		for(const prefix of ["friend", "family", "husband", "wife", "father", "mother", "sister", "brother", "youngest sister", "youngest brother", "older sister", "older brother", "middle sister", "middle brother", "grandfather", "grandmother", "aunt", "uncle", "son", "daugther", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses", "form", "relation", "duo", "trio", "group"])
 		{
 			if(str.startsWith(prefix))
 			{
@@ -425,7 +425,7 @@ class GBF
 		let parts = name.split("'s ");
 		if(parts.length == 2)
 		{
-			const [valid, prefix] = this.starts_with_name_relation(parts[1].toLowerCase());
+			const [valid, prefix] = this.starts_with_name_relation(parts[1]);
 			if(valid)
 			{
 				parts[1] = parts[1].slice(prefix.length + 1);

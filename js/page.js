@@ -1904,11 +1904,15 @@ function add_lookup(node, id)
 function add_related(node, id, target)
 {
 	let has_been_added = false;
-	let block = add_to(null, "span", {
+	let parent_block = add_to(null, "span", {
 		cls:["header-block"],
 		id:"container-header-element-related"
 	});
-	block.appendChild(document.createTextNode("Related"));
+	parent_block.appendChild(document.createTextNode("Related"));
+	let block = add_to(parent_block, "div", {
+		cls:["header-related-results"]
+	});
+	
 	let exclude = [id];
 	switch(target)
 	{
@@ -1917,7 +1921,6 @@ function add_related(node, id, target)
 			let cid = "30" + id.slice(2);
 			if("characters" in index && cid in index["characters"])
 			{
-				block.appendChild(document.createElement("br"));
 				list_elements(block, [[cid, GBFType.character]], index_onclick);
 				has_been_added = true;
 				// invert to use character related elements
@@ -1933,7 +1936,6 @@ function add_related(node, id, target)
 			let fate_id = gbf.look_for_fate_episode_in_index(id);
 			if(fate_id != null)
 			{
-				block.appendChild(document.createElement("br"));
 				list_elements(block, [[fate_id, GBFType.fate]], index_onclick);
 				has_been_added = true;
 				added_line_break = true;
@@ -1942,8 +1944,6 @@ function add_related(node, id, target)
 			let partner_id = "38" + id.slice(2);
 			if("partners" in index && partner_id in index["partners"])
 			{
-				if(!added_line_break)
-					block.appendChild(document.createElement("br"));
 				list_elements(block, [[partner_id, GBFType.partner]], index_onclick);
 				has_been_added = true;
 				added_line_break = true;
@@ -1951,8 +1951,6 @@ function add_related(node, id, target)
 			// weapon
 			if("premium" in index && id in index["premium"] && index["premium"][id] != null)
 			{
-				if(!added_line_break)
-					block.appendChild(document.createElement("br"));
 				list_elements(block, [[index["premium"][id], GBFType.weapon]], index_onclick);
 				has_been_added = true;
 				exclude.push(index["premium"][id]);
@@ -1965,7 +1963,6 @@ function add_related(node, id, target)
 			let fate_id = gbf.look_for_fate_episode_in_index(id);
 			if(fate_id != null)
 			{
-				block.appendChild(document.createElement("br"));
 				list_elements(block, [[fate_id, GBFType.fate]], index_onclick);
 				has_been_added = true;
 			}
@@ -1975,7 +1972,6 @@ function add_related(node, id, target)
 			// character
 			if("premium" in index && id in index["premium"] && index["premium"][id] != null)
 			{
-				block.appendChild(document.createElement("br"));
 				list_elements(block, [[index["premium"][id], GBFType.character]], index_onclick);
 				has_been_added = true;
 				exclude.push(index["premium"][id]);
@@ -1990,7 +1986,6 @@ function add_related(node, id, target)
 				{
 					case "30":
 					{
-						block.appendChild(document.createElement("br"));
 						list_elements(block, [[target_id, GBFType.character]], index_onclick);
 						has_been_added = true;
 						// invert to use character related elements
@@ -2000,7 +1995,6 @@ function add_related(node, id, target)
 					}
 					case "20":
 					{
-						block.appendChild(document.createElement("br"));
 						list_elements(block, [[target_id, GBFType.summon]], index_onclick);
 						has_been_added = true;
 						// invert to use character related elements
@@ -2018,7 +2012,8 @@ function add_related(node, id, target)
 		const l = search.related_elements(id, exclude);
 		if(l.length > 0)
 		{
-			block.appendChild(document.createElement("br"));
+			if(has_been_added)
+				block.appendChild(document.createElement("br"));
 			list_elements(block, l, index_onclick);
 			has_been_added = true;
 		}
@@ -2026,6 +2021,6 @@ function add_related(node, id, target)
 	
 	if(has_been_added)
 	{
-		node.appendChild(block);
+		node.appendChild(parent_block);
 	}
 }

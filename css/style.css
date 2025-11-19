@@ -430,6 +430,13 @@ details[open] > .detail {
 	box-sizing: border-box;
 }
 
+.header-related-results {
+	width: 100%;
+	margin: auto;
+	max-height: 250px;
+	overflow-y: auto;
+}
+
 .tag {
 	border: 2px solid #808080;
 	border-radius: 10px;

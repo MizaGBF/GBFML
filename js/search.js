@@ -138,27 +138,20 @@ class Search
 		return true;
 	}
 	
-	constructor(search_bar_node, search_result_node, storage_key, filters, allow_lookup)
+	/*
+		search_bar_node: The search bar.
+		search_result_node: The result section. Don't forget to call populate_search_area()
+		storage_key: Local storage setting key
+		search_filters: An object of pair (key, [Display_string, GBFType or index access string]) to enable the search for (and the checkboxes)
+		relation_enabled: A list of GBFType to enable relations for
+		allow_lookup: If true, the lookup function is called after searching a valid ID
+	*/
+	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup)
 	{
 		this.m_allow_lookup = allow_lookup;
-		// save custom filters
-		this.m_filters = filters;
-		// build reverse lookup
-		this.m_reverse_lookup = {};
-		if((index.lookup ?? null) != null)
-		{
-			for(const [key, value] of Object.entries(index.lookup))
-			{
-				if(!(value in this.m_reverse_lookup))
-					this.m_reverse_lookup[value] = [];
-				this.m_reverse_lookup[value].push(key);
-			}
-		}
-		else
-		{
-			throw new Error("Can't initialize search, no lookup in the index.");
-		}
-		// build related lookup
+		this.m_filters = search_filters;
+		this.m_relations = relation_enabled;
+		// build relation lookup
 		this.m_related_lookup = {};
 		this.m_related_lookup_reverse = {};
 		if(gbf && (index.lookup ?? null) != null)
@@ -167,10 +160,10 @@ class Search
 			for(const id of Object.keys(index.lookup))
 			{
 				// the name is the determining factor if two elements are related
-				let name = gbf.get_lookup_name(id);
+				let name = gbf.get_lookup_name(id).toLowerCase();
 				if(name != id)
 				{
-					if(id.startsWith("399") || id.startsWith("305"))
+					if(id.length == 6 || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
 					{
 						// for npc, we also check if there is a possession ('s, example sturm's mother)
 						let relation = gbf.get_npc_name_relation(name);
@@ -204,6 +197,39 @@ class Search
 					delete this.m_related_lookup[k];
 				}
 			}
+		}
+		// build reverse lookup
+		this.m_reverse_lookup = {};
+		if((index.lookup ?? null) != null)
+		{
+			for(const id of Object.keys(index.lookup))
+			{
+				// remove relation part
+				// some are kept, it's mostly to avoid noise in the search results
+				// make sure to preserve the @@ wiki path string
+				const name = gbf.get_lookup_name(id);
+				const wiki = index.lookup[id].startsWith("@@") ? index.lookup[id].split(" ")[0] + " " : "";
+				const [base, relation] = name.startsWith("@@") ? name.split(" ")[1].split("'s ") : name.split("'s ");
+				if(typeof(relation) != "undefined" && relation != "")
+				{
+					for(const prefix of ["Friend ", "Family ", "Form ", "Relation ", "Duo ", "Trio ", "Group "])
+					{
+						if(relation.startsWith(prefix))
+						{
+							index.lookup[id] = wiki + index.lookup[id].slice(wiki.length + base.length + 3 + prefix.length)
+							break;
+						}
+					}
+				}
+				const value = index.lookup[id];
+				if(!(value in this.m_reverse_lookup))
+					this.m_reverse_lookup[value] = [];
+				this.m_reverse_lookup[value].push(id);
+			}
+		}
+		else
+		{
+			throw new Error("Can't initialize search, no lookup in the index.");
 		}
 		// search bar node
 		this.m_search_bar = search_bar_node;
@@ -241,7 +267,7 @@ class Search
 			this.m_settings[k] = false;
 		}
 		
-		for(const k of Object.keys(filters))
+		for(const k of Object.keys(this.m_filters))
 		{
 			if(k in this.m_settings)
 			{
@@ -731,6 +757,12 @@ class Search
 								if(name in this.m_related_lookup)
 									l = l.concat(this.m_related_lookup[name]);
 							}
+						}
+						// if type is not enabled
+						if(!this.m_relations.includes(l[i][1]))
+						{
+							l.splice(i, 1);
+							continue;
 						}
 						++i;
 					}

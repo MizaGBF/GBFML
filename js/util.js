@@ -177,7 +177,7 @@ function update_next_frame(callback)
 // return capitalized string
 function capitalize(string)
 {
-	if(string.length == 0)
+	if(string.length == 0 || ["and"].includes(string))
 		return string;
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
