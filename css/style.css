@@ -435,6 +435,7 @@ details[open] > .detail {
 	margin: auto;
 	max-height: 250px;
 	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
 }
 
 .tag {
