@@ -38,6 +38,18 @@ function nested_array_are_equal(A, B)
 	return true;
 }
 
+// attempt to copy the string to the clipboard
+// be sure to catch exceptions
+function copy_to_clipboard(str)
+{
+	if(navigator.clipboard != undefined)
+	{
+		navigator.clipboard.writeText(str);
+		push_popup('Copied!');
+	}
+	else push_popup('You need to be on a secure origin to copy');
+}
+
 // swap keys and values from an object
 function swap(json)
 {

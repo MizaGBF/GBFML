@@ -145,12 +145,14 @@ class Search
 		search_filters: An object of pair (key, [Display_string, GBFType or index access string]) to enable the search for (and the checkboxes)
 		relation_enabled: A list of GBFType to enable relations for
 		allow_lookup: If true, the lookup function is called after searching a valid ID
+		allow_search_param: If true, the URL search parameters will be automatically updated. Use load_url_param after the page loading to use it.
 	*/
-	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup)
+	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup, allow_search_param)
 	{
 		this.m_allow_lookup = allow_lookup;
 		this.m_filters = search_filters;
 		this.m_relations = relation_enabled;
+		this.m_use_url_param = allow_search_param;
 		// build relation lookup
 		this.m_related_lookup = {};
 		this.m_related_lookup_reverse = {};
@@ -315,6 +317,37 @@ class Search
 		}
 	}
 	
+	set_url_param(str)
+	{
+		if(this.m_use_url_param)
+		{
+			let params = new URLSearchParams(window.location.search);
+			if(str == null)
+			{
+				if(params.has("search"))
+					params.remove("search");
+			}
+			else
+			{
+				params.set("search", str);
+			}
+			if('?' + params.toString() != window.location.search)
+			{
+				history.pushState(null, '', window.location.pathname + '?' + params.toString());
+			}
+		}
+	}
+	
+	load_url_param()
+	{
+		let s = get_url_params().get("search");
+		if(s != null)
+		{
+			this.m_search_bar.value = s;
+			this.update();
+		}
+	}
+	
 	// default function to set the html
 	populate_search_area()
 	{
@@ -354,6 +387,31 @@ class Search
 				});
 				label.for = name;
 			}
+			// add copy button
+			if(this.m_use_url_param)
+			{
+				add_to(special_filters, "button", {
+					cls:["std-button"],
+					innertext:"Copy link",
+					onclick:(() => {
+						try
+						{
+							let params = new URLSearchParams("");
+							params.set("search", this.m_search_bar.value);
+							copy_to_clipboard(
+								window.location.origin +
+								window.location.pathname +
+								"?" +
+								params.toString()
+							);
+						} catch(err) {
+							console.error("Search link copy:", err);
+							push_popup("An unexpected error occured.");
+						}
+					})
+				}).style.marginLeft = "5px";
+			}
+			
 			// user filters
 			let filters = add_to(this.m_search_area, "span", {
 				cls:["search-control"],
@@ -448,7 +506,8 @@ class Search
 			this.m_last_filtereds = null;
 			return;
 		}
-		let search_input = this.m_search_bar.value.trim().toLowerCase();
+		const sval = this.m_search_bar.value;
+		let search_input = sval.trim().toLowerCase();
 		// call lookup if set and defined
 		if(
 			this.m_allow_lookup &&
@@ -456,6 +515,7 @@ class Search
 			lookup(search_input)
 		)
 		{
+			this.set_url_param(null);
 			if(this.m_search_area)
 				this.m_search_area.style.display = "none";
 			return;
@@ -465,6 +525,7 @@ class Search
 		// nothing to search
 		if(words.length == 0)
 		{
+			this.set_url_param(null);
 			if(this.m_search_area)
 				this.m_search_area.style.display = "none";
 			document.dispatchEvent(new Event("search-clear"));
@@ -473,6 +534,7 @@ class Search
 			this.m_last_filtereds = null;
 			return;
 		}
+		this.set_url_param(sval);
 		// remove dupes
 		words = [...new Set(words)];
 		// check if already searched
