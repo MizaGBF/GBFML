@@ -646,7 +646,8 @@ function load_index_content(node, data, onclick)
 			case GBFType.background:
 				callback = get_background;
 				break;
-			case GBFType.story:
+			case GBFType.story0:
+			case GBFType.story1:
 				callback = get_story;
 				image_callback = add_text_image;
 				break;
@@ -843,9 +844,15 @@ function list_elements(node, elems, onclick)
 						}
 						break;
 					}
-					case GBFType.story:
+					case GBFType.story0:
 					{
-						res = get_story(id, (id in index['story']) ? index['story'][id] : null);
+						res = get_story(id, (id in index['story0']) ? index['story0'][id] : null, 0);
+						callback = add_text_image;
+						break;
+					}
+					case GBFType.story1:
+					{
+						res = get_story(id, (id in index['story1']) ? index['story1'][id] : null, 1);
 						callback = add_text_image;
 						break;
 					}
@@ -1178,9 +1185,9 @@ function get_valentine(id, data = null, unusedA = null, unusedB = null)
 	}
 }
 
-function get_story(id, data, type_filter = null, unusedB = null)
+function get_story(id, data, arc, type_filter = null)
 {
-	if(data[DataIdx.STORY_CONTENT].length == 0)
+	if(data[DataIdx.STORY_CONTENT].length == 0 || arc < 0)
 		return null;
 	if(type_filter != null)
 	{
@@ -1200,10 +1207,11 @@ function get_story(id, data, type_filter = null, unusedB = null)
 		}
 	}
 	const title = gbf.msq_lookup(id);
+	const arc_title = "Arc " + (arc + 1) + " ";
 	if(title != null)
-		return [{id:id, modifier:"scene", text:title}];
+		return [{id:id, modifier:"scene", text:arc_title + title}];
 	else
-		return [{id:id, modifier:"scene", text:"Chapter " + parseInt(id)}];
+		return [{id:id, modifier:"scene", text:arc_title + "Chapter " + parseInt(id)}];
 }
 
 function get_fate(id, data, prefix = null, range = null)
@@ -1544,12 +1552,26 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 				name += " (" + id.substring(0, 2) + "/" + id.substring(2, 4) + "/" + id.substring(4, 6) + ")";
 			break;
 		}
-		case "story":
+		case "story0":
+		{
+			const title = gbf.msq_lookup(id);
+			name = (
+				(title != null) ?
+				("Arc I " + title + " (" + gbf.get_prefix(GBFType.story0) + id + ")") :
+				(
+					id == "191" ?
+					("Arc I Ending (" + gbf.get_prefix(GBFType.story0) + id + ")") :
+					("Arc I Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story0) + id + ")")
+				)
+			);
+			break;
+		}
+		case "story1":
 		{
 			const title = gbf.msq_lookup(id);
 			name = (title != null) ?
-				("Main Story " + title + " (" + gbf.get_prefix(GBFType.story) + id + ")") :
-				("Main Story Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story) + id + ")");
+				("Arc II " + title + " (" + gbf.get_prefix(GBFType.story1) + id + ")") :
+				("Arc II Chapter " + parseInt(id) + " (" + gbf.get_prefix(GBFType.story1) + id + ")");
 			break;
 		}
 		case "skills":

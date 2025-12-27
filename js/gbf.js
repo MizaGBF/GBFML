@@ -11,10 +11,11 @@ const GBFType = Object.freeze({
 	skill: 8,
 	buff: 9,
 	background: 10,
-	story: 11,
+	story0: 11,
 	fate: 12,
 	shield: 13,
 	manatura: 14,
+	story1: 15
 });
 
 class GBF
@@ -35,7 +36,7 @@ class GBF
 		7: [GBFType.enemy],
 		6: [GBFType.job, GBFType.event],
 		4: [GBFType.skill, GBFType.buff, GBFType.fate],
-		3: [GBFType.story]
+		3: [GBFType.story0, GBFType.story1]
 	});
 	
 	constructor()
@@ -175,7 +176,8 @@ class GBF
 			case GBFType.buff:
 			case GBFType.fate:
 				return (string.length == 4 && !isNaN(string));
-			case GBFType.story:
+			case GBFType.story0:
+			case GBFType.story1:
 				return (string.length == 3 && (!isNaN(string) || ((string.startsWith("r") || string.startsWith("c")) && !isNaN(string.substring(1)))));
 			default:
 				return false;
@@ -206,14 +208,13 @@ class GBF
 			case "r08": return "Recap 101-114";
 			case "r09": return "Recap 115-132";
 			case "r10": return "Recap 133-155";
-			case "191": return "Ending I";
 			case "000": return "Prologue";
 			default:
 			{
 				if(id.startsWith('r'))
-					return "Recap";
+					return "Recap.";
 				else if(id.startsWith('c'))
-					return "Compilation " + parseInt(id.slice(1));
+					return "Compil. " + parseInt(id.slice(1));
 				else
 					return null;
 			}
@@ -246,8 +247,10 @@ class GBF
 				return "buffs";
 			case GBFType.background:
 				return "background";
-			case GBFType.story:
-				return "story";
+			case GBFType.story0:
+				return "story0";
+			case GBFType.story1:
+				return "story1";
 			case GBFType.fate:
 				return "fate";
 			case GBFType.shield:
@@ -286,8 +289,10 @@ class GBF
 				return GBFType.buff;
 			case "background":
 				return GBFType.background;
-			case "story":
-				return GBFType.story;
+			case "story0":
+				return GBFType.story0;
+			case "story1":
+				return GBFType.story1;
 			case "fate":
 				return GBFType.fate;
 			case "shields":
