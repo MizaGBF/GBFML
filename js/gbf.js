@@ -415,7 +415,7 @@ class GBF
 	
 	starts_with_name_relation(str)
 	{
-		for(const prefix of ["friend", "family", "husband", "wife", "father", "mother", "sister", "brother", "youngest sister", "youngest brother", "older sister", "older brother", "middle sister", "middle brother", "grandfather", "grandmother", "aunt", "uncle", "son", "daugther", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses", "form", "relation", "duo", "trio", "group"])
+		for(const prefix of ["friend", "family", "husband", "wife", "father", "mother", "daughter", "son", "sister", "brother", "youngest sister", "youngest brother", "older sister", "older brother", "middle sister", "middle brother", "grandfather", "grandmother", "aunt", "uncle", "son", "daugther", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses", "form", "relation", "duo", "trio", "group"])
 		{
 			if(str.startsWith(prefix))
 			{
