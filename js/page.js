@@ -186,6 +186,20 @@ function init_lists(changelog, callback)
 			{
 				init_last_updated_seen(changelog.new);
 				let fragment = document.createDocumentFragment();
+				// open spoiler buttons
+				let div = add_to(fragment, "div", {
+					cls:["std-button-container"]
+				});
+				let spoiler_button = add_to(div, "button", {
+					cls:["std-button", "std-button-large"],
+					innertext:"Open Spoilers",
+					onclick:function() {
+						if(open_spoilers())
+							this.style.display = "none";
+					}
+				});
+				// add new entries
+				let count_spoiler = 0;
 				for(const [key, value] of Object.entries(changelog.new))
 				{
 					let div = document.createElement("div");
@@ -194,7 +208,14 @@ function init_lists(changelog, callback)
 					div.innerText = key;
 					fragment.appendChild(div);
 					list_elements(fragment, value.reverse(), callback);
+					for(const entry of value)
+					{
+						if(entry.length > 2 && entry[2])
+							count_spoiler++;
+					}
 				}
+				if(count_spoiler == 0)
+					spoiler_button.style.display = "none";
 				node.appendChild(fragment);
 			}
 			toggle_bookmark();
@@ -759,136 +780,129 @@ function list_elements(node, elems, onclick)
 		{
 			let res = null;
 			let callback = add_index_image;
-			if(spoiler)
+			switch(type)
 			{
-				res = [{id:id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false}];
-			}
-			else
-			{
-				switch(type)
+				case GBFType.character:
 				{
-					case GBFType.character:
+					if(gbf.is_character_skin(id))
 					{
-						if(gbf.is_character_skin(id))
-						{
-							res = get_skin(id, (id in index['skins']) ? index['skins'][id] : null, [0, 1000]);
-						}
-						else
-						{
-							res = get_character(id, (id in index['characters']) ? index['characters'][id] : null, [0, 1000, 0, 1000, 0, 1000]);
-						}
-						break;
+						res = get_skin(id, (id in index['skins']) ? index['skins'][id] : null, [0, 1000]);
 					}
-					case GBFType.summon:
+					else
 					{
-						res = get_summon(id, (id in index['summons']) ? index['summons'][id] : null, id[2], [0, 1000]);
-						break;
+						res = get_character(id, (id in index['characters']) ? index['characters'][id] : null, [0, 1000, 0, 1000, 0, 1000]);
 					}
-					case GBFType.weapon:
+					break;
+				}
+				case GBFType.summon:
+				{
+					res = get_summon(id, (id in index['summons']) ? index['summons'][id] : null, id[2], [0, 1000]);
+					break;
+				}
+				case GBFType.weapon:
+				{
+					res = get_weapon(id, (id in index['weapons']) ? index['weapons'][id] : null, id[2], id[4]);
+					break;
+				}
+				case GBFType.shield:
+				{
+					res = get_shield(id, (id in index['shields']) ? index['shields'][id] : null, id[0]);
+					break;
+				}
+				case GBFType.manatura:
+				{
+					res = get_manatura(id, (id in index['manaturas']) ? index['manaturas'][id] : null, id[0]);
+					break;
+				}
+				case GBFType.job:
+				{
+					res = get_job(id, (id in index['job']) ? index['job'][id] : null);
+					break;
+				}
+				case GBFType.enemy:
+				{
+					res = get_enemy(id, (id in index['enemies']) ? index['enemies'][id] : null, id[0], id[1]);
+					break;
+				}
+				case GBFType.npc:
+				{
+					res = get_npc(id, (id in index['npcs']) ? index['npcs'][id] : null, id.slice(1, 3), [0, 10000]);
+					callback = add_npc_image;
+					break;
+				}
+				case GBFType.partner:
+				{
+					res = get_partner(id, (id in index['partners']) ? index['partners'][id] : null, id.slice(1, 3));
+					break;
+				}
+				case GBFType.event:
+				{
+					res = get_event(id, (id in index['events']) ? index['events'][id] : null);
+					break;
+				}
+				case GBFType.skill:
+				{
+					res = get_skill(id, (id in index['skills']) ? index['skills'][id] : null, [0, 10000]);
+					break;
+				}
+				case GBFType.buff:
+				{
+					res = get_buff(id, (id in index['buffs']) ? index['buffs'][id] : null, [0, 10000]);
+					break;
+				}
+				case GBFType.background:
+				{
+					if(id in index['background'])
 					{
-						res = get_weapon(id, (id in index['weapons']) ? index['weapons'][id] : null, id[2], id[4]);
-						break;
+						let tmp = id.split('_')[0];
+						res = get_background(id, index['background'][id], (["common", "main", "event"].includes(tmp) ? tmp : ""));
 					}
-					case GBFType.shield:
-					{
-						res = get_shield(id, (id in index['shields']) ? index['shields'][id] : null, id[0]);
-						break;
-					}
-					case GBFType.manatura:
-					{
-						res = get_manatura(id, (id in index['manaturas']) ? index['manaturas'][id] : null, id[0]);
-						break;
-					}
-					case GBFType.job:
-					{
-						res = get_job(id, (id in index['job']) ? index['job'][id] : null);
-						break;
-					}
-					case GBFType.enemy:
-					{
-						res = get_enemy(id, (id in index['enemies']) ? index['enemies'][id] : null, id[0], id[1]);
-						break;
-					}
-					case GBFType.npc:
-					{
-						res = get_npc(id, (id in index['npcs']) ? index['npcs'][id] : null, id.slice(1, 3), [0, 10000]);
-						callback = add_npc_image;
-						break;
-					}
-					case GBFType.partner:
-					{
-						res = get_partner(id, (id in index['partners']) ? index['partners'][id] : null, id.slice(1, 3));
-						break;
-					}
-					case GBFType.event:
-					{
-						res = get_event(id, (id in index['events']) ? index['events'][id] : null);
-						break;
-					}
-					case GBFType.skill:
-					{
-						res = get_skill(id, (id in index['skills']) ? index['skills'][id] : null, [0, 10000]);
-						break;
-					}
-					case GBFType.buff:
-					{
-						res = get_buff(id, (id in index['buffs']) ? index['buffs'][id] : null, [0, 10000]);
-						break;
-					}
-					case GBFType.background:
-					{
-						if(id in index['background'])
-						{
-							let tmp = id.split('_')[0];
-							res = get_background(id, index['background'][id], (["common", "main", "event"].includes(tmp) ? tmp : ""));
-						}
-						break;
-					}
-					case GBFType.story0:
-					{
-						res = get_story(id, (id in index['story0']) ? index['story0'][id] : null, 0);
-						callback = add_text_image;
-						break;
-					}
-					case GBFType.story1:
-					{
-						res = get_story(id, (id in index['story1']) ? index['story1'][id] : null, 1);
-						callback = add_text_image;
-						break;
-					}
-					case GBFType.fate:
-					{
-						res = get_fate(id, (id in index['fate']) ? index['fate'][id] : null);
-						callback = add_fate_image;
-						break;
-					}
-					case "subskills":
-					{
-						res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
-						break;
-					}
-					case "title":
-					{
-						res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
-						break;
-					}
-					case "sky_title":
-					{
-						res = get_sky_title(id.split(':')[1], index['title'][id.split(':')[1]]);
-						break;
-					}
-					case "suptix":
-					{
-						res = get_suptix(id.split(':')[1], index['suptix'][id.split(':')[1]]);
-						break;
-					}
-					case "mypage_bg":
-					{
-						res = get_mypage_bg(id.split(':')[1], index['mypage_bg'][id.split(':')[1]]);
-						break;
-					}
-				};
-			}
+					break;
+				}
+				case GBFType.story0:
+				{
+					res = get_story(id, (id in index['story0']) ? index['story0'][id] : null, 0);
+					callback = add_text_image;
+					break;
+				}
+				case GBFType.story1:
+				{
+					res = get_story(id, (id in index['story1']) ? index['story1'][id] : null, 1);
+					callback = add_text_image;
+					break;
+				}
+				case GBFType.fate:
+				{
+					res = get_fate(id, (id in index['fate']) ? index['fate'][id] : null);
+					callback = add_fate_image;
+					break;
+				}
+				case "subskills":
+				{
+					res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
+					break;
+				}
+				case "title":
+				{
+					res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+					break;
+				}
+				case "sky_title":
+				{
+					res = get_sky_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+					break;
+				}
+				case "suptix":
+				{
+					res = get_suptix(id.split(':')[1], index['suptix'][id.split(':')[1]]);
+					break;
+				}
+				case "mypage_bg":
+				{
+					res = get_mypage_bg(id.split(':')[1], index['mypage_bg'][id.split(':')[1]]);
+					break;
+				}
+			};
 			if(res != null)
 			{
 				for(let r of res)
@@ -896,13 +910,42 @@ function list_elements(node, elems, onclick)
 					if(r.unlisted ?? false)
 						continue;
 					r.id = gbf.get_prefix(type) + r.id; // update prefix
-					callback(node, r, onclick);
+					if(spoiler)
+					{
+						const n = add_index_image(
+							node,
+							{id:id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false},
+							onclick
+						);
+						n.classList.toggle("spoiler", true);
+						n.elem_callback = callback;
+						n.elem_info = r;
+					}
+					else
+					{
+						callback(node, r, onclick);
+					}
 				}
 			}
 		} catch(err) {
 			console.error("Exception thrown", err.stack);
 		}
 	}
+}
+
+function open_spoilers()
+{
+	if(window.confirm("Are you sure that you want to open spoilers?"))
+	{
+		let nodes = document.querySelectorAll(".spoiler");
+		for(const node of nodes)
+		{
+			const new_node = node.elem_callback(null, node.elem_info, node.onclick);
+			node.replaceWith(new_node);
+		}
+		return true;
+	}
+	return false;
 }
 
 // default onerror functions for element images
@@ -966,7 +1009,6 @@ function get_character(id, data, range, unused = null)
 			}
 			else if(uncap_string.endsWith("_01"))
 			{
-				console.log("hi");
 				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.replace("_01", "")+".jpg";
 				this.onerror=function(){this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
 			}
@@ -1408,7 +1450,7 @@ function add_index_image(node, data, onclick_callback)
 		img.setAttribute('loading', 'lazy');
 		img.src = data.path.replace("GBF/", gbf.id_to_endpoint(data.id));
 		a.href = img.src.replace("img_low/", "img/");
-		return img;
+		return a;
 	}
 	else
 	{
@@ -1466,10 +1508,11 @@ function add_fate_image(node, data, onclick)
 	{
 		let img = add_index_image(node, data, onclick);
 		img.classList.toggle("fate-image", true);
+		return img;
 	}
 	else
 	{
-		add_text_image(node, data, onclick);
+		return add_text_image(node, data, onclick);
 	}
 }
 
@@ -1477,11 +1520,11 @@ function add_npc_image(node, data, onclick)
 {
 	if(data.path)
 	{
-		add_index_image(node, data, onclick);
+		return add_index_image(node, data, onclick);
 	}
 	else
 	{
-		add_text_image(node, data, onclick);
+		return add_text_image(node, data, onclick);
 	}
 }
 
