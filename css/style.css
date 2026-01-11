@@ -769,6 +769,8 @@ details[open] > .detail {
 
 .index-image {
 	max-height: 80px;
+	content-visibility: auto-pointer-events; 
+    contain-intrinsic-size: 80px;
 }
 
 .index-image:active {
@@ -782,12 +784,16 @@ details[open] > .detail {
 	border: 2px solid #808080;
 	border-radius: 10px;
 	box-sizing: border-box;
+	content-visibility: auto-pointer-events; 
+    contain-intrinsic-size: 80px;
 }
 
 .preview-noborder {
 	min-width : 140px;
 	max-width : 140px;
 	height: 80px;
+	content-visibility: auto-pointer-events; 
+    contain-intrinsic-size: 80px;
 }
 
 .sky-event {
@@ -1285,18 +1291,21 @@ img {
 		
 		.index-image {
 			max-height: 60px;
+			contain-intrinsic-size: 60px;
 		}
 
 		.preview {
 			min-width : 105px;
 			max-width : 105px;
 			height: 60px;
+			contain-intrinsic-size: 60px;
 		}
 
 		.preview-noborder {
 			min-width : 105px;
 			max-width : 105px;
 			height: 60px;
+			contain-intrinsic-size: 60px;
 		}
 		
 		.asset {
