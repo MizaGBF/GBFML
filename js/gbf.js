@@ -20,8 +20,8 @@ const GBFType = Object.freeze({
 
 class GBF
 {
-	static c_endpoint = Object.freeze(
-		"https://prd-game-a-granbluefantasy.akamaized.net/",
+	static c_endpoint = (
+		"https://prd-game-a-granbluefantasy.akamaized.net/"
 	);
 	static c_eternals = Object.freeze([
 		"3040030000", "3040031000", "3040032000", "3040033000", "3040034000", "3040035000", "3040036000", "3040037000", "3040038000", "3040039000"
