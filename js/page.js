@@ -1004,17 +1004,17 @@ function get_character(id, data, range, unused = null)
 		onerr = function() {
 			if(uncap_string.includes("_f"))
 			{
-				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.split("_f")[0]+".jpg";
-				this.onerror=function(){this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
+				this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.split("_f")[0]+".jpg";
+				this.onerror=function(){this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
 			}
 			else if(uncap_string.endsWith("_01"))
 			{
-				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.replace("_01", "")+".jpg";
-				this.onerror=function(){this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
+				this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+uncap_string.replace("_01", "")+".jpg";
+				this.onerror=function(){this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg"; this.onerror=default_onerror;};
 			}
 			else
 			{
-				this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg";
+				this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg";
 				this.onerror=default_onerror;
 			}
 		};
@@ -1042,7 +1042,7 @@ function get_skin(id, data, range, unused = null)
 	if(uncap != "_01")
 	{
 		onerr = function() {
-			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg";
+			this.src=gbf.endpoint + "assets_en/img_low/sp/assets/npc/m/"+id+"_01.jpg";
 			this.onerror=default_onerror;
 		};
 	}
@@ -1055,7 +1055,7 @@ function get_partner(id, data, prefix, unused = null)
 	if(id.slice(1, 3) != prefix)
 		return null;
 	let onerr = function() {
-		this.src = gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
+		this.src = gbf.endpoint + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
 	};
 	let path = null;
 	if(data && data[DataIdx.CHARA_GENERAL].length > 0)
@@ -1065,9 +1065,9 @@ function get_partner(id, data, prefix, unused = null)
 		{
 			onerr = function() { // failsafe
 				this.onerror = function() {
-					this.src =  gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
+					this.src =  gbf.endpoint + "assets_en/img_low/sp/assets/npc/raid_normal/3999999999.jpg";
 				};
-				this.src =  gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/npc/raid_normal/" + data[DataIdx.CHARA_GENERAL][1] + ".jpg";
+				this.src =  gbf.endpoint + "assets_en/img_low/sp/assets/npc/raid_normal/" + data[DataIdx.CHARA_GENERAL][1] + ".jpg";
 			};
 		}
 		path =  "GBF/assets_en/img_low/sp/assets/npc/raid_normal/" + data[DataIdx.CHARA_GENERAL][0] + ".jpg";
@@ -1096,7 +1096,7 @@ function get_summon(id, data, rarity, range)
 	if(uncap != "")
 	{
 		onerr = function() {
-			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/summon/m/"+id+".jpg";
+			this.src=gbf.endpoint + "assets_en/img_low/sp/assets/summon/m/"+id+".jpg";
 			this.onerror=default_onerror;
 		};
 	}
@@ -1118,7 +1118,7 @@ function get_weapon(id, data, rarity, proficiency)
 	if(uncap != "")
 	{
 		onerr = function() {
-			this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/weapon/m/"+id+".jpg";
+			this.src=gbf.endpoint + "assets_en/img_low/sp/assets/weapon/m/"+id+".jpg";
 			this.onerror=default_onerror;
 		};
 	}
@@ -1172,7 +1172,7 @@ function get_enemy(id, data, type, size)
 		return null;
 	let className = (data && data[DataIdx.BOSS_APPEAR].length > 0) ? "preview vs" : "preview";
 	return [{id:id, path:"GBF/assets_en/img/sp/assets/enemy/s/" + id + ".png", onerr:function() {
-		this.src=gbf.id_to_endpoint(id) + "assets_en/img_low/sp/assets/enemy/m/"+id+".png";
+		this.src=gbf.endpoint + "assets_en/img_low/sp/assets/enemy/m/"+id+".png";
 		this.onerror=default_onerror;
 	}, class:className, link:false}];
 }
@@ -1277,7 +1277,7 @@ function get_fate(id, data, prefix = null, range = null)
 			ret = get_summon(data[DataIdx.FATE_LINK], index["summons"][data[DataIdx.FATE_LINK]], data[DataIdx.FATE_LINK][2], [0, 9999]);
 		if(ret != null)
 		{
-			ret[0].path = ret[0].path.replace("GBF/", gbf.id_to_endpoint(ret[0].id)); // update url here
+			ret[0].path = ret[0].path.replace("GBF/", gbf.endpoint); // update url here
 			ret[0].id = id; // set fate id
 			return ret;
 		}
@@ -1448,7 +1448,7 @@ function add_index_image(node, data, onclick_callback)
 			title: "Click to open: " + data.id
 		});
 		img.setAttribute('loading', 'lazy');
-		img.src = data.path.replace("GBF/", gbf.id_to_endpoint(data.id));
+		img.src = data.path.replace("GBF/", gbf.endpoint);
 		a.href = img.src.replace("img_low/", "img/");
 		return a;
 	}
@@ -1483,7 +1483,7 @@ function add_index_image(node, data, onclick_callback)
 		img.classList.toggle("loading", true);
 		img.setAttribute('loading', 'lazy');
 		img.onclickid = data.id;
-		img.src = data.path.replace("GBF/", gbf.id_to_endpoint(data.id));
+		img.src = data.path.replace("GBF/", gbf.endpoint);
 		return img;
 	}
 }

@@ -246,7 +246,7 @@ class AudioVoicePlayer extends AudioBasePlayer
 	
 	set_and_play_audio()
 	{
-		let src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/voice/" + this.id + this.track.value + ".mp3";
+		let src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/sound/voice/" + this.id + this.track.value + ".mp3";
 		if(this.player.src == src)
 		{
 			this.player.pause();
@@ -267,7 +267,7 @@ class AudioVoicePlayer extends AudioBasePlayer
 	open_audio()
 	{
 		let a = document.createElement("a");
-		a.setAttribute('href', "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/voice/" + this.id + this.track.value + ".mp3");
+		a.setAttribute('href', "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/sound/voice/" + this.id + this.track.value + ".mp3");
 		a.target = "_blank";
 		a.rel = "noopener noreferrer";
 		a.click();
@@ -563,7 +563,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 	set_playlist_track(track_index, state)
 	{
 		this.playlist_index = track_index;
-		this.player.src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.playlist[this.playlist_index] + ".mp3";
+		this.player.src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.playlist[this.playlist_index] + ".mp3";
 		this.player.currentTime = 0;
 		this.playing.innerHTML = "Category: " + this.playlist_name + "<br>Track: " + this.format_sound_suffix(this.playlist[this.playlist_index]);
 		if(state) this.player.play();
@@ -584,14 +584,14 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		if(this.category.value in this.jukebox_data)
 		{
 			// Update jacket image
-			this.jacket_image.src = "https://prd-game-a1-granbluefantasy.akamaized.net/assets_en/img/sp/jukebox/jacket/" + this.jukebox_data[this.category.value].jacket;
+			this.jacket_image.src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/img/sp/jukebox/jacket/" + this.jukebox_data[this.category.value].jacket;
 		}
 		this.update_links();
 	}
 	
 	set_and_play_audio()
 	{
-		let src = "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3";
+		let src = "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3";
 		if(this.player.src == src)
 		{
 			this.player.pause();
@@ -619,7 +619,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 	open_audio()
 	{
 		let a = document.createElement("a");
-		a.setAttribute('href', "https://prd-game-a5-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3");
+		a.setAttribute('href', "https://prd-game-a-granbluefantasy.akamaized.net/assets_en/sound/bgm/" + this.track.value + ".mp3");
 		a.target = "_blank";
 		a.rel = "noopener noreferrer";
 		a.click();

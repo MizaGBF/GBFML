@@ -20,14 +20,9 @@ const GBFType = Object.freeze({
 
 class GBF
 {
-	static c_endpoints = Object.freeze([
+	static c_endpoint = Object.freeze(
 		"https://prd-game-a-granbluefantasy.akamaized.net/",
-		"https://prd-game-a1-granbluefantasy.akamaized.net/",
-		"https://prd-game-a2-granbluefantasy.akamaized.net/",
-		"https://prd-game-a3-granbluefantasy.akamaized.net/",
-		"https://prd-game-a4-granbluefantasy.akamaized.net/",
-		"https://prd-game-a5-granbluefantasy.akamaized.net/"
-	]);
+	);
 	static c_eternals = Object.freeze([
 		"3040030000", "3040031000", "3040032000", "3040033000", "3040034000", "3040035000", "3040036000", "3040037000", "3040038000", "3040039000"
 	]);
@@ -41,7 +36,6 @@ class GBF
 	
 	constructor()
 	{
-		this.m_current_endpoint = -1;
 		// list of id to ignore
 		this.banned_ids = [];
 		// lookup table of string prefixes and GBFType
@@ -49,10 +43,10 @@ class GBF
 		this.m_reverse_lookup_prefix = {};
 	}
 	
-	// getter: return the list of endpoints
-	endpoints()
+	// getter: return the endpoint
+	endpoint()
 	{
-		return GBF.c_endpoints;
+		return GBF.c_endpoint;
 	}
 	
 	// getter: return the list of eternal IDs
@@ -77,24 +71,6 @@ class GBF
 				return prefix;
 		}
 		return "";
-	}
-	
-	reset_endpoint()
-	{
-		this.m_current_endpoint = -1;
-	}
-	
-	// return the next endpoint
-	get_endpoint()
-	{
-		this.m_current_endpoint = (this.m_current_endpoint + 1) % GBF.c_endpoints.length;
-		return GBF.c_endpoints[this.m_current_endpoint];
-	}
-	
-	// get a random endpoint using an id as the seed
-	id_to_endpoint(id)
-	{
-		return GBF.c_endpoints[parseInt(id.replace(/\D/g,'')) % GBF.c_endpoints.length];
 	}
 	
 	remove_prefix(id, type)
