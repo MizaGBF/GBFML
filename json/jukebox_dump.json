@@ -5574,6 +5574,56 @@
                     "is_group_single": true
                 }
             }
+        },
+        "45": {
+            "title": "Shirube",
+            "jacket_image": "jacket_45.png",
+            "link_text": "[AD] Character Song Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/anxmusic.lnk.to\/zwgEBm",
+                "android_link": "https:\/\/anxmusic.lnk.to\/zwgEBm",
+                "pc_link": "https:\/\/anxmusic.lnk.to\/zwgEBm"
+            },
+            "list": {
+                "151": {
+                    "title": "Shirube",
+                    "bgm_index": "151",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "354_sirube_juke_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "354_sirube_juke_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "354_sirube_juke_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "354_sirube_juke_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "354_sirube_juke_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "354_sirube_juke_06"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "354_sirube_juke_07",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_first": true,
+                    "is_group_last": true,
+                    "is_group_single": true
+                }
+            }
         }
     },
     "bgm_changed": true,
