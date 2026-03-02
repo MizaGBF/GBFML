@@ -314,7 +314,7 @@ class GBF
 		return (word.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/) != null)
 	}
 	
-	get_lookup_name(id)
+	get_lookup_name(id, allow_wiki=true)
 	{
 		if(typeof index !== "undefined" && "lookup" in index && id in index.lookup)
 		{
@@ -376,7 +376,7 @@ class GBF
 			else
 			{
 				const name = words.join(" ").trim();
-				if(wiki != null && !name.includes("'s "))
+				if(allow_wiki && wiki != null && !name.includes("'s "))
 				{
 					return wiki;
 				}
