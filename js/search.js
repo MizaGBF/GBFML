@@ -149,6 +149,10 @@ class Search
 	*/
 	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup, allow_search_param)
 	{
+		if(typeof gbf === "undefined" || gbf == null)
+		{
+			throw new Error("The GBF class instancied globally to 'gbf' is required");
+		}
 		this.m_allow_lookup = allow_lookup;
 		this.m_filters = search_filters;
 		this.m_relations = relation_enabled;
@@ -156,34 +160,37 @@ class Search
 		// build relation lookup
 		this.m_related_lookup = {};
 		this.m_related_lookup_reverse = {};
-		if(gbf && (index.lookup ?? null) != null)
+		if((index.lookup ?? null) != null)
 		{
 			// we build of lookup of related elements
 			for(const id of Object.keys(index.lookup))
 			{
 				// the name is the determining factor if two elements are related
-				let name = gbf.get_lookup_name(id).toLowerCase();
+				let name = gbf.get_lookup_name(id, false).toLowerCase();
+				if(id.length == 6 || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
+				{
+					// for npc, we also check if there is a relation tag /x
+					const relation_name = gbf.get_npc_relation(id);
+					if(relation_name != "")
+					{
+						// add the relation name to the lookup
+						if(relation_name in this.m_related_lookup)
+							this.m_related_lookup[relation_name].push(id);
+						else
+							this.m_related_lookup[relation_name] = [id];
+						// we also build a reverse lookup for the others, for speed
+						this.m_related_lookup_reverse[id] = [relation_name];
+					}
+				}
 				if(name != id)
 				{
-					if(id.length == 6 || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
+					// add the name to the reverse lookup
+					if(!(id in this.m_related_lookup_reverse))
 					{
-						// for npc, we also check if there is a possession ('s, example sturm's mother)
-						let relation = gbf.get_npc_name_relation(name);
-						name = relation[0];
-						const relation_name = relation[1];
-						if(relation_name != "")
-						{
-							// add the relation name to the lookup
-							if(relation_name in this.m_related_lookup)
-								this.m_related_lookup[relation_name].push(id);
-							else
-								this.m_related_lookup[relation_name] = [id];
-							// we also build a reverse lookup for the others, for speed
-							this.m_related_lookup_reverse[id] = [relation_name, name];
-						}
-						else this.m_related_lookup_reverse[id] = [name];
+						this.m_related_lookup_reverse[id] = [];
 					}
-					else this.m_related_lookup_reverse[id] = [name];
+					this.m_related_lookup_reverse[id].push(name);
+					
 					// add the name to the lookup
 					if(name in this.m_related_lookup)
 						this.m_related_lookup[name].push(id);
@@ -198,6 +205,11 @@ class Search
 				{
 					delete this.m_related_lookup[k];
 				}
+				// and sort the others
+				else
+				{
+					this.m_related_lookup[k].sort();
+				}
 			}
 		}
 		// build reverse lookup
@@ -206,27 +218,68 @@ class Search
 		{
 			for(const id of Object.keys(index.lookup))
 			{
-				// remove relation part
-				// some are kept, it's mostly to avoid noise in the search results
-				// make sure to preserve the @@ wiki path string
 				const name = gbf.get_lookup_name(id);
-				const wiki = index.lookup[id].startsWith("@@") ? index.lookup[id].split(" ")[0] + " " : "";
-				const [base, relation] = name.startsWith("@@") ? name.split(" ")[1].split("'s ") : name.split("'s ");
-				if(typeof(relation) != "undefined" && relation != "")
+				let modified = index.lookup[id];
+				for(const spe of ["/x ", "/w "]) // do those two first (with a space)
 				{
-					for(const prefix of ["Friend ", "Family ", "Form ", "Relation ", "Duo ", "Trio ", "Group "])
+					let A = modified.indexOf(spe);
+					if(A != -1)
 					{
-						if(relation.startsWith(prefix))
+						let B = modified.indexOf(" /", A + 1);
+						if(B != -1)
 						{
-							index.lookup[id] = wiki + index.lookup[id].slice(wiki.length + base.length + 3 + prefix.length)
+							modified = (modified.slice(0, A) + modified.slice(B)).trim();
+						}
+						else
+						{
+							modified = modified.slice(0, A).trim();
+						}
+					}
+				}
+				for(const spe of GBF.c_special_tokens)
+				{
+					switch(spe)
+					{
+						case "/x":
+						case "/w":
+						{
+							break;
+						}
+						case "/1":
+						{
+							modified = modified.replace(spe, "gbf-versus-rising");
+							break;
+						}
+						case "/2":
+						{
+							modified = modified.replace(spe, "gbf-relink");
+							break;
+						}
+						case "/!":
+						{
+							modified = modified.replace(spe, "voiced");
+							break;
+						}
+						case "/!!":
+						{
+							modified = modified.replace(spe, "voice-only");
+							break;
+						}
+						case "/$":
+						{
+							modified = modified.replace(spe, "missing-help-wanted");
+							break;
+						}
+						default:
+						{
+							modified = modified.replace(" " + spe, "").replace(spe + " ", "");
 							break;
 						}
 					}
 				}
-				const value = index.lookup[id];
-				if(!(value in this.m_reverse_lookup))
-					this.m_reverse_lookup[value] = [];
-				this.m_reverse_lookup[value].push(id);
+				if(!(modified in this.m_reverse_lookup))
+					this.m_reverse_lookup[modified] = [];
+				this.m_reverse_lookup[modified].push(id);
 			}
 		}
 		else
@@ -325,7 +378,7 @@ class Search
 			if(str == null)
 			{
 				if(params.has("search"))
-					params.remove("search");
+					params.delete("search");
 			}
 			else
 			{
@@ -550,6 +603,9 @@ class Search
 		let positives = [];
 		for(let i = 0; i < words.length; ++i)
 		{
+			// ignore special lookup tokens
+			if(GBF.c_special_tokens.has(words[i]))
+				continue;
 			let link = last_link.get_link(words[i]); // get chain link for this word
 			if(link != null) // doesn't exist
 			{
@@ -733,6 +789,17 @@ class Search
 		}
 	}
 	
+	related_element_exceptions(id, name)
+	{
+		// to debloat the related list some entities
+		return (
+			   (id == "240301" && ["soldier"].includes(name))
+			|| (id == "200301" && ["doctor"].includes(name))
+			|| (id == "3991415000" && ["gawain", "code geass"].includes(name))
+			|| (id == "3991422000" && ["gawain", "code geass"].includes(name))
+		);
+	}
+	
 	//related_elements(id_or_name, exclude, level = 0)
 	related_elements(id, exclude)
 	{
@@ -744,7 +811,11 @@ class Search
 				for(const name of this.m_related_lookup_reverse[id])
 				{
 					if(name in this.m_related_lookup)
+					{
+						if(this.related_element_exceptions(id, name))
+							continue;
 						l = l.concat(this.m_related_lookup[name]);
+					}
 				}
 				let i = 0;
 				while(i < l.length)
@@ -816,6 +887,8 @@ class Search
 						{
 							for(const name of this.m_related_lookup_reverse[l[i][0]])
 							{
+								if(this.related_element_exceptions(l[i][0], name))
+									continue;
 								if(name in this.m_related_lookup)
 									l = l.concat(this.m_related_lookup[name]);
 							}

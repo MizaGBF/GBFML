@@ -1682,13 +1682,24 @@ function add_links(node, id, extra_links)
 		cls:["header-block"],
 		id:"container-header-element-links"
 	});
-	if("lookup" in index && id in index["lookup"] && index["lookup"][id].includes("@@"))
+	if("lookup" in index && id in index["lookup"])
 	{
-		const wiki_path = index["lookup"][id].split("@@")[1].split(" ")[0];
-		let a = add_to(block, "a", {title:"Wiki page for " + wiki_path.replaceAll("_", " ")});
-		a.href = "https://gbf.wiki/" + wiki_path;
-		let img = add_to(a, "img", {cls:["img-link"]});
-		img.src = "../GBFML/assets/ui/icon/wiki.png";
+		// extract /w tag content
+		const A = index["lookup"][id].indexOf("/w ");
+		if(A != -1)
+		{
+			const B = index["lookup"][id].indexOf(" /", A + 1);
+			const wiki_path = (
+				B == -1
+				? index["lookup"][id].slice(A + 3)
+				: index["lookup"][id].slice(A + 3, B)
+			);
+			let a = add_to(block, "a", {title:"Wiki page for " + wiki_path.replaceAll("_", " ")});
+			a.href = "https://gbf.wiki/" + wiki_path;
+			let img = add_to(a, "img", {cls:["img-link"]});
+			img.src = "../GBFML/assets/ui/icon/wiki.png";
+		
+		}
 	}
 	else
 	{
@@ -1760,329 +1771,356 @@ function add_navigation(node, id, target, navigation_special_targets)
 	}
 }
 
+function add_lookup_tag(node, text, id, format, add_css=true)
+{
+	let elem;
+	if(typeof search != "undefined" && search != null && search.m_search_bar != null)
+	{
+		elem = add_to(node, "i", {
+			cls: ["tag", "clickable"],
+			onclick: function() {
+				search.m_search_bar.value = search.m_search_bar.value.trim();
+				if(search.m_search_bar.value.value == "")
+					search.m_search_bar.value = text;
+				else
+					search.m_search_bar.value = search.m_search_bar.value + " " + text;
+				search.update();
+				search.m_search_bar.scrollIntoView();
+			}
+		});
+	}
+	else
+	{
+		elem = add_to(node, "i", {cls: ["tag"]});
+	}
+	if(format)
+	{
+		switch(text)
+		{
+			case "ssr":
+			case "sr":
+			case "r":
+			case "n":
+			{
+				elem.innerText = text.toUpperCase();
+				break;
+			}
+			default:
+			{
+				if(text == id && id != id)
+				{
+					elem.innerText = id;
+				}
+				else if(text.length == 1)
+				{
+					elem.innerText = text.toUpperCase();
+				}
+				else
+				{
+					elem.innerText = capitalize(text);
+				}
+				break;
+			}
+		}
+	}
+	else
+	{
+		elem.innerText = text;
+	}
+	if(add_css)
+		add_lookup_tag_class(elem, elem.innerText);
+	return elem;
+}
+
+
+function add_lookup_tag_class(node, text)
+{
+	switch(text.toLowerCase())
+	{
+		case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel": case "opus": case "xeno": case "exo":
+			node.classList.add("tag-gold");
+			break;
+		case "missing-help-wanted":
+			node.classList.add("tag-gold");
+			break;
+		case "sr": case "militis": case "voiced": case "voice-only":
+			node.classList.add("tag-silver");
+			break;
+		case "r":
+			node.classList.add("tag-bronze");
+			break;
+		case "n": case "gran": case "djeeta": case "null": case "any": case "unknown-element": case "unknown-boss":
+			node.classList.add("tag-normal");
+			break;
+		case "fire": case "dragon-boss": case "elemental-boss": case "other-boss":
+			node.classList.add("tag-fire");
+			break;
+		case "water": case "fish-boss": case "core-boss": case "aberration-boss":
+			node.classList.add("tag-water");
+			break;
+		case "earth": case "beast-boss": case "golem-boss": case "machine-boss": case "goblin-boss":
+			node.classList.add("tag-earth");
+			break;
+		case "wind": case "flying-boss": case "plant-boss": case "insect-boss": case "wyvern-boss":
+			node.classList.add("tag-wind");
+			break;
+		case "light": case "people-boss": case "fairy-boss": case "primal-boss":
+			node.classList.add("tag-light");
+			break;
+		case "dark": case "monster-boss": case "otherworld-boss": case "undead-boss": case "reptile-boss":
+			node.classList.add("tag-dark");
+			break;
+		case "cut-content": case "trial":
+			node.classList.add("tag-cut-content"); break;
+		case "sabre": case "sword": case "spear": case "dagger": case "axe": case "staff": case "melee": case "gun": case "bow": case "harp": case "katana":
+			node.classList.add("tag-weaptype");
+			break;
+		case "summer": case "omega":
+			node.classList.add("tag-series-summer");
+			break;
+		case "yukata": case "rebirth":
+			node.classList.add("tag-series-yukata");
+			break;
+		case "valentine":  case "regalia":
+			node.classList.add("tag-series-valentine");
+			break;
+		case "halloween": case "odious":
+			node.classList.add("tag-series-halloween");
+			break;
+		case "holiday":
+			node.classList.add("tag-series-holiday");
+			break;
+		case "12generals":
+			node.classList.add("tag-series-zodiac");
+			break;
+		case "fantasy":
+			node.classList.add("tag-series-fantasy");
+			break;
+		case "collab":
+			node.classList.add("tag-series-collab");
+			break;
+		case "eternals":
+			node.classList.add("tag-series-eternal");
+			break;
+		case "evokers":
+			node.classList.add("tag-series-evoker");
+			break;
+		case "4saints":
+			node.classList.add("tag-series-saint");
+			break;
+		case "crest": case "robur": case "bellum": case "cryptid":
+			node.classList.add("tag-series-summon-series");
+			break;
+		case "formal":
+			node.classList.add("tag-series-formal");
+			break;
+		case "male":
+			node.classList.add("tag-gender0");
+			break;
+		case "female":
+			node.classList.add("tag-gender1");
+			break;
+		case "other":
+			node.classList.add("tag-gender2");
+			break;
+		case "human":
+			node.classList.add("tag-race0");
+			break;
+		case "draph":
+			node.classList.add("tag-race1");
+			break;
+		case "erune":
+			node.classList.add("tag-race2");
+			break;
+		case "harvin":
+			node.classList.add("tag-race3");
+			break;
+		case "primal":
+			node.classList.add("tag-race4");
+			break;
+		case "unknown":
+			node.classList.add("tag-race5");
+			break;
+		case "balanced":
+			node.classList.add("tag-type0");
+			break;
+		case "attack":
+			node.classList.add("tag-type1");
+			break;
+		case "defense":
+			node.classList.add("tag-type2");
+			break;
+		case "heal":
+			node.classList.add("tag-type3");
+			break;
+		case "special":
+			node.classList.add("tag-type4");
+			break;
+		case "gbf-versus-rising":
+			node.classList.add("tag-rising");
+			break;
+		case "gbf-relink":
+			node.classList.add("tag-relink");
+			break;
+		default:
+			break;
+	}
+}
+
 function add_lookup(node, id)
 {
-	if("lookup" in index && id in index["lookup"] && index["lookup"][id].split(' ').length > 0)
+	if("lookup" in index && id in index.lookup)
 	{
+		let last_token = "";
+		let words = index.lookup[id].split(' ');
+		if(words.length == 0)
+			return
+		// container
 		let block = add_to(null, "span", {
 			cls:["header-block"],
 			id:"container-header-element-lookup"
 		});
-		let name_tokens = [];
-		try
-		{
-			name_tokens = gbf.get_lookup_name(id, false).toLowerCase().split(" ");
-		}
-		catch(er)
-		{
-		}
-		let start_name_position = -1;
-		let end_name_position = -1;
-		let prev = null;
 		let missing = false;
-		const tokens = index["lookup"][id].split(' ');
-		// find the start and end index of the name
-		if(name_tokens.length > 0)
+		let added = false;
+		let other_tag = false;
+		let special_tag = false;
+		let game_tag = false;
+		for(let i = 0; i < words.length; ++i)
 		{
-			for(let p = 0; p < tokens.length; ++p)
+			const w = words[i];
+			if(GBF.c_special_tokens.has(w))
 			{
-				if(start_name_position != -1)
+				last_token = w;
+				switch(w)
 				{
-					const offset = p - start_name_position;
-					if(
-						offset >= name_tokens.length
-						|| tokens[p] != name_tokens[offset]
-					)
+					case "/!":
 					{
-						start_name_position = -1;
-					}
-					else if(offset == name_tokens.length - 1)
-					{
-						end_name_position = p;
-						break;
-					}
-				}
-				if(start_name_position == -1)
-				{
-					if(tokens[p] == name_tokens[0])
-					{
-						start_name_position = p;
-						if(name_tokens.length == 1)
+						if(!special_tag)
 						{
-							end_name_position = p;
-							break;
+							if(added)
+							{
+								block.appendChild(document.createElement("br"));
+							}
+							special_tag = true;
 						}
-					}
-				}
-			}
-			if(end_name_position == -1)
-			{
-				start_name_position = -1;
-			}
-		}
-		// flags
-		let added_tag = false;
-		let game_name_found = false;
-		let date_found = false;
-		let added_break = true; // start true to not add one at index 0
-		// for jp name detection
-		const japanese_regex = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u;
-		let jp_name_found = false;
-		// main loop
-		for(let p = 0; p < tokens.length; ++p)
-		{
-			const t = tokens[p];
-			if(t.substring(0, 2) == "@@" || t == "")
-				continue;
-			if(t == prev)
-				continue; // avoid repetitions
-			prev = t;
-			let i;
-			if(typeof search != "undefined" && search != null && search.m_search_bar != null)
-			{
-				i = add_to(block, "i", {
-					cls: ["tag", "clickable"],
-					onclick: function() {
-						search.m_search_bar.value = search.m_search_bar.value.trim();
-						if(search.m_search_bar.value.value == "")
-							search.m_search_bar.value = t;
-						else
-							search.m_search_bar.value = search.m_search_bar.value + " " + t;
-						search.update();
-						search.m_search_bar.scrollIntoView();
-					}
-				});
-			}
-			else
-			{
-				i = add_to(block, "i", {cls: ["tag"]});
-			}
-			switch(t)
-			{
-				case "ssr":
-				case "sr":
-				case "r":
-				case "n":
-				{
-					i.innerText = t.toUpperCase();
-					break;
-				}
-				default:
-				{
-					if(t == id && id != id)
-						i.innerText = id;
-					else if(t.length == 1)
-						i.innerText = t.toUpperCase();
-					else
-						i.innerText = capitalize(t);
-					break;
-				}
-			}
-			if(end_name_position == -1 || p < start_name_position || p > end_name_position)
-			{
-				switch(t.toLowerCase())
-				{
-					case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel": case "opus": case "xeno": case "exo":
-						i.classList.add("tag-gold");
+						add_lookup_tag(block, "Voiced", id, false);
+						added = true;
 						break;
-					case "missing-help-wanted":
+					}
+					case "/!!":
+					{
+						if(!special_tag)
+						{
+							if(added)
+							{
+								block.appendChild(document.createElement("br"));
+							}
+							special_tag = true;
+						}
+						add_lookup_tag(block, "Voice-only", id, false);
+						added = true;
+						break;
+					}
+					case "/1":
+					{
+						if(!game_tag)
+						{
+							if(added)
+							{
+								block.appendChild(document.createElement("br"));
+							}
+							game_tag = true;
+						}
+						add_lookup_tag(block, "GBF-Versus-Rising", id, false);
+						added = true;
+						break;
+					}
+					case "/2":
+					{
+						if(!game_tag)
+						{
+							if(added)
+							{
+								block.appendChild(document.createElement("br"));
+							}
+							game_tag = true;
+						}
+						add_lookup_tag(block, "GBF-Relink", id, false);
+						added = true;
+						break;
+					}
+					case "/$":
+					{
+						add_lookup_tag(block, "missing-help-wanted", id, false);
+						added = true;
 						missing = true;
-						i.classList.add("tag-gold");
 						break;
-					case "sr": case "militis": case "voiced": case "voice-only":
-						i.classList.add("tag-silver");
+					}
+					case "/_":
+					{
+						add_lookup_tag(block, "Young", id, false, false).classList.add("tag-series-fantasy");
+						added = true;
 						break;
-					case "r":
-						i.classList.add("tag-bronze");
+					}
+					case "/y":
+					case "/n":
+					{
+						if(added)
+						{
+							block.appendChild(document.createElement("br"));
+						}
 						break;
-					case "n": case "gran": case "djeeta": case "null": case "unknown-element": case "unknown-boss":
-						i.classList.add("tag-normal");
+					}
+					case "/b":
+					case "/c":
+					case "/s":
+					{
+						if(!other_tag)
+						{
+							if(added)
+							{
+								block.appendChild(document.createElement("br"));
+							}
+							other_tag = true;
+						}
 						break;
-					case "fire": case "dragon-boss": case "elemental-boss": case "other-boss":
-						i.classList.add("tag-fire");
+					}
+					case "/%": // reset
+					{
+						if(added)
+						{
+							block.appendChild(document.createElement("br"));
+						}
+						added = false;
+						other_tag = false;
+						special_tag = false;
+						game_tag = false;
 						break;
-					case "water": case "fish-boss": case "core-boss": case "aberration-boss":
-						i.classList.add("tag-water");
-						break;
-					case "earth": case "beast-boss": case "golem-boss": case "machine-boss": case "goblin-boss":
-						i.classList.add("tag-earth");
-						break;
-					case "wind": case "flying-boss": case "plant-boss": case "insect-boss": case "wyvern-boss":
-						i.classList.add("tag-wind");
-						break;
-					case "light": case "people-boss": case "fairy-boss": case "primal-boss":
-						i.classList.add("tag-light");
-						break;
-					case "dark": case "monster-boss": case "otherworld-boss": case "undead-boss": case "reptile-boss":
-						i.classList.add("tag-dark");
-						break;
-					case "cut-content": case "trial":
-						i.classList.add("tag-cut-content"); break;
-					case "sabre": case "sword": case "spear": case "dagger": case "axe": case "staff": case "melee": case "gun": case "bow": case "harp": case "katana":
-						i.classList.add("tag-weaptype");
-						break;
-					case "summer":
-						i.classList.add("tag-series-summer");
-						break;
-					case "yukata":
-						i.classList.add("tag-series-yukata");
-						break;
-					case "valentine":
-						i.classList.add("tag-series-valentine");
-						break;
-					case "halloween":
-						i.classList.add("tag-series-halloween");
-						break;
-					case "hoiday":
-						i.classList.add("tag-series-hoiday");
-						break;
-					case "12generals":
-						i.classList.add("tag-series-zodiac");
-						break;
-					case "fantasy":
-						i.classList.add("tag-series-fantasy");
-						break;
-					case "collab":
-						i.classList.add("tag-series-collab");
-						break;
-					case "eternals":
-						i.classList.add("tag-series-eternal");
-						break;
-					case "evokers":
-						i.classList.add("tag-series-evoker");
-						break;
-					case "4saints":
-						i.classList.add("tag-series-saint");
-						break;
-					case "crest": case "robur": case "bellum": case "cryptid":
-						i.classList.add("tag-series-summon-series");
-						break;
-					case "formal":
-						i.classList.add("tag-series-formal");
-						break;
-					case "male":
-						i.classList.add("tag-gender0");
-						break;
-					case "female":
-						i.classList.add("tag-gender1");
-						break;
-					case "other":
-						i.classList.add("tag-gender2");
-						break;
-					case "human":
-						i.classList.add("tag-race0");
-						break;
-					case "draph":
-						i.classList.add("tag-race1");
-						break;
-					case "erune":
-						i.classList.add("tag-race2");
-						break;
-					case "harvin":
-						i.classList.add("tag-race3");
-						break;
-					case "primal":
-						i.classList.add("tag-race4");
-						break;
-					case "unknown":
-						i.classList.add("tag-race5");
-						break;
-					case "balanced":
-						i.classList.add("tag-type0");
-						break;
-					case "attack":
-						i.classList.add("tag-type1");
-						break;
-					case "defense":
-						i.classList.add("tag-type2");
-						break;
-					case "heal":
-						i.classList.add("tag-type3");
-						break;
-					case "special":
-						i.classList.add("tag-type4");
-						break;
-					case "gbf-versus-rising":
-						i.classList.add("tag-rising");
-						break;
-					case "gbf-relink":
-						i.classList.add("tag-relink");
-						break;
-					default:
-						break;
-				}
-			}
-			// append new lines or separator
-			if(!jp_name_found && japanese_regex.test(t))
-			{
-				// new line before the jp name
-				jp_name_found = true;
-				if(!added_break)
-				{
-					block.insertBefore(document.createElement("br"), i);
-				}
-				added_break = false;
-			}
-			else if(!date_found && t.startsWith("20"))
-			{
-				// new line before game tags
-				date_found = true;
-				if(!added_break)
-				{
-					block.insertBefore(document.createElement("br"), i);
-				}
-				added_break = false;
-			}
-			else if(!game_name_found && ["gbf-versus-rising", "gbf-relink"].includes(t))
-			{
-				// new line before game tags
-				game_name_found = true;
-				if(!added_break)
-				{
-					block.insertBefore(document.createElement("br"), i);
-				}
-				added_break = false;
-			}
-			else if(p > end_name_position && t == "voiced")
-			{
-				// new line before "voiced" tags
-				if(!added_break)
-				{
-					block.insertBefore(document.createElement("br"), i);
-				}
-				added_break = false;
-			}
-			else if(p == start_name_position)
-			{
-				// new line before the start of name (and after is size 1)
-				if(!added_break)
-				{
-					block.insertBefore(document.createElement("br"), i);
-				}
-				if(p == end_name_position)
-				{
-					block.appendChild(document.createElement("br"));
-					added_break = true;
-				}
-				else
-				{
-					added_break = false;
-				}
-			}
-			else if(p == end_name_position)
-			{
-				// new line after the name
-				if(p != tokens.length -1) // check if last
-				{
-					block.appendChild(document.createElement("br"));
-					added_break = true;
+					}
 				}
 			}
 			else
 			{
-				// space separator between tags
-				block.appendChild(document.createTextNode(" "));
-				added_break = false;
+				switch(last_token)
+				{
+					case "/a":
+					case "/b":
+					case "/c":
+					case "/e":
+					case "/f":
+					case "/k":
+					case "/m":
+					case "/n":
+					case "/p":
+					case "/s":
+					case "/t":
+					case "/y":
+					{
+						add_lookup_tag(block, w, id, true, last_token != "/n");
+						added = true;
+						break;
+					}
+				}
 			}
 		}
 		if(missing && help_form != null)
@@ -2107,7 +2145,7 @@ function add_related(node, id, target)
 		cls:["header-block"],
 		id:"container-header-element-related"
 	});
-	parent_block.appendChild(document.createTextNode("Related"));
+	parent_block.appendChild(document.createTextNode("Possibly Related"));
 	let block = add_to(parent_block, "div", {
 		cls:["header-related-results"]
 	});

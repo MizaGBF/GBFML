@@ -33,6 +33,10 @@ class GBF
 		4: [GBFType.skill, GBFType.buff, GBFType.fate],
 		3: [GBFType.story0, GBFType.story1]
 	});
+	static c_special_tokens = new Set([
+		"/a", "/b", "/c", "/e", "/f", "/k", "/m", "/n", "/p", "/s", "/t", "/w", "/x", "/y", "/_", "/!", "/!!", "/1", "/2", "/$", "/%"
+	]);
+	static c_name_word_regex = /\S+/g;
 	
 	constructor()
 	{
@@ -304,115 +308,79 @@ class GBF
 		return null;
 	}
 	
-	lookup_word_is_part_of_name(word)
-	{
-		return !(["human", "harvin", "erune", "draph", "primal", "unknown", "male", "female", "other", "summer", "yukata", "valentine", "halloween", "holiday", "12generals", "grand", "fantasy", "collab", "eternals", "evokers", "4saints", "tie-in", "formal", "voiced", "voice-only", "gbf-versus-rising", "gbf-relink"].includes(word) || word.endsWith("-boss"));
-	}
-	
-	lookup_word_is_japanese(word)
-	{
-		return (word.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/) != null)
-	}
-	
 	get_lookup_name(id, allow_wiki=true)
 	{
-		if(typeof index !== "undefined" && "lookup" in index && id in index.lookup)
+		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
+			return id;
+		let wiki = [];
+		let name = [];
+		let last_token = null;
+		// reset the regex position since we are using the 'g' flag globally
+		GBF.c_name_word_regex.lastIndex = 0;
+
+		let match;
+		while((match = GBF.c_name_word_regex.exec(index.lookup[id])) !== null)
 		{
-			let words = index.lookup[id].split(" ");
-			let wiki = null;
-			let i = 0;
-			if(words.includes("missing-help-wanted"))
+			const token = match[0];
+			if(GBF.c_special_tokens.has(token))
 			{
-				return id;
-			}
-			else if(words[0].startsWith("@@"))
-			{
-				wiki = words[0].substring(2).replaceAll("_", " ").split("(")[0].trim();
-				words.splice(0, 1);
-			}
-			while(i < words.length)
-			{
-				if(i == 0)
-				{
-					if(words[i].startsWith("@@") || ["sabre", "spear", "dagger", "axe", "gun", "bow", "melee", "harp", "katana", "staff", "fire", "water", "earth", "wind", "light", "dark", "r", "sr", "ssr", "cut-content"].includes(words[i]))
-					{
-						words.shift();
-					}
-					else
-					{
-						words[i] = capitalize(words[i]);
-						++i;
-					}
-				}
-				else if(this.lookup_word_is_japanese(words[i]))
-				{
-					words = words.splice(0, i);
-				}
-				else if(!this.lookup_word_is_part_of_name(words[i]))
-				{
-					if(i == words.length - 1 || !this.lookup_word_is_part_of_name(words[i+1]) || this.lookup_word_is_japanese(words[i+1]))
-					{
-						words = words.splice(0, i);
-					}
-					else
-					{
-						words[i] = capitalize(words[i]);
-						++i;
-					}
-				}
-				else
-				{
-					words[i] = capitalize(words[i]);
-					++i
-				}
-			}
-			if(words.length == 0)
-			{
-				if(wiki != null)
-					return wiki;
-				else
-					return id;
+				last_token = token;
+				// Optimization: If we already have both name and wiki, we can stop parsing.
+				if (wiki.length > 0 && name.length > 0)
+					break;
 			}
 			else
 			{
-				const name = words.join(" ").trim();
-				if(allow_wiki && wiki != null && !name.includes("'s "))
+				if(last_token === "/w")
 				{
-					return wiki;
+					wiki.push(token);
+				}
+				else if(last_token === "/n")
+				{
+					name.push(token);
+				}
+			}
+		}
+		if(allow_wiki && wiki.length > 0)
+		{
+			return wiki.join(" ");
+		}
+		else if(name.length > 0)
+		{
+			return name.join(" ");
+		}
+		return id;
+	}
+	
+	get_npc_relation(id)
+	{
+		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
+			return "";
+		const lookup_string = index.lookup[id];
+		let tokens = lookup_string.split(" ");
+		let relation = [];
+		let state = false;
+		for(let i = 0; i < tokens.length; ++i)
+		{
+			if(state)
+			{
+				if(GBF.c_special_tokens.has(tokens[i]))
+				{
+					break
 				}
 				else
 				{
-					return name;
+					relation.push(tokens[i])
+				}
+			}
+			else
+			{
+				if(tokens[i] == "/x")
+				{
+					state = true
 				}
 			}
 		}
-		else return id;
-	}
-	
-	starts_with_name_relation(str)
-	{
-		for(const prefix of ["friend", "family", "husband", "wife", "father", "mother", "daughter", "son", "sister", "brother", "youngest sister", "youngest brother", "older sister", "older brother", "middle sister", "middle brother", "grandfather", "grandmother", "aunt", "uncle", "son", "daugther", "dog", "cat", "kitten", "pet", "familiar", "hounds", "stuffed toy", "space ship", "guide", "maid", "servant", "gearcycle", "glasses", "form", "relation", "duo", "trio", "group"])
-		{
-			if(str.startsWith(prefix))
-			{
-				return [true, prefix];
-			}
-		}
-		return [false, ""];
-	}
-	
-	get_npc_name_relation(name)
-	{
-		let parts = name.split("'s ");
-		if(parts.length == 2)
-		{
-			const [valid, prefix] = this.starts_with_name_relation(parts[1]);
-			if(valid)
-			{
-				parts[1] = parts[1].slice(prefix.length + 1);
-				return parts;
-			}
-		}
-		return [name, ""];
+		return relation.join(" ");
 	}
 };
