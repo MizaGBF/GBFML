@@ -1941,6 +1941,18 @@ function add_lookup_tag_class(node, text)
 		case "unknown":
 			node.classList.add("tag-race5");
 			break;
+		case "geonoid":
+			node.classList.add("tag-race6");
+			break;
+		case "levleath":
+			node.classList.add("tag-race7");
+			break;
+		case "wolvir":
+			node.classList.add("tag-race8");
+			break;
+		case "grokkle":
+			node.classList.add("tag-race9");
+			break;
 		case "balanced":
 			node.classList.add("tag-type0");
 			break;

@@ -600,33 +600,53 @@ details[open] > .detail {
 	color: #000000;
 }
 
-.tag-race0 {
+.tag-race0 { /* human */
 	background-color: #6dd7e4;
 	color: #000000;
 }
 
-.tag-race1 {
+.tag-race1 { /* draph */
 	background-color: #c72827;
 	color: #000000;
 }
 
-.tag-race2 {
+.tag-race2 { /* erune */
 	background-color: #92e56d;
 	color: #000000;
 }
 
-.tag-race3 {
+.tag-race3 { /* harvin */
 	background-color: #f28e00;
 	color: #000000;
 }
 
-.tag-race4 {
+.tag-race4 { /* primal */
 	background-color: #ab6fd4;
 	color: #000000;
 }
 
-.tag-race5 {
+.tag-race5 { /* unknown */
 	background-color: #b5b4b1;
+	color: #000000;
+}
+
+.tag-race6 { /* geonoid */
+	background-color: #6ac487;
+	color: #000000;
+}
+
+.tag-race7 { /* levleath */
+	background-color: #225af3;
+	color: #000000;
+}
+
+.tag-race8 { /* wolvir */
+	background-color: #b8815e;
+	color: #000000;
+}
+
+.tag-race9 { /* grokkle */
+	background-color: #e0c25e;
 	color: #000000;
 }
 
