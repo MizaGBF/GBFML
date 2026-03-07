@@ -1682,6 +1682,7 @@ function add_links(node, id, extra_links)
 		cls:["header-block"],
 		id:"container-header-element-links"
 	});
+	let wiki_fallback = true;
 	if("lookup" in index && id in index["lookup"])
 	{
 		// extract /w tag content
@@ -1698,10 +1699,10 @@ function add_links(node, id, extra_links)
 			a.href = "https://gbf.wiki/" + wiki_path;
 			let img = add_to(a, "img", {cls:["img-link"]});
 			img.src = "../GBFML/assets/ui/icon/wiki.png";
-		
+			wiki_fallback = false;
 		}
 	}
-	else
+	if(wiki_fallback)
 	{
 		let a = add_to(block, "a", {title:"Wiki search for " + id});
 		a.href = "https://gbf.wiki/index.php?title=Special:Search&search=" + id;
