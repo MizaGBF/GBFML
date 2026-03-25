@@ -167,7 +167,7 @@ class Search
 			{
 				// the name is the determining factor if two elements are related
 				let name = gbf.get_lookup_name(id, false).toLowerCase();
-				if(id.length == 6 || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
+				if([6, 7].includes(id.length) || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
 				{
 					// for npc, we also check if there is a relation tag /x
 					const relation_name = gbf.get_npc_relation(id);
