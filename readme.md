@@ -75,7 +75,7 @@ The text lookup is found in the `data.json` of the [GBF Asset Lookup](https://gi
 It's an Object, whose keys correspond to element IDs and the values to string describing the element, in **lower case**.  
 The format is:  
 ```console
-/w [Relation] /w [Wiki_path] /e [Element] /a [Rarity] /n [Name] /k [Outfit_name] /m Class /c [Series] /b [Races] /s [Gender] /t [Type] /p [Proficiency] /y [Name JP] [Voice Actor] [Voice Actor JP] [Release Date] ... [Additional_tags]
+/w [Relation] /w [Wiki_path] /e [Element] /a [Rarity] /n [Name] /k [Outfit_name] /m Class /c [Series] /b [Races] /s [Gender] /t [Type] /f [Boss Type] /p [Proficiency] /y [Name JP] [Voice Actor] [Voice Actor JP] [Release Date] ... [Additional_tags]
 ```  
 They are delimited by special markers using a `/`.
   
@@ -87,7 +87,8 @@ They are delimited by special markers using a `/`.
 - `[Outfit_name]` is the element's outfit name in english.  
 - `[Series]` is the element's series, such as `summer`, `yukata`, `collab`, etc...  
 - `[Races]` are the element's races, such as `human`, `erune`, etc... Other is set to `unknown`, to not confuse with the other gender.  
-- `[Type]` are the element's type (`balanced`, etc... for characters, `sword`, etc... for weapons).
+- `[Type]` is the element's type (`balanced`, etc... for characters, `sword`, etc... for weapons).
+- `[Boss Type]` is the element's boss type tag. Only for enemies. Names are arbitrary and not official.
 - `[Proficiency]` are a character's proficiency (`sword`, etc...).
 - `[Gender]` is the element's gender, either `male`, `female` or `other`.  
 - `[Name JP]` is the element's name in japanese.  
