@@ -297,12 +297,13 @@ function toggle_bookmark(id = null, type = null)
 		{
 			let fav = document.getElementById('fav-btn');
 			if(fav)
-				{
+			{
+				let name = gbf.get_lookup_name(id);
 				if(!fav.classList.contains("fav-on"))
 				{
 					bookmarks.push([id, type]);
 					set_bookmark_button(true);
-					push_popup("" + id + " has been bookmarked.");
+					push_popup(name + " has been bookmarked.");
 				}
 				else
 				{
@@ -315,7 +316,7 @@ function toggle_bookmark(id = null, type = null)
 						}
 					}
 					set_bookmark_button(false);
-					push_popup("" + id + " has been removed from the bookmarks.");
+					push_popup(name + " has been removed from the bookmarks.");
 				}
 				localStorage.setItem(bookmark_key, JSON.stringify(bookmarks));
 			}

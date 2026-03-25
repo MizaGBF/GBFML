@@ -343,7 +343,7 @@ class GBF
 		}
 		if(allow_wiki && wiki.length > 0)
 		{
-			return wiki.join(" ");
+			return wiki.join(" ").replace("_", " ");
 		}
 		else if(name.length > 0)
 		{
