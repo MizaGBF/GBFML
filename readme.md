@@ -96,3 +96,4 @@ They are delimited by special markers using a `/`.
 - `[Voice Actor JP]` is the element's Voice Actor's name in japanese.  
 - `[Release Date]` is the element's Release date sourced from the wiki.  
 - `[Additional Tags]` are special tags used for search purpose. There are currently: `/$` (for elements with invalid or without lookup entries), `/!` (for elements with voice files), `/!!` (for elements with only voice files), `/!` (for younger appearances of elements), `/1` (for elements appearing in Versus / Rising) and `/2` (for elements appearing Relink / Ragnarok). Additional tags should always be at the end.
+- `/%` can be used to set multiple names.

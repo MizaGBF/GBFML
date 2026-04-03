@@ -165,8 +165,7 @@ class Search
 			// we build of lookup of related elements
 			for(const id of Object.keys(index.lookup))
 			{
-				// the name is the determining factor if two elements are related
-				let name = gbf.get_lookup_name(id, false).toLowerCase();
+				// test and extract relation tag
 				if([6, 7].includes(id.length) || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
 				{
 					// for npc, we also check if there is a relation tag /x
@@ -182,20 +181,25 @@ class Search
 						this.m_related_lookup_reverse[id] = [relation_name];
 					}
 				}
-				if(name != id)
+				const names = gbf.get_lookup_names(id, false);
+				for(let name of names)
 				{
-					// add the name to the reverse lookup
-					if(!(id in this.m_related_lookup_reverse))
+					name = name.toLowerCase();
+					if(name != id)
 					{
-						this.m_related_lookup_reverse[id] = [];
+						// add the name to the reverse lookup
+						if(!(id in this.m_related_lookup_reverse))
+						{
+							this.m_related_lookup_reverse[id] = [];
+						}
+						this.m_related_lookup_reverse[id].push(name);
+						
+						// add the name to the lookup
+						if(name in this.m_related_lookup)
+							this.m_related_lookup[name].push(id);
+						else
+							this.m_related_lookup[name] = [id];
 					}
-					this.m_related_lookup_reverse[id].push(name);
-					
-					// add the name to the lookup
-					if(name in this.m_related_lookup)
-						this.m_related_lookup[name].push(id);
-					else
-						this.m_related_lookup[name] = [id];
 				}
 			}
 			for(const [k, v] of Object.entries(this.m_related_lookup))
@@ -218,7 +222,6 @@ class Search
 		{
 			for(const id of Object.keys(index.lookup))
 			{
-				const name = gbf.get_lookup_name(id);
 				let modified = index.lookup[id];
 				for(const spe of ["/x ", "/w "]) // do those two first (with a space)
 				{

@@ -308,10 +308,9 @@ class GBF
 		return null;
 	}
 	
-	get_lookup_name(id, allow_wiki=true)
+	// for internal use
+	_get_single_lookup_name(lookup_string, allow_wiki=true)
 	{
-		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
-			return id;
 		let wiki = [];
 		let name = [];
 		let last_token = null;
@@ -319,7 +318,7 @@ class GBF
 		GBF.c_name_word_regex.lastIndex = 0;
 
 		let match;
-		while((match = GBF.c_name_word_regex.exec(index.lookup[id])) !== null)
+		while((match = GBF.c_name_word_regex.exec(lookup_string)) !== null)
 		{
 			const token = match[0];
 			if(GBF.c_special_tokens.has(token))
@@ -349,7 +348,27 @@ class GBF
 		{
 			return name.join(" ");
 		}
-		return id;
+		return null;
+	}
+	
+	get_lookup_names(id, allow_wiki=true)
+	{
+		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
+			return [id];
+		const ret = [];
+		for(const string of index.lookup[id].split("/%"))
+		{
+			const result = this._get_single_lookup_name(string, allow_wiki);
+			if(result != null)
+			{
+				ret.push(result);
+			}
+		}
+		return (
+			ret.length > 0
+			? ret
+			: [id]
+		);
 	}
 	
 	get_npc_relation(id)

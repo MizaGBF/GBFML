@@ -298,7 +298,7 @@ function toggle_bookmark(id = null, type = null)
 			let fav = document.getElementById('fav-btn');
 			if(fav)
 			{
-				let name = gbf.get_lookup_name(id);
+				let name = gbf.get_lookup_names(id)[0];
 				if(!fav.classList.contains("fav-on"))
 				{
 					bookmarks.push([id, type]);
@@ -915,7 +915,7 @@ function list_elements(node, elems, onclick)
 					{
 						const n = add_index_image(
 							node,
-							{id:id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false},
+							{id:r.id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false},
 							onclick
 						);
 						n.classList.toggle("spoiler", true);
@@ -1200,7 +1200,7 @@ function get_npc(id, data, prefix, range)
 		}
 		else // sound-only
 		{
-			return [{id:id, modifier:"sound-only", text:gbf.get_lookup_name(id)}];
+			return [{id:id, modifier:"sound-only", text:gbf.get_lookup_names(id)[0]}];
 		}
 	}
 	else return null;
