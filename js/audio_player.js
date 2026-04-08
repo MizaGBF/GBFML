@@ -27,7 +27,9 @@ class AudioBasePlayer
 		// play button
 		this.play_button = add_to(this.custom_player, "button", {
 			cls:["audio-player-button"],
-			onclick:this.audio_play_button.bind(this)
+			onclick:() => {
+				this.audio_play_button()
+			}
 		});
 		this.play_button.disabled = true;
 		// player current time
@@ -44,10 +46,24 @@ class AudioBasePlayer
 		this.seek_slider.min = "0";
 		this.seek_slider.max = "100";
 		this.seek_slider.value = "0";
-		this.seek_slider.onmousedown = this.disable_update_seek.bind(this);
-		this.seek_slider.addEventListener("touchstart", (event) => { this.disable_update_seek(); });
-		this.seek_slider.onmouseup = this.set_audio_current_time.bind(this);
-		this.seek_slider.addEventListener("touchend", (event) => { this.set_audio_current_time(); });
+		this.seek_slider.onmousedown = () => {
+			this.disable_update_seek();
+		}
+		this.seek_slider.addEventListener(
+			"touchstart",
+			(event) => { 
+				this.disable_update_seek();
+			}
+		);
+		this.seek_slider.onmouseup = () => {
+			this.set_audio_current_time();
+		}
+		this.seek_slider.addEventListener(
+			"touchend",
+			(event) => { 
+				this.set_audio_current_time();
+			}
+		);
 		// audio duration
 		this.duration = add_to(this.custom_player, "span", {
 			cls:["audio-player-value"],
@@ -70,9 +86,21 @@ class AudioBasePlayer
 		this.volume_slider.min = "0";
 		this.volume_slider.max = "100";
 		this.volume_slider.value = "100";
-		this.volume_slider.addEventListener("input", (event) => { this.set_audio_volume(); });
-		this.volume_slider.onmouseup = this.confirm_audio_volume.bind(this);
-		this.volume_slider.addEventListener("touchend", (event) => { this.confirm_audio_volume(); });
+		this.volume_slider.addEventListener(
+			"input",
+			(event) => {
+				this.set_audio_volume();
+			}
+		);
+		this.volume_slider.onmouseup = () => {
+			this.confirm_audio_volume();
+		};
+		this.volume_slider.addEventListener(
+			"touchend",
+			(event) => {
+				this.confirm_audio_volume();
+			}
+		);
 		
 		// category select
 		let track_select_container = add_to(this.container, "div", {
@@ -110,6 +138,24 @@ class AudioBasePlayer
 			cls:["audio-select"],
 			id:"audio-track"
 		});
+		// previous & next
+		track_select_container = add_to(this.container, "div", {
+			cls:["audio-inner-container"]
+		});
+		add_to(track_select_container, "button", {
+			cls:["audio-button"],
+			innertext:"Previous Track",
+			onclick:() => {
+				this.previous_audio();
+			}
+		});
+		add_to(track_select_container, "button", {
+			cls:["audio-button"],
+			innertext:"Next Track",
+			onclick:() => {
+				this.next_audio();
+			}
+		});
 		
 		// buttons
 		track_select_container = add_to(this.container, "div", {
@@ -118,12 +164,16 @@ class AudioBasePlayer
 		add_to(track_select_container, "button", {
 			cls:["audio-button"],
 			innertext:"Set & Play",
-			onclick:this.set_and_play_audio.bind(this)
+			onclick:() => {
+				this.set_and_play_audio();
+			}
 		});
 		add_to(track_select_container, "button", {
 			cls:["audio-button"],
 			innertext:"Open in a Tab",
-			onclick:this.open_audio.bind(this)
+			onclick:() => {
+				this.open_audio();
+			}
 		});
 	}
 
@@ -232,6 +282,18 @@ class AudioBasePlayer
 	format_sound_suffix(s)
 	{
 		throw new Error("Not implemented");
+	}
+
+	previous_audio()
+	{
+		this.track.selectedIndex = (this.track.selectedIndex - 1 + this.track.options.length) % this.track.options.length;
+		this.set_and_play_audio();
+	}
+
+	next_audio()
+	{
+		this.track.selectedIndex = (this.track.selectedIndex + 1) % this.track.options.length;
+		this.set_and_play_audio();
 	}
 }
 
@@ -428,7 +490,12 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.playing.innerHTML = "Please Select a track,<br>then Set & Play";
 
 		// for continuous play
-		this.player.addEventListener('ended', this.on_track_ended.bind(this));
+		this.player.addEventListener(
+			'ended',
+			() => {
+				this.on_track_ended();
+			}
+		);
 
 		// album jacket
 		let extra_container = add_to(null, "div", {
@@ -475,27 +542,37 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.links.itunes = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png"> ITunes',
-			onclick:this.open_ios.bind(this)
+			onclick:() => {
+				this.open_ios();
+			}
 		});
 		this.links.apple = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/apple-music.png"> Apple Music',
-			onclick:this.open_ios.bind(this)
+			onclick:() => {
+				this.open_ios();
+			}
 		});
 		this.links.yt = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/youtube-music.png"> Youtube Music',
-			onclick:this.open_android.bind(this)
+			onclick:() => {
+				this.open_android();
+			}
 		});
 		this.links.ios = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/ios.png"> IOS Link',
-			onclick:this.open_ios.bind(this)
+			onclick:() => {
+				this.open_ios();
+			}
 		});
 		this.links.android = add_to(extra_container, "button", {
 			cls:["audio-button"],
 			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png"> Android Link',
-			onclick:this.open_android.bind(this)
+			onclick:() => {
+				this.open_android();
+			}
 		});
 		this.update_audio_tracks();
 		this.load_settings();
