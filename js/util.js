@@ -113,51 +113,6 @@ function toggle_beep()
 	return beep_enabled;
 }
 
-// used to sort some sound file suffixes in a particular way
-function sound_sort(a, b)
-{
-	const A = a.split('_');
-	const B = b.split('_');
-	const l = Math.max(A.length, B.length);
-	// uncap
-	let lvlA = 1;
-	if(["02", "03", "04"].includes(A[1]))
-	{
-		lvlA = parseInt(A[1]);
-	}
-	let lvlB = 1;
-	if(["02", "03", "04"].includes(B[1]))
-	{
-		lvlB = parseInt(B[1]);
-	}
-	if(lvlA < lvlB)
-		return -1;
-	else if(lvlA > lvlB)
-		return 1;
-	// string cmp
-	for(let i = 0; i < l; ++i)
-	{
-		if(i >= A.length)
-			return -1;
-		else if(i >= B.length)
-			return 1;
-		
-		if(A[i] < B[i])
-		{
-			if(A[i].length > B[i].length)
-				return 1;
-			return -1;
-		}
-		else if(A[i] > B[i])
-		{
-			if(A[i].length < B[i].length)
-				return -1;
-			return 1;
-		}
-	}
-	return 0;
-}
-
 // add an element to another element
 function add_to(node, tagName, {cls = [], id = null, title = null, innertext = null, innerhtml = null, onload = null, onclick = null, onerror = null, disabled = false, br = false}={})
 {
