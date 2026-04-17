@@ -58,12 +58,13 @@ var DataIdx = Object.freeze({
 	// event update
 	EVENT_CHAPTER_COUNT: 0,
 	EVENT_THUMB: 1,
-	EVENT_OP: 2,
-	EVENT_ED: 3,
-	EVENT_INT: 4,
-	EVENT_CHAPTER_START: 5,
+	EVENT_SIDE: 2,
+	EVENT_OP: 3,
+	EVENT_ED: 4,
+	EVENT_INT: 5,
+	EVENT_CHAPTER_START: 6,
 	EVENT_MAX_CHAPTER: 20,
-	EVENT_SKY: 5+20,
+	EVENT_SKY: 6+20,
 	EVENT_UPDATE_COUNT: 20,
 	// story update
 	STORY_CONTENT: 0,
@@ -1293,19 +1294,37 @@ function get_event(id, data, idfilter = null, unusedB = null)
 	if(idfilter != null)
 	{
 		if(idfilter == "" && !isNaN(id))
+		{
 			return null;
-		else if(!id.startsWith(idfilter))
+		}
+		else if(idfilter == "14" && !id.startsWith(idfilter) && !id.startsWith("13")) // special Exception for first event of the game
+		{
 			return null;
+		}
+		else if(idfilter != "14" && !id.startsWith(idfilter))
+		{
+			return null;
+		}
 	}
 	let has_file = false;
 	let path = "";
 	let className = "";
-	for(let i = 2; i < data.length; ++i)
+	if(
+		data[DataIdx.EVENT_THUMB] != null
+		|| data[DataIdx.EVENT_SIDE] != null
+	)
 	{
-		if(data[i].length > 0)
+		has_file = true;
+	}
+	else
+	{
+		for(let i = DataIdx.EVENT_OP; i < data.length; ++i)
 		{
-			has_file = true;
-			break;
+			if(data[i].length > 0)
+			{
+				has_file = true;
+				break;
+			}
 		}
 	}
 	if(has_file)
@@ -1323,7 +1342,15 @@ function get_event(id, data, idfilter = null, unusedB = null)
 		else
 		{
 			path = "GBF/assets_en/img_low/sp/archive/assets/island_m2/" + index["events"][id][1] + ".png";
-			className = (data[DataIdx.EVENT_SKY].length > 0 ? "preview sky-event":"preview");
+			className = "preview";
+			if(data[DataIdx.EVENT_SIDE] != null)
+			{
+				className += " side-event"
+			}
+			if(data[DataIdx.EVENT_SKY].length > 0)
+			{
+				className += " sky-event"
+			}
 		}
 		return [{id:id, path:path, onerr:null, class:className, link:false}];
 	}
@@ -1666,7 +1693,7 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 	{
 		add_navigation(div, id, target, navigation_special_targets);
 	}
-	if(lookup)
+	if(lookup && target != "events")
 	{
 		add_lookup(div, id);
 	}
@@ -2217,6 +2244,7 @@ function add_related(node, id, target)
 				list_elements(block, [[fate_id, GBFType.fate]], index_onclick);
 				has_been_added = true;
 			}
+			break;
 		}
 		case "weapons":
 		{
@@ -2227,6 +2255,7 @@ function add_related(node, id, target)
 				has_been_added = true;
 				exclude.push(index["premium"][id]);
 			}
+			break;
 		}
 		case "fate":
 		{
@@ -2255,6 +2284,18 @@ function add_related(node, id, target)
 					}
 				}
 			}
+			break;
+		}
+        case "enemies":
+        case "skins":
+        case "job":
+        case 'npcs':
+		{
+			break;
+		}
+		default:
+		{
+			return;
 		}
 	}
 	// add other related elements

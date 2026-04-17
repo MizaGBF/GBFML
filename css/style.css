@@ -816,8 +816,16 @@ details[open] > .detail {
     contain-intrinsic-size: 80px;
 }
 
+.side-event {
+	background-color: #fcdd88;
+}
+
 .sky-event {
 	background-color: #73ffff;
+}
+
+.side-event.sky-event {
+	background: linear-gradient(45deg, #fcdd88 0%, #73ffff 100%);
 }
 
 img {
