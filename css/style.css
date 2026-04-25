@@ -71,6 +71,10 @@ body {
 	color: white;
 }
 
+#issues>ul {
+    list-style-type: none;
+}
+
 a:link, .click-link {
 	color: #00ffff;
 	font-size: 1em;
