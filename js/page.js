@@ -1866,7 +1866,8 @@ function add_lookup_tag_class(node, text)
 {
 	switch(text.toLowerCase())
 	{
-		case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel": case "opus": case "xeno": case "exo":
+		case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel":
+		case "opus": case "xeno": case "exo": case "six": case "dragons":
 			node.classList.add("tag-gold");
 			break;
 		case "missing-help-wanted":
@@ -1937,7 +1938,7 @@ function add_lookup_tag_class(node, text)
 		case "4saints":
 			node.classList.add("tag-series-saint");
 			break;
-		case "crest": case "robur": case "bellum": case "cryptid":
+		case "crest": case "robur": case "bellum": case "cryptid": case "carbuncle": case "upgrader":
 			node.classList.add("tag-series-summon-series");
 			break;
 		case "formal":
