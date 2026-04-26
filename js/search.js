@@ -614,8 +614,8 @@ class Search
 			console.error("The index is lacking the premium table for this setting.");
 			return;
 		}
-		// need at least two letters
-		if(this.m_search_bar.value.trim().length <= 1)
+		// need at least one letter
+		if(this.m_search_bar.value.trim().length == 0)
 		{
 			if(this.m_search_area)
 				this.m_search_area.style.display = "none";
