@@ -612,6 +612,9 @@ function load_index_content(node, data, onclick)
 			case "profile_npcs":
 				callback = get_profile_npc;
 				break;
+			case "profile_arts":
+				callback = get_profile_art;
+				break;
 			case "title":
 				callback = get_title;
 				break;
@@ -890,6 +893,11 @@ function list_elements(node, elems, onclick)
 				case "profile_npcs":
 				{
 					res = get_profile_npc(id.split(':')[1], index['profile_npcs'][id.split(':')[1]]);
+					break;
+				}
+				case "profile_arts":
+				{
+					res = get_profile_art(id.split(':')[1], index['profile_arts'][id.split(':')[1]]);
 					break;
 				}
 				case "title":
@@ -1441,7 +1449,12 @@ function get_background(id, data, key, unused = null)
 
 function get_profile_npc(id, data, unusedA = null, unusedB = null)
 {
-	return [{id:id, path:"GBF/assets_en/img_low/sp//assets/profile_room/character/other/" + id + ".png", onerr:null, class:"preview", link:true}];
+	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/profile_room/character/other/" + id + ".png", onerr:null, class:"preview", link:true}];
+}
+
+function get_profile_art(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/profile_room/memorial_frame/painting/" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
 function get_title(id, data, unusedA = null, unusedB = null)
