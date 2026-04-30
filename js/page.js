@@ -609,6 +609,9 @@ function load_index_content(node, data, onclick)
 	{
 		switch(target) // extra GBFAL types
 		{
+			case "profile_npcs":
+				callback = get_profile_npc;
+				break;
 			case "title":
 				callback = get_title;
 				break;
@@ -882,6 +885,11 @@ function list_elements(node, elems, onclick)
 				case "subskills":
 				{
 					res = get_subskill(id.split(':')[1], index['subskills'][id.split(':')[1]]);
+					break;
+				}
+				case "profile_npcs":
+				{
+					res = get_profile_npc(id.split(':')[1], index['profile_npcs'][id.split(':')[1]]);
 					break;
 				}
 				case "title":
@@ -1429,6 +1437,11 @@ function get_background(id, data, key, unused = null)
 		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
 	}
 	return ret;
+}
+
+function get_profile_npc(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp//assets/profile_room/character/other/" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
 function get_title(id, data, unusedA = null, unusedB = null)
