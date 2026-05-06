@@ -505,7 +505,7 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.jacket_image = add_to(extra_container, "img", {
 			cls: ["audio-jacket"]
 		});
-		this.jacket_image.setAttribute('loading', 'lazy');
+		this.jacket_image.loading = "lazy";
 
 		// mode select
 		extra_container = add_to(null, "div", {
@@ -541,14 +541,14 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.links = {};
 		this.links.itunes = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png"> ITunes',
+			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png" loading="lazy"> ITunes',
 			onclick:() => {
 				this.open_ios();
 			}
 		});
 		this.links.apple = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/apple-music.png"> Apple Music',
+			innerhtml:'<img src="../GBFML/assets/ui/icon/apple-music.png" loading="lazy"> Apple Music',
 			onclick:() => {
 				this.open_ios();
 			}
@@ -562,14 +562,14 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		});
 		this.links.ios = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/ios.png"> IOS Link',
+			innerhtml:'<img src="../GBFML/assets/ui/icon/ios.png" loading="lazy"> IOS Link',
 			onclick:() => {
 				this.open_ios();
 			}
 		});
 		this.links.android = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png"> Android Link',
+			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png" loading="lazy"> Android Link',
 			onclick:() => {
 				this.open_android();
 			}

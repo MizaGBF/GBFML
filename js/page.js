@@ -566,6 +566,7 @@ function add_to_index(node, data, callback, level = 0)
 		icon = document.createElement("img");
 		icon.src = data.icon;
 		icon.alt = "";
+		icon.loading = "lazy";
 	}
 	else icon = document.createElement("span");
 	icon.classList.add(level ? "sub-detail-icon" : "detail-icon");
@@ -731,7 +732,7 @@ function load_index_content(node, data, onclick)
 			else
 				node.innerHTML = data.reverse ? "<div>Newest first</div>" : "<div>Oldest first</div>";
 		}
-		else node.innerHTML = '<div>Empty</div><img src="../GBFML/assets/ui/sorry.png">'
+		else node.innerHTML = '<div>Empty</div><img src="../GBFML/assets/ui/sorry.png" loading="lazy">'
 		for(const k of keys)
 		{
 			for(let r of slist[k])
