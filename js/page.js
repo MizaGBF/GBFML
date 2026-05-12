@@ -57,14 +57,15 @@ var DataIdx = Object.freeze({
 	BOSS_SP_ALL: 5,
 	// event update
 	EVENT_CHAPTER_COUNT: 0,
-	EVENT_THUMB: 1,
-	EVENT_SIDE: 2,
-	EVENT_OP: 3,
-	EVENT_ED: 4,
-	EVENT_INT: 5,
-	EVENT_CHAPTER_START: 6,
+	EVENT_NAME: 1,
+	EVENT_THUMB: 2,
+	EVENT_SIDE: 3,
+	EVENT_OP: 4,
+	EVENT_ED: 5,
+	EVENT_INT: 6,
+	EVENT_CHAPTER_START: 7,
 	EVENT_MAX_CHAPTER: 20,
-	EVENT_SKY: 6+20,
+	EVENT_SKY: 7+20,
 	EVENT_UPDATE_COUNT: 20,
 	// story update
 	STORY_CONTENT: 0,
@@ -1354,19 +1355,19 @@ function get_event(id, data, idfilter = null, unusedB = null)
 	}
 	if(has_file)
 	{
-		if(index["events"][id][1] == null)
+		if(index["events"][id][DataIdx.EVENT_THUMB] == null)
 		{
 			path = "../GBFML/assets/ui/event.png";
 			className = "preview-noborder";
 		}
-		else if(isNaN(parseInt(index["events"][id][1])))
+		else if(isNaN(parseInt(index["events"][id][DataIdx.EVENT_THUMB])))
 		{
-			path = "../GBFML/assets/ui/" + index["events"][id][1] + ".png";
+			path = "../GBFML/assets/ui/" + index["events"][id][DataIdx.EVENT_THUMB] + ".png";
 			className = "preview";
 		}
 		else
 		{
-			path = "GBF/assets_en/img_low/sp/archive/assets/island_m2/" + index["events"][id][1] + ".png";
+			path = "GBF/assets_en/img_low/sp/archive/assets/island_m2/" + index["events"][id][DataIdx.EVENT_THUMB] + ".png";
 			className = "preview";
 			if(data[DataIdx.EVENT_SIDE] != null)
 			{
@@ -1604,7 +1605,7 @@ function add_npc_image(node, data, onclick)
 	}
 }
 
-function build_header(node, {id, target, create_div = true, navigation = false, navigation_special_targets = [], lookup = false, related = false, link = false, extra_links = []}={})
+function build_header(node, {id, target, data = null, create_div = true, navigation = false, navigation_special_targets = [], lookup = false, related = false, link = false, extra_links = []}={})
 {
 	let name = "";
 	switch(target)
@@ -1668,7 +1669,13 @@ function build_header(node, {id, target, create_div = true, navigation = false, 
 		{
 			name = "Event " + gbf.get_prefix(GBFType.event) + id;
 			if(!isNaN(id))
+			{
 				name += " (" + id.substring(0, 2) + "/" + id.substring(2, 4) + "/" + id.substring(4, 6) + ")";
+			}
+			if(data != null && data[DataIdx.EVENT_NAME] != "")
+			{
+				name += "\n" + data[DataIdx.EVENT_NAME];
+			}
 			break;
 		}
 		case "story0":
