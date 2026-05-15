@@ -1922,7 +1922,7 @@ function add_lookup_tag_class(node, text)
 	switch(text.toLowerCase())
 	{
 		case "ssr": case "grand": case "providence": case "optimus": case "dynamis": case "archangel":
-		case "opus": case "xeno": case "exo": case "six": case "dragons":
+		case "opus": case "xeno": case "exo": case "six": case "dragons": case "illustrious":
 			node.classList.add("tag-gold");
 			break;
 		case "missing-help-wanted":
