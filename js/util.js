@@ -101,8 +101,13 @@ function beep()
 	if(beep_enabled)
 	{
 		if(!beep_audio.paused)
+		{
 			return;
-		beep_audio.play();
+		}
+		beep_audio
+		.play()
+		.then(() => {})
+		.catch(() => {});
 	}
 }
 

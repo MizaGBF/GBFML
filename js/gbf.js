@@ -26,6 +26,9 @@ class GBF
 	static c_eternals = Object.freeze([
 		"3040030000", "3040031000", "3040032000", "3040033000", "3040034000", "3040035000", "3040036000", "3040037000", "3040038000", "3040039000"
 	]);
+	static c_evokers = Object.freeze([
+		"3040160000", "3040161000", "3040162000", "3040163000", "3040164000", "3040165000", "3040166000", "3040167000", "3040168000", "3040169000"
+	]);
 	static c_default_type_size = Object.freeze({
 		10: [GBFType.weapon, GBFType.summon, GBFType.character, GBFType.partner, GBFType.npc],
 		7: [GBFType.enemy],
@@ -57,6 +60,12 @@ class GBF
 	eternals()
 	{
 		return GBF.c_eternals;
+	}
+	
+	// getter: return the list of evoker IDs
+	evokers()
+	{
+		return GBF.c_evokers;
 	}
 	
 	// set m_lookup_prefix and its variants
@@ -403,3 +412,4 @@ class GBF
 		return relation.join(" ");
 	}
 };
+var gbf = new GBF();

@@ -20,7 +20,7 @@ The main CSS file, used for the [GBF Asset Lookup](https://github.com/MizaGBF/GB
 ### gbf.js  
 Requires `util.js`.  
 Contains a class to handle types and corresponding index keys, along with returning endpoints for assets.  
-Intended to be instantiated once in a global `gbf` variable upon initialization.  
+A global `gbf` variable is instanciated upon initialization.  
   
 ### page.js  
 Requires `gbf.js` and `util.js`.  
