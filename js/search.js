@@ -237,9 +237,13 @@ class Search
 					{
 						// add the relation name to the lookup
 						if(relation_name in this.m_related_lookup)
+						{
 							this.m_related_lookup[relation_name].push(id);
+						}
 						else
+						{
 							this.m_related_lookup[relation_name] = [id];
+						}
 						// we also build a reverse lookup for the others, for speed
 						this.m_related_lookup_reverse[id] = [relation_name];
 					}
@@ -259,9 +263,13 @@ class Search
 						
 						// add the name to the lookup
 						if(name in this.m_related_lookup)
+						{
 							this.m_related_lookup[name].push(id);
+						}
 						else
+						{
 							this.m_related_lookup[name] = [id];
+						}
 					}
 				}
 			}
