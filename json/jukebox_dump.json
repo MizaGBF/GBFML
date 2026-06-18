@@ -618,7 +618,8 @@
                     },
                     "is_group_last": true
                 }
-            ]
+            ],
+            "is_hide_global": false
         },
         "2": {
             "title": "Granblue Fantasy\u003Cbr\u003EStory Music Tracks",
@@ -1003,7 +1004,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "3": {
             "title": "Granblue Fantasy\u003Cbr\u003EBattle Music Tracks",
@@ -1430,7 +1432,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "4": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Lyria",
@@ -1927,7 +1930,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "5": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Fate",
@@ -2466,7 +2470,8 @@
                         "1": true
                     }
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "6": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Promise",
@@ -2861,7 +2866,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "7": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Chaos",
@@ -3352,7 +3358,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "8": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Awakening",
@@ -3759,7 +3766,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "9": {
             "title": "Kimi to Boku no Mirai",
@@ -3805,7 +3813,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "10": {
             "title": "Sora no Michishirube",
@@ -3847,7 +3856,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "11": {
             "title": "Ballad of the Fundoshi Trio",
@@ -3893,7 +3903,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "12": {
             "title": "Yozora no Shizuku",
@@ -3935,7 +3946,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "13": {
             "title": "Never Ending Fantasy",
@@ -3981,7 +3993,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "14": {
             "title": "Magic Journal",
@@ -4027,7 +4040,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "15": {
             "title": "Nanokakan Kakete Sekai wo Tsukuru Yori...",
@@ -4073,7 +4087,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "16": {
             "title": "The Dragon Knights",
@@ -4119,7 +4134,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "17": {
             "title": "Cafe de Party Night",
@@ -4161,7 +4177,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "18": {
             "title": "Souku Hana no Mai",
@@ -4207,7 +4224,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "19": {
             "title": "Merry Luv",
@@ -4253,7 +4271,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "20": {
             "title": "Over the Sky",
@@ -4299,7 +4318,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "21": {
             "title": "Houmatsu-mugen Kochoujin",
@@ -4345,7 +4365,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "22": {
             "title": "Another Sky",
@@ -4391,7 +4412,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "23": {
             "title": "Pride",
@@ -4437,7 +4459,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "24": {
             "title": "Ain Soph Aur",
@@ -4483,7 +4506,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "25": {
             "title": "Happy New Genesis",
@@ -4529,7 +4553,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "26": {
             "title": "Saika no Chigiri",
@@ -4575,7 +4600,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "27": {
             "title": "Unfinished Melody",
@@ -4668,7 +4694,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "28": {
             "title": "The Robomi Song",
@@ -4739,7 +4766,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "29": {
             "title": "Shi ni Itaru Koi",
@@ -4785,7 +4813,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "30": {
             "title": "Knights of Chivalry",
@@ -4831,7 +4860,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "31": {
             "title": "Pray for the Sky",
@@ -4877,7 +4907,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "32": {
             "title": "Stardust Children",
@@ -4919,7 +4950,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "33": {
             "title": "Welcome to the Parade!",
@@ -4965,7 +4997,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "34": {
             "title": "Vanishing Point",
@@ -5007,7 +5040,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "35": {
             "title": "Pledge of the Tempest",
@@ -5053,7 +5087,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "36": {
             "title": "Hassuru Labyrinth!",
@@ -5099,7 +5134,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "37": {
             "title": "Meccha Meccha Level Up",
@@ -5141,7 +5177,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "38": {
             "title": "The Six Dragons\u0027 Mini Album",
@@ -5276,7 +5313,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "39": {
             "title": "Hoshihana",
@@ -5322,7 +5360,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "40": {
             "title": "Shinsho Hokiuta Emban",
@@ -5397,7 +5436,8 @@
                     },
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "41": {
             "title": "Orison",
@@ -5443,7 +5483,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "42": {
             "title": "Scars Left Behind",
@@ -5485,7 +5526,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "43": {
             "title": "Promise by Moonlight",
@@ -5531,7 +5573,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "44": {
             "title": "Eternal Desire",
@@ -5573,7 +5616,8 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
         },
         "45": {
             "title": "Shirube",
@@ -5623,7 +5667,51 @@
                     "is_group_last": true,
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
+        },
+        "46": {
+            "title": "Star\u2606Celebration",
+            "jacket_image": "jacket_46.png",
+            "link_text": "[AD] Character Song Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/anxmusic.lnk.to\/MJt5GT",
+                "android_link": "https:\/\/anxmusic.lnk.to\/MJt5GT",
+                "pc_link": "https:\/\/anxmusic.lnk.to\/MJt5GT"
+            },
+            "list": {
+                "152": {
+                    "title": "Star\u2606Celebration",
+                    "bgm_index": "152",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "369_star_celebration_juke_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "369_star_celebration_juke_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "369_star_celebration_juke_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "369_star_celebration_juke_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "369_star_celebration_juke_05",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_first": true,
+                    "is_group_last": true,
+                    "is_group_single": true
+                }
+            },
+            "is_hide_global": true
         }
     },
     "bgm_changed": true,

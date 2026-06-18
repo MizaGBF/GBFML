@@ -4,7 +4,7 @@ import json
 """
 jukebox_dump.json must contain an array of dump of the game jukebox JSON files
 """
-with open("jukebox_dump.json", mode="r", encoding="utf-8") as f:
+with open("../json/jukebox_dump.json", mode="r", encoding="utf-8") as f:
     data = json.load(f)
 
 l = []
@@ -32,5 +32,5 @@ for group in data:
 
 l.sort(key=lambda x: int(x["files"][0].split("_")[0]))
 
-with open("jukebox.json", mode="w", encoding="utf-8") as f:
+with open("../json/jukebox.json", mode="w", encoding="utf-8") as f:
     json.dump(l, f)
