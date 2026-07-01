@@ -667,6 +667,7 @@ class Search
 			this.m_last_search_words = null;
 			this.m_last_elements = null;
 			this.m_last_filtereds = null;
+			this.set_url_param(null);
 			return;
 		}
 		const sval = this.m_search_bar.value;
