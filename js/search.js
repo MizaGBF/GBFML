@@ -301,7 +301,7 @@ class Search
 					// in simple mode, search is limited to these tags
 					for(const part of parts)
 					{
-						if(part.length > 0 && ["n", "b", "s", "e", "c", "t", "y"].includes(part[0]))
+						if(part.length > 0 && ["n", "b", "s", "e", "c", "p", "t", "y"].includes(part[0]))
 						{
 							if(part[0] == "y")
 							{
