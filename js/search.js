@@ -209,8 +209,9 @@ class Search
 		relation_enabled: A list of GBFType to enable relations for
 		allow_lookup: If true, the lookup function is called after searching a valid ID
 		allow_search_param: If true, the URL search parameters will be automatically updated. Use load_url_param after the page loading to use it.
+		simple_search: If true, it will only account for character names, elements, series, races, genders
 	*/
-	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup, allow_search_param)
+	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup, allow_search_param, simple_search=false)
 	{
 		if(typeof gbf === "undefined" || gbf == null)
 		{
@@ -293,61 +294,78 @@ class Search
 		{
 			for(const id of Object.keys(index.lookup))
 			{
-				let modified = index.lookup[id];
-				for(const spe of ["/x ", "/w "]) // do those two first (with a space)
+				let modified = "";
+				if(simple_search)
 				{
-					let A = modified.indexOf(spe);
-					if(A != -1)
+					const parts = index.lookup[id].split("/");
+					// in simple mode, search is limited to these tags
+					for(const part of parts)
 					{
-						let B = modified.indexOf(" /", A + 1);
-						if(B != -1)
+						if(["n", "b", "s", "e", "c", "t"].includes(part[0]))
 						{
-							modified = (modified.slice(0, A) + modified.slice(B)).trim();
-						}
-						else
-						{
-							modified = modified.slice(0, A).trim();
+							modified += "/" + part;
 						}
 					}
+					modified = modified.trim();
 				}
-				for(const spe of GBF.c_special_tokens)
+				else
 				{
-					switch(spe)
+					modified = index.lookup[id];
+					for(const spe of ["/x ", "/w "]) // do those two first (with a space)
 					{
-						case "/x":
-						case "/w":
+						let A = modified.indexOf(spe);
+						if(A != -1)
 						{
-							break;
+							let B = modified.indexOf(" /", A + 1);
+							if(B != -1)
+							{
+								modified = (modified.slice(0, A) + modified.slice(B)).trim();
+							}
+							else
+							{
+								modified = modified.slice(0, A).trim();
+							}
 						}
-						case "/1":
+					}
+					for(const spe of GBF.c_special_tokens)
+					{
+						switch(spe)
 						{
-							modified = modified.replace(spe, "gbf-versus-rising");
-							break;
-						}
-						case "/2":
-						{
-							modified = modified.replace(spe, "gbf-relink");
-							break;
-						}
-						case "/!":
-						{
-							modified = modified.replace(spe, "voiced");
-							break;
-						}
-						case "/!!":
-						{
-							modified = modified.replace(spe, "voice-only");
-							break;
-						}
-						case "/$":
-						{
-							modified = modified.replace(spe, "missing-help-wanted");
-							break;
-						}
-						default:
-						{
-							modified = modified.replace(" " + spe, "").replace(spe + " ", "");
-							break;
+							case "/x":
+							case "/w":
+							{
+								break;
+							}
+							case "/1":
+							{
+								modified = modified.replace(spe, "gbf-versus-rising");
+								break;
+							}
+							case "/2":
+							{
+								modified = modified.replace(spe, "gbf-relink");
+								break;
+							}
+							case "/!":
+							{
+								modified = modified.replace(spe, "voiced");
+								break;
+							}
+							case "/!!":
+							{
+								modified = modified.replace(spe, "voice-only");
+								break;
+							}
+							case "/$":
+							{
+								modified = modified.replace(spe, "missing-help-wanted");
+								break;
+							}
+							default:
+							{
+								modified = modified.replace(" " + spe, "").replace(spe + " ", "");
+								break;
+							}
 						}
 					}
 				}
