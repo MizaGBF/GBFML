@@ -211,7 +211,18 @@ class Search
 		allow_search_param: If true, the URL search parameters will be automatically updated. Use load_url_param after the page loading to use it.
 		simple_search: If true, it will only account for character names, elements, series, races, genders
 	*/
-	constructor(search_bar_node, search_result_node, storage_key, search_filters, relation_enabled, allow_lookup, allow_search_param, simple_search=false)
+	constructor(
+		search_bar_node,
+		{
+			search_result_node=null,
+			storage_key=null,
+			search_filters=null,
+			relation_enabled=[],
+			allow_lookup=false,
+			allow_search_param=false,
+			simple_search=false
+		}={}
+	)
 	{
 		if(typeof gbf === "undefined" || gbf == null)
 		{
