@@ -293,6 +293,61 @@ class GBF
 		}
 	}
 	
+	// intended as a fallback if index_to_type
+	// DO NOT support all types
+	id_to_type(id)
+	{
+		id = "" + id;
+		switch(id.length)
+		{
+			case 10:
+			{
+				switch(id.substring(0, 3))
+				{
+					case "304":
+					case "303":
+					case "302":
+					case "371":
+						return GBFType.character;
+					case "204":
+					case "203":
+					case "202":
+					case "201":
+						return GBFType.summon;
+					case "104":
+					case "103":
+					case "102":
+					case "101":
+						return GBFType.weapon;
+					case "305":
+					case "399":
+						return GBFType.npc;
+					case "384":
+					case "383":
+					case "382":
+					case "381":
+					case "388":
+					case "389":
+						return GBFType.partner;
+					default:
+						return null;
+				}
+			}
+			case 7:
+			{
+				return GBFType.enemy;
+			}
+			case 6:
+			{
+				return GBFType.job;
+			}
+			default:
+			{
+				return null;
+			}
+		}
+	}
+	
 	look_for_fate_episode_in_index(id, allow_empty = false)
 	{
 		if(typeof index !== "undefined" && "fate" in index)

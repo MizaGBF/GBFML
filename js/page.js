@@ -494,7 +494,9 @@ function update_history(id = null, type = null) // update the history list
 		{
 			search_history = JSON.parse(search_history);
 			if(search_history.length > HISTORY_LENGTH) // resize
+			{
 				search_history = search_history.slice(search_history.length - HISTORY_LENGTH);
+			}
 		}
 	}
 	catch(err)
@@ -504,14 +506,29 @@ function update_history(id = null, type = null) // update the history list
 	}
 	if(id != null)
 	{
-		for(let e of search_history)
+		let found = false;
+		for(let i = 0; i < search_history.length; ++i)
 		{
-			if(e[0] == id)
+			const e = search_history[i];
+			if(e[0] == id && e[1] == type)
+			{
 				return; // don't update if already in
+			}
+			else if(e[0] == id)
+			{
+				search_history[i][1] = type;
+				found = true;
+			}
 		}
-		search_history.push([id, type]);
-		if(search_history.length > HISTORY_LENGTH) // resize
-			search_history = search_history.slice(search_history.length - HISTORY_LENGTH);
+		console.log(found);
+		if(!found)
+		{
+			search_history.push([id, type]);
+			if(search_history.length > HISTORY_LENGTH) // resize
+			{
+				search_history = search_history.slice(search_history.length - HISTORY_LENGTH);
+			}
+		}
 		localStorage.setItem(history_key, JSON.stringify(search_history));
 	}
 	let node = document.getElementById('history');
