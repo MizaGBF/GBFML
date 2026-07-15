@@ -1490,44 +1490,6 @@ function get_background(id, data, key = null, unused = null)
 		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
 	}
 	return ret;
-	
-	
-	
-	
-	/*if(!data)
-	{
-		return null;
-	}
-	let path = null;
-	switch(id.split('_')[0])
-	{
-		case "common":
-			if(key != "common")
-				return null;
-			path = ["sp/raid/bg/", ".jpg"];
-			break;
-		case "main":
-			if(key != "main")
-				return null;
-			path = ["sp/guild/custom/bg/", ".png"];
-			break;
-		case "event":
-			if(key != "event")
-				return null;
-			path = ["sp/raid/bg/", ".jpg"];
-			break;
-		default:
-			if(key != "")
-				return null;
-			path = ["sp/raid/bg/", ".jpg"];
-			break;
-	}
-	let ret = [];
-	for(let i of data[0])
-	{
-		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
-	}
-	return ret;*/
 }
 
 function get_profile_npc(id, data, unusedA = null, unusedB = null)
