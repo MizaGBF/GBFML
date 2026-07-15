@@ -1467,7 +1467,19 @@ function get_background(id, data, key = null, unused = null)
 		}
 		default:
 		{
-			if(key != null && key != "")
+			const first_character = id[0];
+			if(
+				key != null
+				&& (
+					(
+						key != ""
+						&& key != first_character
+					) || (
+						key == ""
+						&& !"0123456789".includes(first_character)
+					)
+				)
+			)
 			{
 				return null;
 			}
