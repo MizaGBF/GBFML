@@ -520,7 +520,6 @@ function update_history(id = null, type = null) // update the history list
 				found = true;
 			}
 		}
-		console.log(found);
 		if(!found)
 		{
 			search_history.push([id, type]);
@@ -882,11 +881,7 @@ function list_elements(node, elems, onclick)
 				}
 				case GBFType.background:
 				{
-					if(id in index['background'])
-					{
-						let tmp = id.split('_')[0];
-						res = get_background(id, index['background'][id], (["common", "main", "event"].includes(tmp) ? tmp : ""));
-					}
+					res = get_background(id, index['background'][id]);
 					break;
 				}
 				case GBFType.story0:
@@ -1438,10 +1433,71 @@ function get_buff(id, data, range, unused = null)
 	];
 }
 
-function get_background(id, data, key, unused = null)
+function get_background(id, data, key = null, unused = null)
 {
-	if(!data)
+	let path = null;
+	switch(id.split('_')[0])
+	{
+		case "common":
+		{
+			if(key != null && key != "common")
+			{
+				return null;
+			}
+			path = ["sp/raid/bg/", ".jpg"];
+			break;
+		}
+		case "main":
+		{
+			if(key != null && key != "main")
+			{
+				return null;
+			}
+			path = ["sp/guild/custom/bg/", ".png"];
+			break;
+		}
+		case "event":
+		{
+			if(key != null && key != "event")
+			{
+				return null;
+			}
+			path = ["sp/raid/bg/", ".jpg"];
+			break;
+		}
+		default:
+		{
+			if(key != null && key != "")
+			{
+				return null;
+			}
+			path = ["sp/raid/bg/", ".jpg"];
+			break;
+		}
+	}
+	let list = [];
+	if(data)
+	{
+		list = data[0];
+	}
+	else
+	{
+		list = [id];
+	}
+	let ret = [];
+	for(let i of list)
+	{
+		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
+	}
+	return ret;
+	
+	
+	
+	
+	/*if(!data)
+	{
 		return null;
+	}
 	let path = null;
 	switch(id.split('_')[0])
 	{
@@ -1471,7 +1527,7 @@ function get_background(id, data, key, unused = null)
 	{
 		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
 	}
-	return ret;
+	return ret;*/
 }
 
 function get_profile_npc(id, data, unusedA = null, unusedB = null)
