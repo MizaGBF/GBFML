@@ -191,6 +191,8 @@ a:active, .click-link:active {
 	outline: none;
 	cursor: pointer;
 	overflow: hidden;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 40px;
 }
 
 .detail:hover {
@@ -209,6 +211,8 @@ details[open] > .detail {
 	width: 75%;
 	height: 30px;
 	font-size: 24px;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 30px;
 }
 
 .sub-detail-child {
@@ -273,6 +277,8 @@ details[open] > .detail {
 	margin: 1px;
 	font-size: 20px;
 	cursor: pointer;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 40px;
 }
 
 .std-button-large {
@@ -328,6 +334,8 @@ details[open] > .detail {
 	font-size: 20px;
 	cursor: pointer;
 	text-align: start;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 80px;
 }
 
 .tab-button:active {
@@ -703,6 +711,8 @@ details[open] > .detail {
 	width:500px;
 	height:45px;
 	margin: 10px;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 45px;
 }
 
 #filter:hover, .styled-input:hover {
@@ -915,6 +925,8 @@ a:hover > .asset-text {
 	max-width: 250px;
 	max-height: 250px;
 	box-sizing: border-box;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 250px;
 }
 
 .asset-small {
@@ -924,6 +936,8 @@ a:hover > .asset-text {
 	max-width: 120px;
 	max-height: 120px;
 	box-sizing: border-box;
+	content-visibility: auto-pointer-events;
+    contain-intrinsic-size: 120px;
 }
 
 .asset-skycompass {
@@ -1289,6 +1303,7 @@ a:hover > .asset-text {
 			min-width: 160px;
 			min-height: 60px;
 			font-size: 16px;
+			contain-intrinsic-size: 60px;
 		}
 
 		.tab-button-icon {
@@ -1301,11 +1316,13 @@ a:hover > .asset-text {
 			text-overflow: clip;
 			overflow: hidden;
 			white-space: nowrap;
+			contain-intrinsic-size: 20px;
 		}
 		
 		.sub-detail {
 			width: 90%;
 			font-size: 20px;
+			contain-intrinsic-size: 20px;
 		}
 
 		.sub-detail-child {
@@ -1364,6 +1381,7 @@ a:hover > .asset-text {
 			min-height: 180px;
 			max-width: 180px;
 			max-height: 180px;
+			contain-intrinsic-size: 180px;
 		}
 
 		.toggle-btn
