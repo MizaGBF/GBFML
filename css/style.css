@@ -871,27 +871,41 @@ img {
 }
 
 .asset-text {
+	opacity: 1;
+	visibility: visible;
 	position: absolute;
 	top: 0px;
-	left: 5px;
-	min-width: 250px;
-	min-height: 250px;
-	max-width: 250px;
-	max-height: 250px;
-	font-size: 16px;
-	text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+	left: 0px;
+	margin: 1px;
+	padding: 1px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #000000;
+	background-color: #ffe800;
+}
+
+.asset-text-sky {
+	color: #00687d;
+	background-color: #ffffff;
+}
+
+.asset-text-big {
+	min-width: 248px;
+	max-width: 248px;
+	max-height: 248px;
 }
 
 .asset-text-small {
-	position: absolute;
-	top: 0px;
-	left: 5px;
-	min-width: 120px;
-	min-height: 120px;
-	max-width: 120px;
-	max-height: 120px;
-	font-size: 16px;
-	text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+	min-width: 118px;
+	max-width: 118px;
+	max-height: 118px;
+	font-size: 12px;
+}
+
+a:hover > .asset-text {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .asset {
@@ -912,15 +926,8 @@ img {
 	box-sizing: border-box;
 }
 
-.skycompass {
-	min-width: 250px;
-	min-height: 250px;
-	max-width: 250px;
-	max-height: 250px;
-	border: 2px solid #e0ffff;
-	border-radius: 10px;
+.asset-skycompass {
 	background: url(../assets/ui/skycompass.png) no-repeat bottom left 0% / 15%;
-	box-sizing: border-box;
 }
 
 .toggle-btn
@@ -1340,14 +1347,19 @@ img {
 			contain-intrinsic-size: 60px;
 		}
 		
-		.asset {
-			min-width: 180px;
-			min-height: 180px;
-			max-width: 180px;
-			max-height: 180px;
+		.asset-text-big {
+			min-width: 178px;
+			max-width: 178px;
+			max-height: 178px;
 		}
 
-		.skycompass {
+		.asset-text-small {
+			min-width: 118px;
+			max-width: 118px;
+			max-height: 118px;
+		}
+		
+		.asset {
 			min-width: 180px;
 			min-height: 180px;
 			max-width: 180px;
