@@ -83,7 +83,7 @@ function get_url_params()
 	return new URLSearchParams(window.location.search);
 }
 
-// update url parameters
+// update url parameters and title
 function update_query(id)
 {
 	let params = new URLSearchParams(window.location.search);
@@ -92,7 +92,22 @@ function update_query(id)
 	{
 		history.pushState(null, '', window.location.pathname + '?' + params.toString());
 	}
-	document.title = document.title.split(" - ")[0] + " - " + id;
+	// update page title
+	try
+	{
+		const name = gbf.get_lookup_names(id)[0];
+		if(name != id)
+		{
+			document.title = document.title.split(" - ")[0] + " - " + capitalize(name);
+		}
+		else
+		{
+			document.title = document.title.split(" - ")[0] + " - Element " + id;
+		}
+	} catch(err) {
+		console.error("Exception thrown", err.stack);
+		document.title = document.title.split(" - ")[0] + " - Element " + id;
+	}
 }
 
 // play beep.ogg
