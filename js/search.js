@@ -210,6 +210,7 @@ class Search
 		allow_lookup: If true, the lookup function is called after searching a valid ID
 		allow_search_param: If true, the URL search parameters will be automatically updated. Use load_url_param after the page loading to use it.
 		simple_search: If true, it will only account for character names, elements, series, races, genders
+		evt_lookup: Used to tell the Search the key of the evt_lookup (default) for searching events. Format must follow GBFAL specs.
 	*/
 	constructor(
 		search_bar_node,
@@ -220,7 +221,8 @@ class Search
 			relation_enabled=[],
 			allow_lookup=false,
 			allow_search_param=false,
-			simple_search=false
+			simple_search=false,
+			evt_lookup="evt_lookup"
 		}={}
 	)
 	{
@@ -388,13 +390,27 @@ class Search
 					}
 				}
 				if(!(modified in this.m_reverse_lookup))
+				{
 					this.m_reverse_lookup[modified] = [];
+				}
 				this.m_reverse_lookup[modified].push(id);
 			}
 		}
 		else
 		{
 			throw new Error("Can't initialize search, no lookup in the index.");
+		}
+		// for event search
+		if((index[evt_lookup] ?? null) != null)
+		{
+			for(const [name, ids] of Object.entries(index[evt_lookup]))
+			{
+				this.m_reverse_lookup[name] = [];
+				for(const id of ids)
+				{
+					this.m_reverse_lookup[name].push("$$" + id);
+				}
+			}
 		}
 		// search bar node
 		this.m_search_bar = search_bar_node;
@@ -806,6 +822,14 @@ class Search
 							case "101":
 								last_elements.push([id, GBFType.weapon]);
 								break;
+						}
+						break;
+					}
+					case 8:
+					{
+						if(id.startsWith("$$"))
+						{
+							last_elements.push([id.substring(2), GBFType.event]);
 						}
 						break;
 					}
