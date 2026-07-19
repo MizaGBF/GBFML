@@ -220,6 +220,7 @@ details[open] > .detail {
 }
 
 .detail-icon {
+	min-width: 40px;
 	height: 40px;
 	vertical-align: middle;
 	margin-left: 20%;
@@ -227,6 +228,7 @@ details[open] > .detail {
 }
 
 .sub-detail-icon {
+	min-width: 30px;
 	height: 30px;
 	vertical-align: middle;
 	margin-left: 20%;
