@@ -52,6 +52,28 @@ Requires `util.js`.
 Standalone.  
 Contains utility functions.  
   
+## Dark/Light Themes  
+  
+Add the following to your HTML `<head>`:  
+```HTML
+<script src="../GBFML/js/theme.js"></script>
+<script>
+    const saved_theme = localStorage.getItem("gbfml-theme");
+    const prefer_light = window.matchMedia("(prefers-color-scheme: light)").matches;
+    switch(saved_theme)
+    {
+        case null: document.documentElement.setAttribute("data-theme", prefer_light ? "light" : "dark"); break;
+        case "1": document.documentElement.setAttribute("data-theme", "light"); break;
+        default: document.documentElement.setAttribute("data-theme", "dark"); break;
+    }
+</script>
+```  
+  
+And at the start of the `<body>`:  
+```HTML
+<button class="theme-toggle" onclick="toggle_theme();"></button>
+```  
+  
 ## JSON  
   
 ### config.json  
@@ -96,4 +118,4 @@ They are delimited by special markers using a `/`.
 - `[Voice Actor JP]` is the element's Voice Actor's name in japanese.  
 - `[Release Date]` is the element's Release date sourced from the wiki.  
 - `[Additional Tags]` are special tags used for search purpose. There are currently: `/$` (for elements with invalid or without lookup entries), `/!` (for elements with voice files), `/!!` (for elements with only voice files), `/!` (for younger appearances of elements), `/1` (for elements appearing in Versus / Rising) and `/2` (for elements appearing Relink / Ragnarok). Additional tags should always be at the end.
-- `/%` can be used to set multiple names.
+- `/%` can be used to set multiple names.  
