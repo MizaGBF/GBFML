@@ -1652,7 +1652,21 @@ function add_npc_image(node, data, onclick)
 	}
 }
 
-function build_header(node, {id, target, data = null, create_div = true, navigation = false, navigation_special_targets = [], lookup = false, related = false, link = false, extra_links = []}={})
+function build_header(
+	node,
+	{
+		id,
+		target,
+		data = null,
+		create_div = true,
+		navigation = false,
+		navigation_special_targets = [],
+		lookup = false,
+		related = false,
+		link = false,
+		extra_links = []
+	}={}
+)
 {
 	let name = "";
 	switch(target)
@@ -2396,6 +2410,34 @@ function add_related(node, id, target)
 		{
 			break;
 		}
+		case "events":
+		{
+			if(typeof search != "undefined" && search.m_evt_lookup_key in index)
+			{
+				for(const [unused, ids] of Object.entries(index[search.m_evt_lookup_key]))
+				{
+					if(ids.includes(id))
+					{
+						if(ids.length <= 1)
+						{
+							break;
+						}
+						const l = [];
+						for(const ev_id of ids)
+						{
+							if(ev_id != id)
+							{
+								l.push([id, GBFType.event]);
+							}
+						}
+						list_elements(block, l, index_onclick);
+						has_been_added = true;
+						break;
+					}
+				}
+			}
+			break;
+		}
 		default:
 		{
 			return;
@@ -2408,7 +2450,9 @@ function add_related(node, id, target)
 		if(l.length > 0)
 		{
 			if(has_been_added)
+			{
 				block.appendChild(document.createElement("br"));
+			}
 			list_elements(block, l, index_onclick);
 			has_been_added = true;
 		}

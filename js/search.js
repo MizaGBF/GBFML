@@ -234,6 +234,7 @@ class Search
 		this.m_filters = search_filters;
 		this.m_relations = relation_enabled;
 		this.m_use_url_param = allow_search_param;
+		this.m_evt_lookup_key = evt_lookup;
 		// build relation lookup
 		this.m_related_lookup = {};
 		this.m_related_lookup_reverse = {};
