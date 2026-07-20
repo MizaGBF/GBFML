@@ -2427,7 +2427,7 @@ function add_related(node, id, target)
 						{
 							if(ev_id != id)
 							{
-								l.push([id, GBFType.event]);
+								l.push([ev_id, GBFType.event]);
 							}
 						}
 						list_elements(block, l, index_onclick);
