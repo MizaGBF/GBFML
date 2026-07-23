@@ -636,6 +636,12 @@ function load_index_content(node, data, onclick)
 			case "profile_bgs":
 				callback = get_profile_bg;
 				break;
+			case "arca3_maps":
+				callback = get_arca3_maps;
+				break;
+			case "arca3_specials":
+				callback = get_arca3_specials;
+				break;
 			case "title":
 				callback = get_title;
 				break;
@@ -920,6 +926,16 @@ function list_elements(node, elems, onclick)
 				case "profile_bgs":
 				{
 					res = get_profile_bg(id.split(':')[1], index['profile_bgs'][id.split(':')[1]]);
+					break;
+				}
+				case "arca3_maps":
+				{
+					res = get_arca3_maps(id.split(':')[1], index['arca3_maps'][id.split(':')[1]]);
+					break;
+				}
+				case "arca3_specials":
+				{
+					res = get_arca3_specials(id.split(':')[1], index['arca3_specials'][id.split(':')[1]]);
 					break;
 				}
 				case "title":
@@ -1525,6 +1541,16 @@ function get_profile_art(id, data, range_start = null, range_end = null)
 function get_profile_bg(id, data, unusedA = null, unusedB = null)
 {
 	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/profile_room/profile_card/bg/" + id + ".jpg", onerr:null, class:"preview", link:true}];
+}
+
+function get_arca3_maps(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/arcarum3/assets/map_bg/" + id + ".jpg", onerr:null, class:"preview", link:true}];
+}
+
+function get_arca3_specials(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/arcarum3/assets/scpecial_node_bg/" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
 function get_title(id, data, unusedA = null, unusedB = null)
