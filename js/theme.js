@@ -21,7 +21,12 @@ function set_theme(state, save = true)
 	}
 	if(save)
 	{
-		localStorage.setItem("gbfml-theme", "" + state);
+		try
+		{
+			localStorage.setItem("gbfml-theme", "" + state);
+		} catch(err) {
+			console.error("Exception thrown", err.stack);
+		}
 	}
 }
 
