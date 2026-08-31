@@ -2065,6 +2065,9 @@ function add_lookup_tag_class(node, text)
 		case "12generals":
 			node.classList.add("tag-series-zodiac");
 			break;
+		case "13bhuddas":
+			node.classList.add("tag-series-bhudda");
+			break;
 		case "fantasy":
 			node.classList.add("tag-series-fantasy");
 			break;
