@@ -15,7 +15,8 @@ const GBFType = Object.freeze({
 	fate: 12,
 	shield: 13,
 	manatura: 14,
-	story1: 15
+	story1: 15,
+	free: 16,
 });
 
 class GBF
@@ -37,7 +38,7 @@ class GBF
 		7: [GBFType.enemy],
 		6: [GBFType.job, GBFType.event],
 		4: [GBFType.skill, GBFType.buff, GBFType.fate],
-		3: [GBFType.story0, GBFType.story1]
+		3: [GBFType.free, GBFType.story0, GBFType.story1]
 	});
 	static c_special_tokens = new Set([
 		"/a", "/b", "/c", "/e", "/f", "/k", "/m", "/n", "/p", "/s", "/t", "/w", "/x", "/y", "/_", "/!", "/!!", "/1", "/2", "/$", "/%"
@@ -174,6 +175,7 @@ class GBF
 			case GBFType.buff:
 			case GBFType.fate:
 				return (string.length == 4 && !isNaN(string));
+			case GBFType.free:
 			case GBFType.story0:
 			case GBFType.story1:
 				return (string.length == 3 && (!isNaN(string) || ((string.startsWith("r") || string.startsWith("c")) && !isNaN(string.substring(1)))));
@@ -245,6 +247,8 @@ class GBF
 				return "buffs";
 			case GBFType.background:
 				return "background";
+			case GBFType.free:
+				return "free";
 			case GBFType.story0:
 				return "story0";
 			case GBFType.story1:
@@ -287,6 +291,8 @@ class GBF
 				return GBFType.buff;
 			case "background":
 				return GBFType.background;
+			case "free":
+				return GBFType.free;
 			case "story0":
 				return GBFType.story0;
 			case "story1":

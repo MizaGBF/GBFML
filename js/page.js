@@ -702,6 +702,7 @@ function load_index_content(node, data, onclick)
 			case GBFType.background:
 				callback = get_background;
 				break;
+			case GBFType.free:
 			case GBFType.story0:
 			case GBFType.story1:
 				callback = get_story;
@@ -888,6 +889,12 @@ function list_elements(node, elems, onclick)
 				case GBFType.background:
 				{
 					res = get_background(id, index['background'][id]);
+					break;
+				}
+				case GBFType.free:
+				{
+					res = get_story(id, (id in index['free']) ? index['free'][id] : null, -1);
+					callback = add_text_image;
 					break;
 				}
 				case GBFType.story0:
@@ -1285,7 +1292,7 @@ function get_valentine(id, data = null, unusedA = null, unusedB = null)
 
 function get_story(id, data, arc, type_filter = null)
 {
-	if(data[DataIdx.STORY_CONTENT].length == 0 || arc < 0)
+	if(data[DataIdx.STORY_CONTENT].length == 0 || arc < -1)
 		return null;
 	if(type_filter != null)
 	{
@@ -1305,11 +1312,19 @@ function get_story(id, data, arc, type_filter = null)
 		}
 	}
 	const title = gbf.msq_lookup(id);
-	const arc_title = "Arc " + (arc + 1) + " ";
+	const arc_title = arc <= 0 ? "Free Quest " : "Arc " + (arc + 1) + " ";
 	if(title != null)
+	{
 		return [{id:id, modifier:"scene", text:arc_title + title}];
+	}
+	else if(arc <= 0)
+	{
+		return [{id:id, modifier:"scene", text:arc_title + parseInt(id)}];
+	}
 	else
+	{
 		return [{id:id, modifier:"scene", text:arc_title + "Chapter " + parseInt(id)}];
+	}
 }
 
 function get_fate(id, data, prefix = null, range = null)
@@ -1641,13 +1656,19 @@ function add_index_image(node, data, onclick_callback)
 function add_text_image(node, data, onclick)
 {
 	let elem = add_to(node, "div", {
-		cls:[data.modifier, "preview-noborder", "clickable"],
+		cls:[data.modifier, "preview-noborder"],
 		onclick:onclick,
 		title:data.id,
 		innertext:data.text
 	});
 	if(onclick == null)
+	{
 		elem.classList.add("no-animation");
+	}
+	else
+	{
+		elem.classList.add("clickable");
+	}
 	elem.onclickid = data.id;
 	return elem;
 }
@@ -1763,6 +1784,11 @@ function build_header(
 			{
 				name += "\n" + data[DataIdx.EVENT_NAME];
 			}
+			break;
+		}
+		case "free":
+		{
+			name = "Free Quest " +  parseInt(id);
 			break;
 		}
 		case "story0":
