@@ -3770,6 +3770,802 @@
             "is_hide_global": false
         },
         "9": {
+            "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Light",
+            "jacket_image": "jacket_47.png",
+            "link_text": "[AD] Original Soundtrack Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-light\/1670577033",
+                "android_link": "https:\/\/music.youtube.com\/playlist?list=OLAK5uy_n29W6ElkoY9Ibdapswp8E82bzXjm0unog",
+                "pc_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-light\/1670577033"
+            },
+            "list": {
+                "153": {
+                    "title": "Debussy: Clair de Lune",
+                    "bgm_index": "153",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "245_tsukinohikari_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "245_tsukinohikari_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "245_tsukinohikari_02"
+                        }
+                    },
+                    "is_group_first": true
+                },
+                "154": {
+                    "title": "Last Advent",
+                    "bgm_index": "154",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "247_tsukinosenshi_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "247_tsukinosenshi_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "247_tsukinosenshi_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "247_tsukinosenshi_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "247_tsukinosenshi_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "247_tsukinosenshi_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "247_tsukinosenshi_06"
+                        },
+                        "8": {
+                            "part_index": "8",
+                            "file": "247_tsukinosenshi_07"
+                        },
+                        "9": {
+                            "part_index": "9",
+                            "file": "247_tsukinosenshi_08"
+                        },
+                        "10": {
+                            "part_index": "10",
+                            "file": "247_tsukinosenshi_09"
+                        },
+                        "11": {
+                            "part_index": "11",
+                            "file": "247_tsukinosenshi_10"
+                        }
+                    }
+                },
+                "155": {
+                    "title": "Burning Out the Blue",
+                    "bgm_index": "155",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "248_keiyakusha_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "248_keiyakusha_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "248_keiyakusha_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "248_keiyakusha_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "248_keiyakusha_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "248_keiyakusha_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "248_keiyakusha_06"
+                        },
+                        "8": {
+                            "part_index": "8",
+                            "file": "248_keiyakusha_07"
+                        },
+                        "9": {
+                            "part_index": "9",
+                            "file": "248_keiyakusha_08"
+                        },
+                        "10": {
+                            "part_index": "10",
+                            "file": "248_keiyakusha_09"
+                        }
+                    }
+                },
+                "156": {
+                    "title": "Peace and Quiet",
+                    "bgm_index": "156",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "246_eustace_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "246_eustace_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "246_eustace_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "246_eustace_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "246_eustace_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "246_eustace_05"
+                        }
+                    }
+                },
+                "157": {
+                    "title": "Silent World",
+                    "bgm_index": "157",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "241_arcarum2_map_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "241_arcarum2_map_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "241_arcarum2_map_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "241_arcarum2_map_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "241_arcarum2_map_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "241_arcarum2_map_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "241_arcarum2_map_06"
+                        }
+                    }
+                },
+                "158": {
+                    "title": "Inchoate Evokers",
+                    "bgm_index": "158",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "242_arcarum2_battle_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "242_arcarum2_battle_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "242_arcarum2_battle_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "242_arcarum2_battle_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "242_arcarum2_battle_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "242_arcarum2_battle_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "242_arcarum2_battle_06"
+                        }
+                    }
+                },
+                "159": {
+                    "title": "Libertaria Island: Masked Revelry",
+                    "bgm_index": "159",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "250_goraku_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "250_goraku_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "250_goraku_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "250_goraku_03"
+                        }
+                    }
+                },
+                "160": {
+                    "title": "Duat Island: Whitened Blade of Judgment",
+                    "bgm_index": "160",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "255_duat_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "255_duat_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "255_duat_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "255_duat_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "255_duat_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "255_duat_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "255_duat_06"
+                        }
+                    }
+                },
+                "161": {
+                    "title": "The Shape of Life",
+                    "bgm_index": "161",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "252_8thevt_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "252_8thevt_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "252_8thevt_02"
+                        }
+                    }
+                },
+                "162": {
+                    "title": "Voice of God",
+                    "bgm_index": "162",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "253_8thevtbaha_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "253_8thevtbaha_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "253_8thevtbaha_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "253_8thevtbaha_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "253_8thevtbaha_04"
+                        }
+                    }
+                },
+                "163": {
+                    "title": "For All the Universe",
+                    "bgm_index": "163",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "254_kosmos_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "254_kosmos_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "254_kosmos_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "254_kosmos_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "254_kosmos_04"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "254_kosmos_05"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "254_kosmos_06"
+                        }
+                    }
+                },
+                "164": {
+                    "title": "Morning Light Hymnus",
+                    "bgm_index": "164",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "249_belial_hl_00"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "249_belial_hl_01"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "249_belial_hl_02"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "249_belial_hl_03"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "249_belial_hl_04",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
+        },
+        "10": {
+            "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Heat",
+            "jacket_image": "jacket_48.png",
+            "link_text": "[AD] Original Soundtrack Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-heat\/1790570449",
+                "android_link": "https:\/\/music.youtube.com\/playlist?list=OLAK5uy_nW0FGv4Yqs90YLDXxkzy7uP25HrluCaEQ",
+                "pc_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-heat\/1790570449"
+            },
+            "list": {
+                "165": {
+                    "title": "Door to Possibilities",
+                    "bgm_index": "165",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "271_9th_theme_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "271_9th_theme_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "271_9th_theme_03"
+                        }
+                    },
+                    "is_group_first": true
+                },
+                "166": {
+                    "title": "Carro Magnifico",
+                    "bgm_index": "166",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "273_seofon_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "273_seofon_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "273_seofon_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "273_seofon_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "273_seofon_05"
+                        }
+                    }
+                },
+                "167": {
+                    "title": "For You.",
+                    "bgm_index": "167",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "274_orologia_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "274_orologia_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "274_orologia_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "274_orologia_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "274_orologia_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "274_orologia_06"
+                        }
+                    }
+                },
+                "168": {
+                    "title": "My Sound, My Voice",
+                    "bgm_index": "168",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "275_cantate_full"
+                        }
+                    }
+                },
+                "169": {
+                    "title": "Duet of Voices",
+                    "bgm_index": "169",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "276_duo_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "276_duo_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "276_duo_03"
+                        }
+                    }
+                },
+                "170": {
+                    "title": "Pregando",
+                    "bgm_index": "170",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "277_karossong_orchestra_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "277_karossong_orchestra_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "277_karossong_orchestra_03"
+                        }
+                    }
+                },
+                "171": {
+                    "title": "New World: Over",
+                    "bgm_index": "171",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "272_arcarum_last_battle_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "272_arcarum_last_battle_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "272_arcarum_last_battle_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "272_arcarum_last_battle_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "272_arcarum_last_battle_05"
+                        }
+                    }
+                },
+                "172": {
+                    "title": "Anima Record",
+                    "bgm_index": "172",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "278_saiseishou2_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "278_saiseishou2_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "278_saiseishou2_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "278_saiseishou2_04"
+                        }
+                    }
+                },
+                "173": {
+                    "title": "Edan Island: Loss and Deception",
+                    "bgm_index": "173",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "279_edan_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "279_edan_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "279_edan_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "279_edan_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "279_edan_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "279_edan_06"
+                        }
+                    }
+                },
+                "174": {
+                    "title": "Dragon\u0027s Circle -Hexachromatic-",
+                    "bgm_index": "174",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "282_rokuryufusion_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "282_rokuryufusion_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "282_rokuryufusion_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "282_rokuryufusion_04"
+                        }
+                    }
+                },
+                "175": {
+                    "title": "The Phoenix, Undying Recollection",
+                    "bgm_index": "175",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "284_10th_theme_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "284_10th_theme_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "284_10th_theme_03"
+                        }
+                    }
+                },
+                "176": {
+                    "title": "Sky and Light, Death and Life",
+                    "bgm_index": "176",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "285_10th_boss_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "285_10th_boss_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "285_10th_boss_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "285_10th_boss_04"
+                        }
+                    }
+                },
+                "177": {
+                    "title": "Tiamat Aura Omega",
+                    "bgm_index": "177",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "286_tiamate2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "286_tiamate2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "286_tiamate2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "286_tiamate2024_04"
+                        }
+                    }
+                },
+                "178": {
+                    "title": "Colossus Ira Omega",
+                    "bgm_index": "178",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "288_colossus2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "288_colossus2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "288_colossus2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "288_colossus2024_04"
+                        }
+                    }
+                },
+                "179": {
+                    "title": "Leviathan Mare Omega",
+                    "bgm_index": "179",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "290_levia2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "290_levia2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "290_levia2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "290_levia2024_04"
+                        }
+                    }
+                },
+                "180": {
+                    "title": "Yggdrasil Arbos Omega",
+                    "bgm_index": "180",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "291_yggdrasill2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "291_yggdrasill2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "291_yggdrasill2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "291_yggdrasill2024_04"
+                        }
+                    }
+                },
+                "181": {
+                    "title": "Luminiera Credo Omega",
+                    "bgm_index": "181",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "287_chevalier2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "287_chevalier2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "287_chevalier2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "287_chevalier2024_04"
+                        }
+                    }
+                },
+                "182": {
+                    "title": "Celeste Ater Omega",
+                    "bgm_index": "182",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "289_celeste2024_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "289_celeste2024_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "289_celeste2024_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "289_celeste2024_04",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
+        },
+        "11": {
             "title": "Kimi to Boku no Mirai",
             "jacket_image": "jacket_6.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -3816,7 +4612,7 @@
             },
             "is_hide_global": true
         },
-        "10": {
+        "12": {
             "title": "Sora no Michishirube",
             "jacket_image": "jacket_7.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -3859,7 +4655,7 @@
             },
             "is_hide_global": true
         },
-        "11": {
+        "13": {
             "title": "Ballad of the Fundoshi Trio",
             "jacket_image": "jacket_8.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -3906,7 +4702,7 @@
             },
             "is_hide_global": true
         },
-        "12": {
+        "14": {
             "title": "Yozora no Shizuku",
             "jacket_image": "jacket_9.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -3949,7 +4745,7 @@
             },
             "is_hide_global": true
         },
-        "13": {
+        "15": {
             "title": "Never Ending Fantasy",
             "jacket_image": "jacket_10.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -3996,7 +4792,7 @@
             },
             "is_hide_global": true
         },
-        "14": {
+        "16": {
             "title": "Magic Journal",
             "jacket_image": "jacket_11.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4043,7 +4839,7 @@
             },
             "is_hide_global": true
         },
-        "15": {
+        "17": {
             "title": "Nanokakan Kakete Sekai wo Tsukuru Yori...",
             "jacket_image": "jacket_12.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4090,7 +4886,7 @@
             },
             "is_hide_global": true
         },
-        "16": {
+        "18": {
             "title": "The Dragon Knights",
             "jacket_image": "jacket_13.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4137,7 +4933,7 @@
             },
             "is_hide_global": true
         },
-        "17": {
+        "19": {
             "title": "Cafe de Party Night",
             "jacket_image": "jacket_14.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4180,7 +4976,7 @@
             },
             "is_hide_global": true
         },
-        "18": {
+        "20": {
             "title": "Souku Hana no Mai",
             "jacket_image": "jacket_15.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4227,7 +5023,7 @@
             },
             "is_hide_global": true
         },
-        "19": {
+        "21": {
             "title": "Merry Luv",
             "jacket_image": "jacket_16.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4274,7 +5070,7 @@
             },
             "is_hide_global": true
         },
-        "20": {
+        "22": {
             "title": "Over the Sky",
             "jacket_image": "jacket_17.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4321,7 +5117,7 @@
             },
             "is_hide_global": true
         },
-        "21": {
+        "23": {
             "title": "Houmatsu-mugen Kochoujin",
             "jacket_image": "jacket_18.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4368,7 +5164,7 @@
             },
             "is_hide_global": true
         },
-        "22": {
+        "24": {
             "title": "Another Sky",
             "jacket_image": "jacket_19.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4415,7 +5211,7 @@
             },
             "is_hide_global": true
         },
-        "23": {
+        "25": {
             "title": "Pride",
             "jacket_image": "jacket_20.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4462,7 +5258,7 @@
             },
             "is_hide_global": true
         },
-        "24": {
+        "26": {
             "title": "Ain Soph Aur",
             "jacket_image": "jacket_21.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4509,7 +5305,7 @@
             },
             "is_hide_global": true
         },
-        "25": {
+        "27": {
             "title": "Happy New Genesis",
             "jacket_image": "jacket_22.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4556,7 +5352,7 @@
             },
             "is_hide_global": true
         },
-        "26": {
+        "28": {
             "title": "Saika no Chigiri",
             "jacket_image": "jacket_23.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4603,7 +5399,7 @@
             },
             "is_hide_global": true
         },
-        "27": {
+        "29": {
             "title": "Unfinished Melody",
             "jacket_image": "jacket_24.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4697,7 +5493,7 @@
             },
             "is_hide_global": true
         },
-        "28": {
+        "30": {
             "title": "The Robomi Song",
             "jacket_image": "jacket_25.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4769,7 +5565,7 @@
             },
             "is_hide_global": true
         },
-        "29": {
+        "31": {
             "title": "Shi ni Itaru Koi",
             "jacket_image": "jacket_26.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4816,7 +5612,7 @@
             },
             "is_hide_global": true
         },
-        "30": {
+        "32": {
             "title": "Knights of Chivalry",
             "jacket_image": "jacket_27.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4863,7 +5659,7 @@
             },
             "is_hide_global": true
         },
-        "31": {
+        "33": {
             "title": "Pray for the Sky",
             "jacket_image": "jacket_28.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4910,7 +5706,7 @@
             },
             "is_hide_global": true
         },
-        "32": {
+        "34": {
             "title": "Stardust Children",
             "jacket_image": "jacket_29.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -4953,7 +5749,7 @@
             },
             "is_hide_global": true
         },
-        "33": {
+        "35": {
             "title": "Welcome to the Parade!",
             "jacket_image": "jacket_30.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5000,7 +5796,7 @@
             },
             "is_hide_global": true
         },
-        "34": {
+        "36": {
             "title": "Vanishing Point",
             "jacket_image": "jacket_31.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5043,7 +5839,7 @@
             },
             "is_hide_global": true
         },
-        "35": {
+        "37": {
             "title": "Pledge of the Tempest",
             "jacket_image": "jacket_32.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5090,7 +5886,7 @@
             },
             "is_hide_global": true
         },
-        "36": {
+        "38": {
             "title": "Hassuru Labyrinth!",
             "jacket_image": "jacket_33.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5137,7 +5933,7 @@
             },
             "is_hide_global": true
         },
-        "37": {
+        "39": {
             "title": "Meccha Meccha Level Up",
             "jacket_image": "jacket_34.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5180,7 +5976,7 @@
             },
             "is_hide_global": true
         },
-        "38": {
+        "40": {
             "title": "The Six Dragons\u0027 Mini Album",
             "jacket_image": "jacket_35.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5316,7 +6112,7 @@
             },
             "is_hide_global": true
         },
-        "39": {
+        "41": {
             "title": "Hoshihana",
             "jacket_image": "jacket_36.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5363,7 +6159,7 @@
             },
             "is_hide_global": true
         },
-        "40": {
+        "42": {
             "title": "Shinsho Hokiuta Emban",
             "jacket_image": "jacket_37.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5439,7 +6235,7 @@
             },
             "is_hide_global": true
         },
-        "41": {
+        "43": {
             "title": "Orison",
             "jacket_image": "jacket_38.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5486,7 +6282,7 @@
             },
             "is_hide_global": true
         },
-        "42": {
+        "44": {
             "title": "Scars Left Behind",
             "jacket_image": "jacket_39.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5529,7 +6325,7 @@
             },
             "is_hide_global": true
         },
-        "43": {
+        "45": {
             "title": "Promise by Moonlight",
             "jacket_image": "jacket_43.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5576,7 +6372,7 @@
             },
             "is_hide_global": true
         },
-        "44": {
+        "46": {
             "title": "Eternal Desire",
             "jacket_image": "jacket_44.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5619,7 +6415,7 @@
             },
             "is_hide_global": true
         },
-        "45": {
+        "47": {
             "title": "Shirube",
             "jacket_image": "jacket_45.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5670,7 +6466,7 @@
             },
             "is_hide_global": true
         },
-        "46": {
+        "48": {
             "title": "Star\u2606Celebration",
             "jacket_image": "jacket_46.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -5712,6 +6508,787 @@
                 }
             },
             "is_hide_global": true
+        },
+        "49": {
+            "title": "THERMITE",
+            "jacket_image": "jacket_49.png",
+            "link_text": "[AD] Character Song Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/anxmusic.lnk.to\/nAzZms",
+                "android_link": "https:\/\/anxmusic.lnk.to\/nAzZms",
+                "pc_link": "https:\/\/anxmusic.lnk.to\/nAzZms"
+            },
+            "list": {
+                "212": {
+                    "title": "THERMITE",
+                    "bgm_index": "212",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "374_thermite_juke_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "374_thermite_juke_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "374_thermite_juke_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "374_thermite_juke_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "374_thermite_juke_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "374_thermite_juke_06"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "374_thermite_juke_07",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_first": true,
+                    "is_group_last": true,
+                    "is_group_single": true
+                }
+            },
+            "is_hide_global": true
+        },
+        "50": {
+            "title": "Additional Tracks",
+            "jacket_image": "jacket_1000.png",
+            "link_text": "",
+            "link": {
+                "ios_link": "",
+                "android_link": "",
+                "pc_link": ""
+            },
+            "list": {
+                "183": {
+                    "title": "Tranquio Island: Eyes of King and Subject",
+                    "bgm_index": "183",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "269_tranquio_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "269_tranquio_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "269_tranquio_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "269_tranquio_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "269_tranquio_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "269_tranquio_06"
+                        }
+                    },
+                    "is_group_first": true
+                },
+                "184": {
+                    "title": "Dark Rapture",
+                    "bgm_index": "184",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "283_darkrapture_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "283_darkrapture_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "283_darkrapture_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "283_darkrapture_04"
+                        }
+                    }
+                },
+                "185": {
+                    "title": "Romance of the Divine Generals",
+                    "bgm_index": "185",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "292_11th_theme_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "292_11th_theme_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "292_11th_theme_03"
+                        }
+                    }
+                },
+                "186": {
+                    "title": "Such Is Desire",
+                    "bgm_index": "186",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "295_11th_boss_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "295_11th_boss_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "295_11th_boss_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "295_11th_boss_04"
+                        }
+                    }
+                },
+                "187": {
+                    "title": "Family Reunited",
+                    "bgm_index": "187",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "340_versusia_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "340_versusia_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "340_versusia_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "340_versusia_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "340_versusia_05"
+                        }
+                    }
+                },
+                "188": {
+                    "title": "Perfectus",
+                    "bgm_index": "188",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "341_god_of_the_stars_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "341_god_of_the_stars_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "341_god_of_the_stars_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "341_god_of_the_stars_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "341_god_of_the_stars_05"
+                        }
+                    }
+                },
+                "189": {
+                    "title": "A Future Within Reach",
+                    "bgm_index": "189",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "342_ningen_orch_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "342_ningen_orch_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "342_ningen_orch_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "342_ningen_orch_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "342_ningen_orch_05"
+                        }
+                    }
+                },
+                "190": {
+                    "title": "Final Destination",
+                    "bgm_index": "190",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "343_jaldabaoth_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "343_jaldabaoth_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "343_jaldabaoth_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "343_jaldabaoth_04"
+                        }
+                    }
+                },
+                "191": {
+                    "title": "Together We Can Fly Again",
+                    "bgm_index": "191",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "344_new_journey_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "344_new_journey_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "344_new_journey_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "344_new_journey_04"
+                        }
+                    }
+                },
+                "192": {
+                    "title": "Winseria Island: Winds of a New Era",
+                    "bgm_index": "192",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "347_win_seria_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "347_win_seria_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "347_win_seria_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "347_win_seria_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "347_win_seria_05"
+                        }
+                    }
+                },
+                "193": {
+                    "title": "Ecksegrande",
+                    "bgm_index": "193",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "348_exe_grande_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "348_exe_grande_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "348_exe_grande_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "348_exe_grande_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "348_exe_grande_05"
+                        }
+                    }
+                },
+                "194": {
+                    "title": "Word on the Wind",
+                    "bgm_index": "194",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "349_akaki_chihei_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "349_akaki_chihei_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "349_akaki_chihei_03"
+                        }
+                    }
+                },
+                "195": {
+                    "title": "Demons",
+                    "bgm_index": "195",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "351_mazoku_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "351_mazoku_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "351_mazoku_03"
+                        }
+                    }
+                },
+                "196": {
+                    "title": "Prosperity Verboten: Belmervolk",
+                    "bgm_index": "196",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "352_rokkin_fire_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "352_rokkin_fire_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "352_rokkin_fire_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "352_rokkin_fire_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "352_rokkin_fire_05"
+                        }
+                    }
+                },
+                "197": {
+                    "title": "Mortality Verboten: Nihuyvintae",
+                    "bgm_index": "197",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "353_rokkin_water_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "353_rokkin_water_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "353_rokkin_water_03"
+                        }
+                    }
+                },
+                "198": {
+                    "title": "Liberation Verboten: Macutanmacar",
+                    "bgm_index": "198",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "356_rokkin_earth_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "356_rokkin_earth_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "356_rokkin_earth_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "356_rokkin_earth_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "356_rokkin_earth_05"
+                        }
+                    }
+                },
+                "199": {
+                    "title": "Knowledge Verboten: Papahlukruva",
+                    "bgm_index": "199",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "357_rokkin_wind_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "357_rokkin_wind_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "357_rokkin_wind_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "357_rokkin_wind_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "357_rokkin_wind_05"
+                        }
+                    }
+                },
+                "200": {
+                    "title": "Sanctity Verboten: Zamalvoch",
+                    "bgm_index": "200",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "361_rokkin_light_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "361_rokkin_light_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "361_rokkin_light_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "361_rokkin_light_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "361_rokkin_light_05"
+                        }
+                    }
+                },
+                "201": {
+                    "title": "Sanctity Verboten: Zamalvoch",
+                    "bgm_index": "201",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "362_rokkin_dark_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "362_rokkin_dark_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "362_rokkin_dark_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "362_rokkin_dark_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "362_rokkin_dark_05"
+                        }
+                    }
+                },
+                "202": {
+                    "title": "Seven Astrals, Seven Knights",
+                    "bgm_index": "202",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "355_12anniversary_top_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "355_12anniversary_top_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "355_12anniversary_top_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "355_12anniversary_top_04"
+                        }
+                    }
+                },
+                "203": {
+                    "title": "If Only We\u0027d Met Another Way",
+                    "bgm_index": "203",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "358_12th_boss_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "358_12th_boss_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "358_12th_boss_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "358_12th_boss_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "358_12th_boss_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "358_12th_boss_06"
+                        }
+                    }
+                },
+                "204": {
+                    "title": "Ressortir Island: Encounter and Reunion",
+                    "bgm_index": "204",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "359_sea_island_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "359_sea_island_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "359_sea_island_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "359_sea_island_04"
+                        }
+                    }
+                },
+                "205": {
+                    "title": "Enter the Stroud Family!",
+                    "bgm_index": "205",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "360_stroud_family_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "360_stroud_family_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "360_stroud_family_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "360_stroud_family_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "360_stroud_family_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "360_stroud_family_06"
+                        }
+                    }
+                },
+                "206": {
+                    "title": "A Moment\u0027s Respite",
+                    "bgm_index": "206",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "363_tenshi_kandan_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "363_tenshi_kandan_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "363_tenshi_kandan_03_a"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "363_tenshi_kandan_04_a"
+                        }
+                    }
+                },
+                "207": {
+                    "title": "Droplets of a Differing Providence",
+                    "bgm_index": "207",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "364_solomonis_map1_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "364_solomonis_map1_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "364_solomonis_map1_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "364_solomonis_map1_04"
+                        }
+                    }
+                },
+                "208": {
+                    "title": "Droplets of a Differing Providence: Encroachment",
+                    "bgm_index": "208",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "365_solomonis_map2_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "365_solomonis_map2_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "365_solomonis_map2_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "365_solomonis_map2_04"
+                        }
+                    }
+                },
+                "209": {
+                    "title": "Pursuing the Providence Grains",
+                    "bgm_index": "209",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "366_solomonis_battle_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "366_solomonis_battle_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "366_solomonis_battle_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "366_solomonis_battle_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "366_solomonis_battle_05"
+                        }
+                    }
+                },
+                "210": {
+                    "title": "Pursuing the Providence Grains: Encroachment",
+                    "bgm_index": "210",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "368_solomonis_contraction_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "368_solomonis_contraction_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "368_solomonis_contraction_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "368_solomonis_contraction_04"
+                        }
+                    }
+                },
+                "211": {
+                    "title": "Last Salvation",
+                    "bgm_index": "211",
+                    "list": {
+                        "1": {
+                            "part_index": "1",
+                            "file": "367_solomonis_boss_01"
+                        },
+                        "2": {
+                            "part_index": "2",
+                            "file": "367_solomonis_boss_02"
+                        },
+                        "3": {
+                            "part_index": "3",
+                            "file": "367_solomonis_boss_03"
+                        },
+                        "4": {
+                            "part_index": "4",
+                            "file": "367_solomonis_boss_04"
+                        },
+                        "5": {
+                            "part_index": "5",
+                            "file": "367_solomonis_boss_05"
+                        },
+                        "6": {
+                            "part_index": "6",
+                            "file": "367_solomonis_boss_06"
+                        },
+                        "7": {
+                            "part_index": "7",
+                            "file": "367_solomonis_boss_07"
+                        },
+                        "8": {
+                            "part_index": "8",
+                            "file": "367_solomonis_boss_08"
+                        },
+                        "9": {
+                            "part_index": "9",
+                            "file": "367_solomonis_boss_09"
+                        },
+                        "10": {
+                            "part_index": "10",
+                            "file": "367_solomonis_boss_10",
+                            "is_list_last": true
+                        }
+                    },
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
         }
     },
     "bgm_changed": true,
