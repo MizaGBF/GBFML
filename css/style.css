@@ -489,6 +489,31 @@ details[open] > .detail {
 	vertical-align: middle;
 }
 
+.sub-link-btn {
+	background: var(--main-bg);
+	border-color: #000000;
+	border-radius: 5px;
+	border-style: solid;
+	border: none;
+	outline: none;
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: 600;
+	padding-right:8px;
+	color: var(--font-col);
+	display:inline-block;
+}
+
+.sub-link-btn:link, .sub-link-btn:hover, .sub-link-btn:visited, .sub-link-btn:active {
+	text-decoration: none;
+	color: inherit;
+	font-size: 15px;
+}
+
+.sub-link-btn:hover {
+	outline: solid var(--highlight);
+}
+
 .page-link:hover {
 	outline: solid var(--highlight);
 }
