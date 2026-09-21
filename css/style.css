@@ -502,12 +502,14 @@ details[open] > .detail {
 	padding-right:8px;
 	color: var(--font-col);
 	display:inline-block;
+	cursor: pointer;
 }
 
 .sub-link-btn:link, .sub-link-btn:hover, .sub-link-btn:visited, .sub-link-btn:active {
 	text-decoration: none;
 	color: inherit;
 	font-size: 15px;
+	cursor: pointer;
 }
 
 .sub-link-btn:hover {
