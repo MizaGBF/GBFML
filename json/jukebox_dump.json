@@ -2434,10 +2434,7 @@
                         },
                         "8": {
                             "part_index": "8",
-                            "file": "159_ultimate_bahamut_07",
-                            "use": {
-                                "1": true
-                            }
+                            "file": "159_ultimate_bahamut_07"
                         },
                         "9": {
                             "part_index": "9",
@@ -2465,10 +2462,7 @@
                             "is_list_last": true
                         }
                     },
-                    "is_group_last": true,
-                    "use": {
-                        "1": true
-                    }
+                    "is_group_last": true
                 }
             },
             "is_hide_global": false
@@ -7291,9 +7285,9 @@
             "is_hide_global": false
         }
     },
-    "bgm_changed": true,
-    "group_id": 5,
-    "type": 1
+    "bgm_changed": false,
+    "group_id": null,
+    "type": 2
 },
 {
     "bgm": {
@@ -7334,7 +7328,8 @@
                     "file": "26_battle6_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "2": {
             "title": "Granblue Fantasy\u003Cbr\u003EStory Music Tracks",
@@ -7352,7 +7347,8 @@
                     "file": "39_originprimals_juke",
                     "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "3": {
             "title": "Granblue Fantasy\u003Cbr\u003EBattle Music Tracks",
@@ -7416,7 +7412,8 @@
                     "file": "42_battle_bahamut_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "4": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Lyria",
@@ -7465,7 +7462,8 @@
                     "file": "67_rosequeen_battle_inst_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "5": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Fate",
@@ -7494,7 +7492,8 @@
                     "file": "131_battle8_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "6": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Promise",
@@ -7518,7 +7517,8 @@
                     "file": "210_wafubat_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "7": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Chaos",
@@ -7592,7 +7592,8 @@
                     "file": "211_tsukikamiorch_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "8": {
             "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Awakening",
@@ -7643,17 +7644,7 @@
                 "104": {
                     "title": "Dragon\u0027s Circle -Light and Dark-",
                     "bgm_index": "104",
-                    "file": "230_rokuryu3_juke",
-                    "use": {
-                        "4": true
-                    },
-                    "list": [
-                        {
-                            "use": {
-                                "4": true
-                            }
-                        }
-                    ]
+                    "file": "230_rokuryu3_juke"
                 },
                 "106": {
                     "title": "Existence (New King Mix)",
@@ -7666,9 +7657,120 @@
                     "file": "232_zangyaku_juke",
                     "is_group_last": true
                 }
-            }
+            },
+            "is_hide_global": false
         },
         "9": {
+            "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Light",
+            "jacket_image": "jacket_47.png",
+            "link_text": "[AD] Original Soundtrack Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-light\/1670577033",
+                "android_link": "https:\/\/music.youtube.com\/playlist?list=OLAK5uy_n29W6ElkoY9Ibdapswp8E82bzXjm0unog",
+                "pc_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-light\/1670577033"
+            },
+            "list": {
+                "108": {
+                    "title": "Burning Out the Blue",
+                    "bgm_index": "108",
+                    "file": "248_keiyakusha_juke",
+                    "is_group_first": true
+                },
+                "109": {
+                    "title": "Inchoate Evokers",
+                    "bgm_index": "109",
+                    "file": "242_arcarum2_battle_juke"
+                },
+                "110": {
+                    "title": "Voice of God",
+                    "bgm_index": "110",
+                    "file": "253_8thevtbaha_juke"
+                },
+                "111": {
+                    "title": "For All the Universe",
+                    "bgm_index": "111",
+                    "file": "254_kosmos_juke"
+                },
+                "112": {
+                    "title": "Morning Light Hymnus",
+                    "bgm_index": "112",
+                    "file": "249_belial_hl_juke",
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
+        },
+        "10": {
+            "title": "Granblue Fantasy\u003Cbr\u003EOriginal Soundtrack: Heat",
+            "jacket_image": "jacket_48.png",
+            "link_text": "[AD] Original Soundtrack Now on Sale!",
+            "link": {
+                "ios_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-heat\/1790570449",
+                "android_link": "https:\/\/music.youtube.com\/playlist?list=OLAK5uy_nW0FGv4Yqs90YLDXxkzy7uP25HrluCaEQ",
+                "pc_link": "https:\/\/music.apple.com\/jp\/album\/granblue-fantasy-original-soundtrack-heat\/1790570449"
+            },
+            "list": {
+                "113": {
+                    "title": "Carro Magnifico",
+                    "bgm_index": "113",
+                    "file": "273_seofon_juke",
+                    "is_group_first": true
+                },
+                "114": {
+                    "title": "For You.",
+                    "bgm_index": "114",
+                    "file": "274_orologia_juke"
+                },
+                "115": {
+                    "title": "New World: Over",
+                    "bgm_index": "115",
+                    "file": "272_arcarum_last_battle_juke"
+                },
+                "116": {
+                    "title": "Anima Record",
+                    "bgm_index": "116",
+                    "file": "278_saiseishou2_juke"
+                },
+                "117": {
+                    "title": "Sky and Light, Death and Life",
+                    "bgm_index": "117",
+                    "file": "285_10th_boss_juke"
+                },
+                "118": {
+                    "title": "Tiamat Aura Omega",
+                    "bgm_index": "118",
+                    "file": "286_tiamate2024_juke"
+                },
+                "119": {
+                    "title": "Colossus Ira Omega",
+                    "bgm_index": "119",
+                    "file": "288_colossus2024_juke"
+                },
+                "120": {
+                    "title": "Leviathan Mare Omega",
+                    "bgm_index": "120",
+                    "file": "290_levia2024_juke"
+                },
+                "121": {
+                    "title": "Yggdrasil Arbos Omega",
+                    "bgm_index": "121",
+                    "file": "291_yggdrasill2024_juke"
+                },
+                "122": {
+                    "title": "Luminiera Credo Omega",
+                    "bgm_index": "122",
+                    "file": "287_chevalier2024_juke"
+                },
+                "123": {
+                    "title": "Celeste Ater Omega",
+                    "bgm_index": "123",
+                    "file": "289_celeste2024_juke",
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
+        },
+        "11": {
             "title": "Ballad of the Fundoshi Trio",
             "jacket_image": "jacket_8.png",
             "link_text": "[AD] Character Song Now on Sale!",
@@ -7682,23 +7784,114 @@
                     "title": "Ballad of the Fundoshi Trio",
                     "bgm_index": "63",
                     "file": "74_sanbagarasu_short_00",
-                    "is_group_single": true,
-                    "use": {
-                        "3": true
-                    },
-                    "list": [
-                        {
-                            "use": {
-                                "3": true
-                            }
-                        }
-                    ]
+                    "is_group_single": true
                 }
-            }
+            },
+            "is_hide_global": true
+        },
+        "12": {
+            "title": "Additional Tracks",
+            "jacket_image": "jacket_1000.png",
+            "link_text": "",
+            "link": {
+                "ios_link": "",
+                "android_link": "",
+                "pc_link": ""
+            },
+            "list": {
+                "124": {
+                    "title": "Dark Rapture",
+                    "bgm_index": "124",
+                    "file": "283_darkrapture_juke",
+                    "is_group_first": true
+                },
+                "125": {
+                    "title": "Romance of the Divine Generals",
+                    "bgm_index": "125",
+                    "file": "292_11th_theme_juke"
+                },
+                "126": {
+                    "title": "Such Is Desire",
+                    "bgm_index": "126",
+                    "file": "295_11th_boss_juke"
+                },
+                "127": {
+                    "title": "Family Reunited",
+                    "bgm_index": "127",
+                    "file": "340_versusia_juke"
+                },
+                "128": {
+                    "title": "Perfectus",
+                    "bgm_index": "128",
+                    "file": "341_god_of_the_stars_juke"
+                },
+                "129": {
+                    "title": "Final Destination",
+                    "bgm_index": "129",
+                    "file": "343_jaldabaoth_juke"
+                },
+                "130": {
+                    "title": "Prosperity Verboten: Belmervolk",
+                    "bgm_index": "130",
+                    "file": "352_rokkin_fire_juke"
+                },
+                "131": {
+                    "title": "Mortality Verboten: Nihuyvintae",
+                    "bgm_index": "131",
+                    "file": "353_rokkin_water_juke"
+                },
+                "132": {
+                    "title": "Desire Verboten: Narophirmidas",
+                    "bgm_index": "132",
+                    "file": "356_rokkin_earth_juke"
+                },
+                "133": {
+                    "title": "Liberation Verboten: Macutanmacar",
+                    "bgm_index": "133",
+                    "file": "357_rokkin_wind_juke"
+                },
+                "134": {
+                    "title": "Knowledge Verboten: Papahlukruva",
+                    "bgm_index": "134",
+                    "file": "361_rokkin_light_juke"
+                },
+                "135": {
+                    "title": "Sanctity Verboten: Zamalvoch",
+                    "bgm_index": "135",
+                    "file": "362_rokkin_dark_juke"
+                },
+                "136": {
+                    "title": "If Only We\u0027d Met Another Way",
+                    "bgm_index": "136",
+                    "file": "358_12th_boss_juke"
+                },
+                "137": {
+                    "title": "Enter the Stroud Family!",
+                    "bgm_index": "137",
+                    "file": "360_stroud_family_juke"
+                },
+                "138": {
+                    "title": "Pursuing the Providence Grains",
+                    "bgm_index": "138",
+                    "file": "366_solomonis_battle_juke"
+                },
+                "139": {
+                    "title": "Pursuing the Providence Grains: Encroachment",
+                    "bgm_index": "139",
+                    "file": "368_solomonis_contraction_juke"
+                },
+                "140": {
+                    "title": "Last Salvation",
+                    "bgm_index": "140",
+                    "file": "367_solomonis_boss_juke",
+                    "is_group_last": true
+                }
+            },
+            "is_hide_global": false
         }
     },
-    "bgm_changed": true,
-    "group_id": 9,
+    "bgm_changed": false,
+    "group_id": null,
     "type": 3
 }
 ]
