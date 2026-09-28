@@ -1312,12 +1312,12 @@ function get_story(id, data, arc, type_filter = null)
 		}
 	}
 	const title = gbf.msq_lookup(id);
-	const arc_title = arc <= 0 ? "Free Quest " : "Arc " + (arc + 1) + " ";
+	const arc_title = arc < 0 ? "Free Quest " : "Arc " + (arc + 1) + " ";
 	if(title != null)
 	{
 		return [{id:id, modifier:"scene", text:arc_title + title}];
 	}
-	else if(arc <= 0)
+	else if(arc < 0)
 	{
 		return [{id:id, modifier:"scene", text:arc_title + parseInt(id)}];
 	}
