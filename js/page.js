@@ -630,6 +630,9 @@ function load_index_content(node, data, onclick)
 			case "profile_npcs":
 				callback = get_profile_npc;
 				break;
+			case "profile_stickers":
+				callback = get_profile_sticker;
+				break;
 			case "profile_arts":
 				callback = get_profile_art;
 				break;
@@ -642,8 +645,14 @@ function load_index_content(node, data, onclick)
 			case "arca3_specials":
 				callback = get_arca3_specials;
 				break;
+			case "story_memory":
+				callback = get_story_memory;
+				break;
 			case "title":
 				callback = get_title;
+				break;
+			case "stamp":
+				callback = get_stamp;
 				break;
 			case "sky_title":
 				callback = get_sky_title;
@@ -925,6 +934,11 @@ function list_elements(node, elems, onclick)
 					res = get_profile_npc(id.split(':')[1], index['profile_npcs'][id.split(':')[1]]);
 					break;
 				}
+				case "profile_stickers":
+				{
+					res = get_profile_sticker(id.split(':')[1], index['profile_stickers'][id.split(':')[1]]);
+					break;
+				}
 				case "profile_arts":
 				{
 					res = get_profile_art(id.split(':')[1], index['profile_arts'][id.split(':')[1]]);
@@ -945,9 +959,19 @@ function list_elements(node, elems, onclick)
 					res = get_arca3_specials(id.split(':')[1], index['arca3_specials'][id.split(':')[1]]);
 					break;
 				}
+				case "story_memory":
+				{
+					res = get_story_memory(id.split(':')[1], index['story_memory'][id.split(':')[1]]);
+					break;
+				}
 				case "title":
 				{
 					res = get_title(id.split(':')[1], index['title'][id.split(':')[1]]);
+					break;
+				}
+				case "stamp":
+				{
+					res = get_title(id.split(':')[1], index['stamp'][id.split(':')[1]]);
 					break;
 				}
 				case "sky_title":
@@ -1540,6 +1564,11 @@ function get_profile_npc(id, data, unusedA = null, unusedB = null)
 	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/profile_room/character/other/" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
+function get_profile_sticker(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/assets/profile_room/memorial_frame/sticker/" + id + ".png", onerr:null, class:"preview", link:true}];
+}
+
 function get_profile_art(id, data, range_start = null, range_end = null)
 {
 	if(range_start != null && range_end != null)
@@ -1568,9 +1597,27 @@ function get_arca3_specials(id, data, unusedA = null, unusedB = null)
 	return [{id:id, path:"GBF/assets_en/img_low/sp/arcarum3/assets/scpecial_node_bg/" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
+function get_story_memory(id, data, unusedA = null, unusedB = null)
+{
+	return [{id:id, path:"GBF/assets_en/img_low/sp/compilation/estalucia/memory/scene/large/mm_image_large_" + id + ".png", onerr:null, class:"preview", link:true}];
+}
+
 function get_title(id, data, unusedA = null, unusedB = null)
 {
 	return [{id:id, path:"GBF/assets_en/img_low/sp/top/bg/bg_" + id + ".jpg", onerr:null, class:"preview", link:true}];
+}
+
+function get_stamp(id, data, min_id = null, max_id = null)
+{
+	if(min_id != null && parseInt(id) < min_id)
+	{
+		return null;
+	}
+	if(max_id != null && parseInt(id) > max_id)
+	{
+		return null;
+	}
+	return [{id:id, path:"GBF/assets_en/img/sp/assets/stamp/full/stamp" + id + ".png", onerr:null, class:"preview", link:true}];
 }
 
 function get_sky_title(id, data, unusedA = null, unusedB = null)
