@@ -971,7 +971,7 @@ function list_elements(node, elems, onclick)
 				}
 				case "stamp":
 				{
-					res = get_title(id.split(':')[1], index['stamp'][id.split(':')[1]]);
+					res = get_stamp(id.split(':')[1], index['stamp'][id.split(':')[1]]);
 					break;
 				}
 				case "sky_title":
