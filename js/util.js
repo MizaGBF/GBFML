@@ -3,6 +3,62 @@
 var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
 var beep_enabled = true;
 
+function test_compression_support(format)
+{
+	try {
+		// Attempt to initialize a stream with the format
+		new DecompressionStream(format);
+		return true;
+	} catch(err) {
+		return false; // Browser doesn't support this specific format string
+	}
+}
+
+function append_to_url_extension(url, ext)
+{
+	const index = url.lastIndexOf("?");
+	if(index == -1)
+	{
+		return url + ext;
+	}
+	else
+	{
+		return url.slice(0, index) + ext + url.slice(index);
+	}
+}
+
+async function fetchCompressedJSON(url) // generic function to request a compressed JSON file.
+{
+	try
+	{
+		let format = null;
+		if(test_compression_support("brotli"))
+		{
+			url = append_to_url_extension(url, ".br");
+			format = "brotli";
+		}
+		else if(test_compression_support("gzip"))
+		{
+			url = append_to_url_extension(url, ".gz");
+			format = "gzip";
+		}
+		else // fallback
+		{
+			return await fetchJSON(url);
+		}
+		const response = await fetch(url);
+		if (!response.ok)
+		{
+			throw new Error(`Error HTTP ${response.status}`);
+		}
+		const decompressedStream = response.body.pipeThrough(new DecompressionStream(format));
+		return await new Response(decompressedStream).json();
+	} catch (err) {
+		console.error(`Fetch of ${url} failed:`, err);
+		return null;
+	}
+}
+
 async function fetchJSON(url) // generic function to request a JSON file.
 {
 	try
