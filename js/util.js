@@ -3,6 +3,7 @@
 var beep_audio = new Audio("../GBFML/assets/audio/beep.ogg"); // play GBF beep
 var beep_enabled = true;
 
+// function to test if the browser supports a compression format
 function test_compression_support(format)
 {
 	try {
@@ -14,6 +15,8 @@ function test_compression_support(format)
 	}
 }
 
+// function to append an extension to an url
+// example: website.com/data.json?1000 -> website.com/data.json.gz?1000
 function append_to_url_extension(url, ext)
 {
 	const index = url.lastIndexOf("?");
@@ -27,7 +30,9 @@ function append_to_url_extension(url, ext)
 	}
 }
 
-async function fetchCompressedJSON(url) // generic function to request a compressed JSON file.
+// function to request a compressed JSON file
+// fallback to fetchJSON if compression isn't supported
+async function fetchCompressedJSON(url)
 {
 	try
 	{
@@ -47,7 +52,7 @@ async function fetchCompressedJSON(url) // generic function to request a compres
 			return await fetchJSON(url);
 		}
 		const response = await fetch(url);
-		if (!response.ok)
+		if(!response.ok)
 		{
 			throw new Error(`Error HTTP ${response.status}`);
 		}
@@ -59,12 +64,13 @@ async function fetchCompressedJSON(url) // generic function to request a compres
 	}
 }
 
-async function fetchJSON(url) // generic function to request a JSON file.
+// function to request a JSON file
+async function fetchJSON(url)
 {
 	try
 	{
 		const response = await fetch(url);
-		if (!response.ok)
+		if(!response.ok)
 		{
 			throw new Error(`Error HTTP ${response.status}`);
 		}
