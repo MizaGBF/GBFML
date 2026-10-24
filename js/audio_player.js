@@ -632,9 +632,11 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		do {
 			pick = Math.floor(Math.random() * categories.length);
 		} while(this.playlist_name == categories[pick]); // make sure we don't select the same
+		this.category.selectedIndex = pick;
 		this.playlist_name = categories[pick];
 		this.playlist = this.list[categories[pick]];
 		this.set_playlist_track(0, true);
+		this.update_audio_tracks();
 	}
 	
 	set_playlist_track(track_index, state)
