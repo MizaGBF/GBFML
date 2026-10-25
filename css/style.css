@@ -917,7 +917,7 @@ details[open] > .detail {
     -webkit-appearance: none;
     height: 32px;
     width: 32px;
-    background-image: url("../assets/ui/seal.png");
+    background-image: url("../assets/webp/seal.webp");
 	background-size: 100% 100%;
     cursor: pointer;
 }
@@ -1171,7 +1171,7 @@ a:hover > .asset-text {
 }
 
 .asset-skycompass {
-	background: url(../assets/ui/skycompass.png) no-repeat bottom left 0% / 15%;
+	background: url(../assets/webp/skycompass.webp) no-repeat bottom left 0% / 15%;
 }
 
 .toggle-btn
@@ -1246,7 +1246,7 @@ a:hover > .asset-text {
 .preview-mypage-top::before {
 	position: absolute;
 	content: '';
-	background: url(../assets/ui/home_ui.png) no-repeat;
+	background: url(../assets/webp/home_ui.webp) no-repeat;
 	background-size: 640px 940px;
 	max-width: 640px;
 	max-height: 940px;
@@ -1255,7 +1255,7 @@ a:hover > .asset-text {
 }
 
 .preview-mypage-bg {
-	background: url(../assets/ui/home_bg.jpg) no-repeat;
+	background: url(../assets/webp/home_bg.jpg) no-repeat;
 	background-size: 640px 940px;
 	max-width: 640px;
 	max-height: 940px;
@@ -1275,7 +1275,7 @@ a:hover > .asset-text {
 .preview-profile-top::before {
 	position: absolute;
 	content: '';
-	background: url(../assets/ui/profile_ui.png) no-repeat;
+	background: url(../assets/webp/profile_ui.webp) no-repeat;
 	background-size: 640px 912px;
 	max-width: 640px;
 	max-height: 912px;
@@ -1291,7 +1291,7 @@ a:hover > .asset-text {
 }
 
 .link {
-	background: url(../assets/ui/link.png) no-repeat bottom left 0% / 15%;
+	background: url(../assets/webp/link.webp) no-repeat bottom left 0% / 15%;
 }
 
 .corner-icon {
@@ -1299,15 +1299,15 @@ a:hover > .asset-text {
 }
 
 .more {
-	background: url(../assets/ui/more.png) no-repeat bottom left 0% / 20%;
+	background: url(../assets/webp/more.webp) no-repeat bottom left 0% / 20%;
 }
 
 .vs {
-	background: url(../assets/ui/vs.png) no-repeat bottom left 0% / 20%;
+	background: url(../assets/webp/vs.webp) no-repeat bottom left 0% / 20%;
 }
 
 .scene {
-	background: url(../assets/ui/event.png) no-repeat;
+	background: url(../assets/webp/event.webp) no-repeat;
 	background-size: 100% 100%;
 	font-size: 16px;
 	color: black;
@@ -1321,7 +1321,7 @@ a:hover > .asset-text {
 }
 
 .sound-only {
-	background: url(../assets/ui/sound_only.png) no-repeat;
+	background: url(../assets/webp/sound_only.webp) no-repeat;
 	background-size: 100% 100%;
 	font-size: 16px;
 	color: black;
@@ -1349,7 +1349,7 @@ a:hover > .asset-text {
 }
 
 .sound-file {
-	background: url(../assets/ui/sound.png) no-repeat;
+	background: url(../assets/webp/sound.webp) no-repeat;
 	background-size: 100% 100%;
 	width: 120px;
 	height: 120px;
@@ -1659,7 +1659,7 @@ a:hover > .asset-text {
 		}
 		
 		.homepage-bg {
-			background: url(../assets/ui/home_bg.jpg) no-repeat;
+			background: url(../assets/webp/home_bg.jpg) no-repeat;
 			background-size: 320px 470px;
 			max-width: 320px;
 			max-height: 470px;

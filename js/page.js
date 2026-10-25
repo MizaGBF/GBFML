@@ -765,7 +765,7 @@ function load_index_content(node, data, onclick)
 			else
 				node.innerHTML = data.reverse ? "<div>Newest first</div>" : "<div>Oldest first</div>";
 		}
-		else node.innerHTML = '<div>Empty</div><img src="../GBFML/assets/ui/sorry.png" loading="lazy">'
+		else node.innerHTML = '<div>Empty</div><img src="../GBFML/assets/webp/sorry.webp" loading="lazy">'
 		for(const k of keys)
 		{
 			for(let r of slist[k])
@@ -1001,7 +1001,7 @@ function list_elements(node, elems, onclick)
 					{
 						const n = add_index_image(
 							node,
-							{id:r.id, path:"../GBFML/assets/ui/spoiler.png", onerr:null, class:"", link:false},
+							{id:r.id, path:"../GBFML/assets/webp/spoiler.webp", onerr:null, class:"", link:false},
 							onclick
 						);
 						n.classList.toggle("spoiler", true);
@@ -1038,7 +1038,7 @@ function open_spoilers()
 // default onerror functions for element images
 function default_onerror()
 {
-	this.src= "../GBFML/assets/ui/no_asset.jpg";
+	this.src= "../GBFML/assets/jpg/no_asset.jpg";
 	this.classList.remove("preview");
 	this.classList.remove("preview-noborder");
 }
@@ -1424,12 +1424,12 @@ function get_event(id, data, idfilter = null, unusedB = null)
 	{
 		if(index["events"][id][DataIdx.EVENT_THUMB] == null)
 		{
-			path = "../GBFML/assets/ui/event.png";
+			path = "../GBFML/assets/webp/event.webp";
 			className = "preview-noborder";
 		}
 		else if(isNaN(parseInt(index["events"][id][DataIdx.EVENT_THUMB])))
 		{
-			path = "../GBFML/assets/ui/" + index["events"][id][DataIdx.EVENT_THUMB] + ".png";
+			path = "../GBFML/assets/webp/" + index["events"][id][DataIdx.EVENT_THUMB] + ".webp";
 			className = "preview";
 		}
 		else
@@ -1942,7 +1942,7 @@ function add_links(node, id, extra_links)
 			let a = add_to(block, "a", {title:"Wiki page for " + wiki_path.replaceAll("_", " ")});
 			a.href = "https://gbf.wiki/" + wiki_path;
 			let img = add_to(a, "img", {cls:["img-link"]});
-			img.src = "../GBFML/assets/ui/icon/wiki.png";
+			img.src = "../GBFML/assets/webp/icon/wiki.webp";
 			wiki_fallback = false;
 		}
 	}
@@ -1951,7 +1951,7 @@ function add_links(node, id, extra_links)
 		let a = add_to(block, "a", {title:"Wiki search for " + id});
 		a.href = "https://gbf.wiki/index.php?title=Special:Search&search=" + id;
 		let img = add_to(a, "img", {cls:["img-link"]});
-		img.src = "../GBFML/assets/ui/icon/wiki.png";
+		img.src = "../GBFML/assets/webp/icon/wiki.webp";
 	}
 	for(const [title, imgsrc, href] of extra_links)
 	{

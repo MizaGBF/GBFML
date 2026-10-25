@@ -541,35 +541,35 @@ class AudioJukeboxPlayer extends AudioBasePlayer
 		this.links = {};
 		this.links.itunes = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/itunes.png" loading="lazy"> ITunes',
+			innerhtml:'<img src="../GBFML/assets/webp/icon/itunes.webp" loading="lazy"> ITunes',
 			onclick:() => {
 				this.open_ios();
 			}
 		});
 		this.links.apple = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/apple-music.png" loading="lazy"> Apple Music',
+			innerhtml:'<img src="../GBFML/assets/webp/icon/apple-music.webp" loading="lazy"> Apple Music',
 			onclick:() => {
 				this.open_ios();
 			}
 		});
 		this.links.yt = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/youtube-music.png"> Youtube Music',
+			innerhtml:'<img src="../GBFML/assets/webp/icon/youtube-music.webp"> Youtube Music',
 			onclick:() => {
 				this.open_android();
 			}
 		});
 		this.links.ios = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/ios.png" loading="lazy"> IOS Link',
+			innerhtml:'<img src="../GBFML/assets/webp/icon/ios.webp" loading="lazy"> IOS Link',
 			onclick:() => {
 				this.open_ios();
 			}
 		});
 		this.links.android = add_to(extra_container, "button", {
 			cls:["audio-button"],
-			innerhtml:'<img src="../GBFML/assets/ui/icon/android.png" loading="lazy"> Android Link',
+			innerhtml:'<img src="../GBFML/assets/webp/icon/android.webp" loading="lazy"> Android Link',
 			onclick:() => {
 				this.open_android();
 			}
