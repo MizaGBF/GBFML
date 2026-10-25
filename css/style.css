@@ -600,10 +600,6 @@ details[open] > .detail {
 	color: var(--highlight);
 }
 
-.navigation:active {
-	animation: animation-button-press 0.1s;
-}
-
 .popup {
 	border-radius: 25px;
 	border: 2px solid #000633;
