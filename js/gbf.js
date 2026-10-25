@@ -430,12 +430,10 @@ class GBF
 		return null;
 	}
 	
-	get_lookup_names(id, allow_wiki=true)
+	get_lookup_names_from_str(id, lookup_string, allow_wiki=true)
 	{
-		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
-			return [id];
 		const ret = [];
-		for(const string of index.lookup[id].split("/%"))
+		for(const string of lookup_string.split("/%"))
 		{
 			const result = this._get_single_lookup_name(string, allow_wiki);
 			if(result != null)
@@ -450,11 +448,23 @@ class GBF
 		);
 	}
 	
-	get_npc_relation(id)
+	get_lookup_names(id, allow_wiki=true)
 	{
 		if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
-			return "";
-		const lookup_string = index.lookup[id];
+			return [id];
+		return this.get_lookup_names_from_str(id, index.lookup[id], allow_wiki);
+	}
+	
+	// can pass the lookup_string for performance
+	// (to avoid grabbing it from the lookup)
+	get_npc_relation(id, lookup_string = null)
+	{
+		if(lookup_string == null)
+		{
+			if(typeof index === "undefined" || !("lookup" in index) || !(id in index.lookup))
+				return "";
+			lookup_string = index.lookup[id];
+		}
 		let tokens = lookup_string.split(" ");
 		let relation = [];
 		let state = false;

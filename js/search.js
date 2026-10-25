@@ -238,16 +238,48 @@ class Search
 		// build relation lookup
 		this.m_related_lookup = {};
 		this.m_related_lookup_reverse = {};
+		this.m_reverse_lookup = {};
+		
 		if((index.lookup ?? null) != null)
 		{
+			// prologue
+			// build regex for tag replacement later
+			const token_replacements = { // tags to replace with a word
+				"/1": "gbf-versus-rising",
+				"/2": "gbf-relink",
+				"/!": "voiced",
+				"/!!": "voice-only",
+				"/$": "missing-help-wanted",
+				"/_": "young"
+			};
+			const token_ignoreds = new Set(["/x", "/w"]); // tags to not touch
+			const all_tokens = [...GBF.c_special_tokens]; // copy
+			// sort so that /! is before /!!
+			all_tokens.sort((a, b) => b.length - a.length);
+			const escaped_tokens = all_tokens.map(t => t.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&'));
+			const token_replace_regex = new RegExp(`(\\s)?(${escaped_tokens.join('|')})(\\s)?`, 'g');
+			
+			// part 1
 			// we build of lookup of related elements
-			for(const id of Object.keys(index.lookup))
+			for(const [id, value] of Object.entries(index.lookup))
 			{
+				const id_len = id.length;
 				// test and extract relation tag
-				if([6, 7].includes(id.length) || (id.length == 10 && ["399", "305", "371"].includes(id.slice(0, 3))))
+				if(
+					id_len === 6
+					|| id_len === 7
+					|| (
+						id_len == 10
+						&& (
+							id.startsWith("399")
+							|| id.startsWith("305")
+							|| id.startsWith("371")
+						)
+					)
+				)
 				{
 					// for npc, we also check if there is a relation tag /x
-					const relation_name = gbf.get_npc_relation(id);
+					const relation_name = gbf.get_npc_relation(id, value);
 					if(relation_name != "")
 					{
 						// add the relation name to the lookup
@@ -263,10 +295,10 @@ class Search
 						this.m_related_lookup_reverse[id] = [relation_name];
 					}
 				}
-				const names = gbf.get_lookup_names(id, false);
-				for(let name of names)
+				const names = gbf.get_lookup_names_from_str(id, value, false);
+				for(let i = 0; i < names.length; i++)
 				{
-					name = name.toLowerCase();
+					const name = names[i].toLowerCase();
 					if(name != id)
 					{
 						// add the name to the reverse lookup
@@ -287,37 +319,19 @@ class Search
 						}
 					}
 				}
-			}
-			for(const [k, v] of Object.entries(this.m_related_lookup))
-			{
-				// we then clean entries with only one elements
-				if(v.length <= 1)
-				{
-					delete this.m_related_lookup[k];
-				}
-				// and sort the others
-				else
-				{
-					this.m_related_lookup[k].sort();
-				}
-			}
-		}
-		// build reverse lookup
-		this.m_reverse_lookup = {};
-		if((index.lookup ?? null) != null)
-		{
-			for(const id of Object.keys(index.lookup))
-			{
+				// part 2
+				// build reverse lookup
 				let modified = "";
 				if(simple_search)
 				{
-					const parts = index.lookup[id].split("/");
+					const parts = value.split("/");
 					// in simple mode, search is limited to these tags
-					for(const part of parts)
+					for(let j = 0; j < parts.length; j++)
 					{
-						if(part.length > 0 && ["n", "b", "s", "e", "c", "p", "t", "y"].includes(part[0]))
+						const part = parts[j];
+						if(part.length > 0 && "nbsecpy".includes(part[0]))
 						{
-							if(part[0] == "y")
+							if(part[0] === "y")
 							{
 								modified += "/" + part.split(" ", 2).join(" ");
 							}
@@ -331,7 +345,7 @@ class Search
 				}
 				else
 				{
-					modified = index.lookup[id];
+					modified = value;
 					for(const spe of ["/x ", "/w "]) // do those two first (with a space)
 					{
 						let A = modified.indexOf(spe);
@@ -348,47 +362,24 @@ class Search
 							}
 						}
 					}
-					for(const spe of GBF.c_special_tokens)
-					{
-						switch(spe)
-						{
-							case "/x":
-							case "/w":
+					modified = modified.replace(
+						token_replace_regex,
+						(match, leading_space, token, trailing_space) => {
+							if(token_ignoreds.has(token))
 							{
-								break;
+								return match;
 							}
-							case "/1":
+							if(token_replacements.hasOwnProperty(token)) 
 							{
-								modified = modified.replace(spe, "gbf-versus-rising");
-								break;
+								return " " + token_replacements[token];
 							}
-							case "/2":
+							if(leading_space)
 							{
-								modified = modified.replace(spe, "gbf-relink");
-								break;
+								return " ";
 							}
-							case "/!":
-							{
-								modified = modified.replace(spe, "voiced");
-								break;
-							}
-							case "/!!":
-							{
-								modified = modified.replace(spe, "voice-only");
-								break;
-							}
-							case "/$":
-							{
-								modified = modified.replace(spe, "missing-help-wanted");
-								break;
-							}
-							default:
-							{
-								modified = modified.replace(" " + spe, "").replace(spe + " ", "");
-								break;
-							}
+							return "";
 						}
-					}
+					).trim();
 				}
 				if(!(modified in this.m_reverse_lookup))
 				{
@@ -396,14 +387,23 @@ class Search
 				}
 				this.m_reverse_lookup[modified].push(id);
 			}
-		}
-		else
-		{
-			throw new Error("Can't initialize search, no lookup in the index.");
-		}
-		// for event search
-		if((index[evt_lookup] ?? null) != null)
-		{
+			// part 3
+			// cleanup of m_related_lookup
+			for(const [k, v] of Object.entries(this.m_related_lookup))
+			{
+				// we remove entries with only one elements
+				if(v.length <= 1)
+				{
+					delete this.m_related_lookup[k];
+				}
+				// and sort the others
+				else
+				{
+					this.m_related_lookup[k].sort();
+				}
+			}
+			// part 4
+			// event search
 			for(const [name, ids] of Object.entries(index[evt_lookup]))
 			{
 				this.m_reverse_lookup[name] = [];
@@ -412,6 +412,10 @@ class Search
 					this.m_reverse_lookup[name].push("$$" + id);
 				}
 			}
+		}
+		else
+		{
+			throw new Error("Can't initialize search, no lookup in the index.");
 		}
 		// search bar node
 		this.m_search_bar = search_bar_node;
