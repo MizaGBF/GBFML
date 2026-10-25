@@ -181,7 +181,8 @@ body {
 
 .header-colored-capitalized {
 	color: #ff0000;
-	margin-right: 4px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 .header-line {
