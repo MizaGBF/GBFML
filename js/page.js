@@ -1440,10 +1440,11 @@ function get_event(id, data, idfilter = null, unusedB = null)
 			{
 				className += " side-event"
 			}
+			/* NOTE: Not accessible anymore
 			if(data[DataIdx.EVENT_SKY].length > 0)
 			{
 				className += " sky-event"
-			}
+			}*/
 		}
 		return [{id:id, path:path, onerr:null, class:className, link:false}];
 	}
