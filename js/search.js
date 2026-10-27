@@ -402,8 +402,14 @@ class Search
 					this.m_related_lookup[k].sort();
 				}
 			}
-			// part 4
-			// event search
+		}
+		else
+		{
+			throw new Error("Can't initialize search, no lookup in the index.");
+		}
+		// event search
+		if(evt_lookup in index)
+		{
 			for(const [name, ids] of Object.entries(index[evt_lookup]))
 			{
 				this.m_reverse_lookup[name] = [];
@@ -412,10 +418,6 @@ class Search
 					this.m_reverse_lookup[name].push("$$" + id);
 				}
 			}
-		}
-		else
-		{
-			throw new Error("Can't initialize search, no lookup in the index.");
 		}
 		// search bar node
 		this.m_search_bar = search_bar_node;
