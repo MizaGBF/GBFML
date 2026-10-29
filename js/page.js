@@ -1488,7 +1488,7 @@ function get_buff(id, data, range, unused = null)
 	];
 }
 
-function get_background(id, data, key = null, unused = null)
+function get_background(id, data, key = null, display_all = false)
 {
 	let path = null;
 	switch(id.split('_')[0])
@@ -1543,7 +1543,7 @@ function get_background(id, data, key = null, unused = null)
 		}
 	}
 	let list = [];
-	if(data)
+	if(display_all && data)
 	{
 		list = data[0];
 	}
@@ -1552,8 +1552,10 @@ function get_background(id, data, key = null, unused = null)
 		list = [id];
 	}
 	let ret = [];
+	console.log("===", id);
 	for(let i of list)
 	{
+		console.log(i);
 		ret.push({id:i, path:"GBF/assets_en/img_low/" + path[0] + i + path[1], onerr:null, class:"preview", link:true});
 	}
 	return ret;
