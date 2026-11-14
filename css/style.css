@@ -145,7 +145,16 @@ body {
 	background: linear-gradient(25deg,rgba(219, 151, 4, 1) 0%, rgba(248, 209, 36, 1) 50%, rgba(238, 187, 13, 1) 100%);
 	margin: 0 auto;
 	margin-bottom: 5px;
-	padding-bottom: 5px;
+	padding: 10px;
+}
+
+.header-icon-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	max-width: 100px;
+	justify-content: center; 
+	align-items: center;
 }
 
 .header-icon {
@@ -153,10 +162,23 @@ body {
 	min-height: 75px;
 	height: 82px;
 	flex-shrink: 0;
-	border: 2px solid #000;
-	margin-top: 8px;
-	margin-left: 5px;
+	border: 2px solid #000000;
+	margin: 5px;
 	border-radius: 5px;
+	flex: 0 0 100%;
+}
+
+.header-icon-link-box {
+	flex: 1;
+	min-width: 40px;
+	height: 40px;
+	margin: 4px;
+}
+
+.header-icon-link {
+	display: inline-block;
+	width: 100%;
+	border: 2px solid #000000;
 }
 
 .header-content {
@@ -218,7 +240,7 @@ body {
 }
 
 @media (hover: hover) { /* to avoid mobile problems */
-	.header-icon:hover, .theme-toggle:hover, .sub-link-btn:hover {
+	.header-icon-link-box:hover, .header-icon:hover, .theme-toggle:hover, .sub-link-btn:hover {
 		transform: scale(1.2);
 	}
 }
